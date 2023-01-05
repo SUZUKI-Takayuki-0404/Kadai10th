@@ -1,62 +1,73 @@
-DROP TABLE IF EXISTS names;
-
-CREATE TABLE names (
-  id int unsigned AUTO_INCREMENT,
-  name VARCHAR(20) NOT NULL,
-  PRIMARY KEY(id)
-);
-
-INSERT INTO names (id, name) VALUES (1, "koyama");
-INSERT INTO names (id, name) VALUES (2, "tanaka");
-INSERT INTO names (id, name) VALUES (3, "suzuki");
-
-
-
 DROP TABLE IF EXISTS airports;
 
 CREATE TABLE airports(
   airportCode VARCHAR(3) PRIMARY KEY,
-  airportName VARCHAR(16) NOT NULL,
-  country VARCHAR(16) NOT NULL
+  airportName VARCHAR(18) NOT NULL,
+  prefCode VARCHAR(2) NOT NULL
 );
 
-INSERT INTO airports (airportCode, airportName, country) VALUES('NRT' , ' NARITA' , 'JAPAN');
-INSERT INTO airports (airportCode, airportName, country) VALUES('HND' , ' HANEDA' , 'JAPAN');
-INSERT INTO airports (airportCode, airportName, country) VALUES('KIX' , ' KANSAI' , 'JAPAN');
-INSERT INTO airports (airportCode, airportName, country) VALUES('NGO' , ' CHUBU' , 'JAPAN');
-INSERT INTO airports (airportCode, airportName, country) VALUES('JFK' , ' NEW YORK' , 'AMERICA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('BOS' , ' BOSTON' , 'AMERICA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('ORD' , ' CHICAGO' , 'AMERICA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('DFW' , ' DALLAS' , 'AMERICA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('SFO' , ' SAN FRANCISCO' , 'AMERICA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('LAX' , ' LOS ANGELES' , 'AMERICA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('SAN' , ' SAN DIEGO' , 'AMERICA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('YVR' , ' VANCOUVER' , 'AMERICA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('HNL' , ' HONOLULU' , 'AMERICA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('LHR' , ' LONDON' , 'ENGLAND');
-INSERT INTO airports (airportCode, airportName, country) VALUES('CDG' , ' PARIS' , 'FRANCE');
-INSERT INTO airports (airportCode, airportName, country) VALUES('FRA' , ' FRANKFURT' , 'DEUTSCHLAND');
-INSERT INTO airports (airportCode, airportName, country) VALUES('DME' , ' MOSCOW' , 'RUSSIA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('PVG' , ' PUDONG' , 'CHINA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('SHA' , ' HONGQIAO' , 'CHINA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('HKG' , ' HONG KONG' , 'CHINA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('BJS' , ' BEIJING' , 'CHINA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('DLC' , ' DALIAN' , 'CHINA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('TSN' , ' TIANJIN' , 'CHINA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('CAN' , ' GUANGZHOU' , 'CHINA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('ICN' , ' INCHOEN' , 'KOREA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('GMP' , ' GIMPO' , 'KOREA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('PUS' , ' BUSAN' , 'KOREA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('TPE' , ' TAOYUAN' , 'TAIWAN');
-INSERT INTO airports (airportCode, airportName, country) VALUES('TSA' , ' SONGSHAN' , 'TAIWAN');
-INSERT INTO airports (airportCode, airportName, country) VALUES('KHH' , ' KAOHSIUNG' , 'TAIWAN');
-INSERT INTO airports (airportCode, airportName, country) VALUES('SGN' , ' HO CHI MINH CITY' , 'VIETNAM');
-INSERT INTO airports (airportCode, airportName, country) VALUES('HAN' , ' HANOI' , 'VIETNAM');
-INSERT INTO airports (airportCode, airportName, country) VALUES('BKK' , ' BANGKOK' , 'THAILAND');
-INSERT INTO airports (airportCode, airportName, country) VALUES('KUL' , ' KUALA LUMPUR' , 'MALAYSIA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('SIN' , ' SINGAPORE' , 'SINGAPORE');
-INSERT INTO airports (airportCode, airportName, country) VALUES('CGK' , ' JAKARTA' , 'INDONESIA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('MNL' , ' MANILA' , 'PHILIPPINES');
-INSERT INTO airports (airportCode, airportName, country) VALUES('DEL' , ' DELHI' , 'INDIA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('GUM' , ' GUAM' , 'AMERICA');
-INSERT INTO airports (airportCode, airportName, country) VALUES('SYD' , ' SYDNEY' , 'NEWZEALAND');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('RBJ','礼文空港','01');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('RIS','利尻空港','01');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('WKJ','稚内空港','01');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('AKJ','旭川空港','01');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('MMB','女満別空港','01');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('OBO','帯広空港','01');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('MBE','オホーツク紋別空港','01');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('SHB','根室中標津空港','01');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('KUH','釧路空港','01');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('OKD','丘珠空港','01');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('CTS','新千歳空港','01');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('HKD','函館空港','01');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('OIR','奥尻空港','01');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('AOJ','青森空港','02');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('MSJ','三沢空港','02');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('ONJ','大館能代空港','05');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('AXT','秋田空港','05');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('HNA','花巻空港','03');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('SYO','庄内空港','06');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('GAJ','山形空港','06');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('SDJ','仙台空港','04');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('FKS','福島空港','07');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('IBR','茨城空港','08');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('NRT','成田国際空港','12');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('HND','東京国際空港','13');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('OIM','大島空港','13');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('KIJ','新潟空港','15');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('NTQ','能登空港','17');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('KMQ','小松空港','17');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('TOY','富山空港','16');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('MMJ','松本空港','20');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('FSZ','静岡空港','22');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('NKM','小牧空港','23');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('NGO','中部国際空港','23');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('KIX','関西国際空港','27');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('ITM','伊丹空港','27');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('UKB','神戸空港','28');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('OKJ','岡山空港','33');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('HIJ','広島空港','34');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('IWK','岩国錦帯橋空港','35');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('UBJ','山口宇部空港','35');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('TKS','徳島空港','36');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('TAK','高松空港','37');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('MYJ','松山空港','38');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('KCZ','高知空港','39');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('KKJ','北九州空港','40');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('FUK','福岡空港','40');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('OIT','大分空港','44');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('HSG','佐賀空港','41');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('NGS','長崎空港','42');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('AXJ','天草空港','43');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('KMJ','熊本空港','43');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('KMI','宮崎空港','45');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('KOJ','鹿児島空港','46');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('KUM','屋久島空港','46');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('ASJ','奄美空港','46');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('TKN','徳之島空港','46');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('OKE','沖永良部空港','46');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('OKA','那覇空港','47');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('SHI','下地島空港','47');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('OGN','与那国空港','47');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('MMY','宮古空港','47');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('ISG','石垣空港','47');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('KTD','北大東空港','47');
+INSERT INTO airports (airportCode, airportName, prefCode) VALUES('MMD','南大東空港','47');
