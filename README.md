@@ -6,11 +6,9 @@
  - GitHub Actionsによる自動単体テスト（Pull Request/Push時）
 	### データテーブル
 	#### 空港コード表
-
+	[空港コード](sql/table-airport.sql)
 	#### 都道府県コード表
-	|あかさたな|い|う|え|お|
-	|-|-|-|-|-|
-	|はまやらわ|hi|fu|he|ho|
+	[都道府県コード](sql/table-prefecture.sql)
 
 ## API仕様書
 
@@ -19,5 +17,5 @@
 
 	### API動作確認プロセス
 
-## 
+## テスト一覧
 
