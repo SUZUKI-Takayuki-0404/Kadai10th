@@ -1,4 +1,4 @@
-name: Java CI
+name: Java Kadai10th CI
 on: [ pull_request ]
 permissions:
   contents: read
