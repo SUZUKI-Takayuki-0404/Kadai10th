@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS prefectures;
 
 CREATE TABLE prefectures(
   prefCode VARCHAR(2) PRIMARY KEY,
-  prefName VARCHAR(8) NOT NULL,
+  prefNameJa VARCHAR(8) NOT NULL,
   prefNameEn VARCHAR(16) NOT NULL
 );
 

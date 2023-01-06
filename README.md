@@ -72,9 +72,9 @@ git clone コマンドにて各自PCにダウンロードし実行
 - getAirport|空港コードに対応する空港エンティティを返す
 - getAirportsByPref|都道府県コード/都道府県名に対応する空港エンティティ全てをリストとして返す
 - getAllAirports|空港エンティティ全てをリストとして返す
-- getPref|都道府県コードに対応する都道府県エンティティを返す
+- getPrefByCode|都道府県コードに対応する都道府県エンティティを返す
+- getPrefByName|都道府県名（ローマ字）に対応する都道府県エンティティを返す
 - getAllPrefs|都道府県エンティティ全てをリストとして返す
-- getPrefCode|都道府県に対応する都道府県エンティティを返す
 - createAirport|既存と重複しない空港エンティティを追加登録する
 - createPref|既存と重複しない都道府県エンティティを追加登録する
 - updateAirport|指定した空港コードに対応する空港エンティティのうち空港コード以外を書き換える
@@ -100,9 +100,9 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 #### 空港テーブル insert/update/delete
 
-- createOfAirport|insert|既存と重複しない空港データを挿入
-- updateOfAirport|update|指定した空港コードに対応する空港データを更新
-- deleteOfAirport|delete|指定した空港コードに対応する空港データを削除
+- createOfAirport|既存と重複しない空港データを挿入
+- updateOfAirport|指定した空港コードに対応する空港データを更新
+- deleteOfAirport|指定した空港コードに対応する空港データを削除
 
 #### 空港コード表 and 都道府県コード表 select inner join
 
