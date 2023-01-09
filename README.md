@@ -43,28 +43,22 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 ### Controller
 
-#### Request
+#### Airports
 
 - getAirport|GET|指定した既存の空港コードに対応する空港名と所在都道府県を返す（要：都道府県コードを都道府県名に変換）
 - getAirportsByPref|GET|指定した既存の都道府県に存在する空港コード/空港名を全て返す（要：都道府県名から都道府県コードに変換）
 - getAllAirports|GET|全ての既存の空港コードとこれに対応する空港名と所在都道府県を返す（要：都道府県コードから都道府県名に変換）
+- createAirport|POST|既存と重複しない任意の空港コードと、これに対応する空港名/都道府県を追加（要：都道府県名から都道府県コードに変換）
+- updateAirport|PATCH|指定した既存の空港コードに対応する空港名（必須入力）と所在都道府県（任意入力）を書き換え
+- deleteAirport|DELETE|指定した既存の空港コードに対応する空港名と所在都道府県を削除
+
+#### Prefectures
+
 - getPref|GET|指定した既存の都道府県コードに対応する都道府県名を返す
 - getAllPrefs|GET|全ての既存の都道府県コードとこれに対応する都道府県名を返す
 - getPrefCode|GET|指定した既存の都道府県名に対応する都道府県コードを返す
-
-#### Create
-
-- createAirport|POST|既存と重複しない任意の空港コードと、これに対応する空港名/都道府県を追加（要：都道府県名から都道府県コードに変換）
 - createPref|POST|既存と重複しない都道府県コードと都道府県名を返す
-
-#### Update
-
-- updateAirport|PATCH|指定した既存の空港コードに対応する空港名（必須入力）と所在都道府県（任意入力）を書き換え
 - updatePref|PATCH|指定した既存の都道府県名に対応する都道府県コードを書き換え
-
-#### Delete
-
-- deleteAirport|DELETE|指定した既存の空港コードに対応する空港名と所在都道府県を削除
 - deletePref|DELETE|指定した既存の都道府県コードに対応する所在都道府県を削除（要：削除対象の都道府県コードを付与されている空港も削除）
 
 ### Service
@@ -73,7 +67,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 - getAirportsByPref|都道府県コード/都道府県名に対応する空港エンティティ全てをリストとして返す
 - getAllAirports|空港エンティティ全てをリストとして返す
 - getPrefByCode|都道府県コードに対応する都道府県エンティティを返す
-- getPrefByName|都道府県名（ローマ字）に対応する都道府県エンティティを返す
+- getPrefByName|都道府県名に対応する都道府県エンティティを返す
 - getAllPrefs|都道府県エンティティ全てをリストとして返す
 - createAirport|既存と重複しない空港エンティティを追加登録する
 - createPref|既存と重複しない都道府県エンティティを追加登録する
