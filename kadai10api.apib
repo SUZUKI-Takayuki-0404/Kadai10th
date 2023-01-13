@@ -350,7 +350,7 @@ GET/PATCH/DELETEリクエスト、および空港データベースのPOSTリク
 
 ## Conflict
 ### Code-Duplicated
-POSTリクエストで指定プライマリーキーが既存orである場合の処理
+POSTリクエストで指定プライマリーキーが既に存在している場合の処理
 + Response 409
             
             {"message" : "code duplicated"}
@@ -360,4 +360,3 @@ PATCHリクエストで書き換え前に対し変更が無い場合の処理
 + Response 409
             
             {"message" : "nothing updated"}
-
