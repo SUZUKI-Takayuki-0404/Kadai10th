@@ -22,6 +22,11 @@
 
 ## API仕様書
 
+[API仕様書](Kadai10api.html)
+
+- [Apiaryエディタ](https://docs.oracle.com/cd/E91812_01/tools/apiary-editor/index.html)を使用し、API Blueprintベースで作成
+- 上記で作成した仕様書を[aglio](https://github.com/danielgtaylor/aglio)にてhtml変換
+
 ## 起動/API動作確認プロセス
 
 ### 起動プロセス

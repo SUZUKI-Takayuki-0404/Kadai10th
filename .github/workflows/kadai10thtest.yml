@@ -27,7 +27,7 @@ jobs:
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
 
-      - name: Change Permission
+      - name: Grant Permission
         run: chmod +x ./gradlew
 
       - name: Conduct Tests
