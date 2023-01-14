@@ -75,40 +75,40 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 |Type|Name(Arguments)|Function|Note|
 |--|--|--|--|
-|PrefEntity|getPrefByCode|都道府県コードに対応する都道府県エンティティを返す||
-|PrefEntity|getPrefByName|都道府県名に対応する都道府県エンティティを返す||
-|List<PrefEntity>|getAllPrefs|都道府県エンティティ全てをリストとして返す||
-|PrefEntity|createPref|既存と重複しない都道府県エンティティを追加登録する||
-|PrefEntity|updatePref|指定した都道府県コードに対応する都道府県エンティティのうち都道府県コード以外を書き換える||
-|void|deletePref|指定した都道府県コードに対応する都道府県エンティティを削除する||
-|AirportEntity|getAirport|空港コードに対応する空港エンティティを返す||
-|List<AirportEntity>|getAirportsByPref|都道府県コード/都道府県名に対応する空港エンティティ全てをリストとして返す||
-|List<AirportEntity>|getAllAirports|空港エンティティ全てをリストとして返す||
-|AirportEntity|createAirport|既存と重複しない空港エンティティを追加登録する||
-|AirportEntity|updateAirport|指定した空港コードに対応する空港エンティティのうち空港コード以外を書き換える||
-|void|deleteAirport|指定した空港コードに対応する空港エンティティを削除する||
-
+|PrefEntity|`getPrefByCode`|都道府県コードに対応する都道府県エンティティを返す||
+|PrefEntity|`getPrefByName`|都道府県名に対応する都道府県エンティティを返す||
+|List\<PrefEntity\>|`getAllPrefs`|都道府県エンティティ全てをリストとして返す||
+|PrefEntity|`createPref`|既存と重複しない都道府県エンティティを追加登録する||
+|PrefEntity|`updatePref`|指定した都道府県コードに対応する都道府県エンティティのうち都道府県コード以外を書き換える||
+|void|`deletePref`|指定した都道府県コードに対応する都道府県エンティティを削除する||
+|AirportEntity|`getAirport`|空港コードに対応する空港エンティティを返す||
+|List\<AirportEntity\>|`getAirportsByPref`|都道府県コード/都道府県名に対応する空港エンティティ全てをリストとして返す||
+|List\<AirportEntity\>|`getAllAirports`|空港エンティティ全てをリストとして返す||
+|AirportEntity|`createAirport`|既存と重複しない空港エンティティを追加登録する||
+|AirportEntity|`updateAirport`|指定した空港コードに対応する空港エンティティのうち空港コード以外を書き換える||
+|void|`deleteAirport`|指定した空港コードに対応する空港エンティティを削除する||
+  
 ### Controller
 
 #### Prefectures
 
 |Request|Type|Name|Function|Note|
-|--|--|--|--|--|
-|GET||getPrefByCode|指定した既存の都道府県コードに対応する都道府県データを返す||
-|GET||getPrefByName|指定した既存の都道府県名に対応する都道府県データを返す||
-|GET||getAllPrefs|既存の都道府県コードと対応する都道府県データを全て返す||
-|POST||createPref|既存とは重複しない都道府県コードとその都道府県名をデータとして追加||
-|PATCH||updatePref|指定した既存の都道府県コードに対応する都道府県名を書き換え||
-|DELETE||deletePref|指定した既存の都道府県コードに対応する都道府県データ削除|要：削除対象の都道府県コードを付与されている空港も削除|
+|--|--|--|--|
+|GET|`getPrefByCode`|指定した既存の都道府県コードに対応する都道府県データを返す||
+|GET|`getPrefByName`|指定した既存の都道府県名に対応する都道府県データを返す||
+|GET|`getAllPrefs`|既存の都道府県コードと対応する都道府県データを全て返す||
+|POST|`createPref`|既存とは重複しない都道府県コードとその都道府県名をデータとして追加||
+|PATCH|`updatePref`|指定した既存の都道府県コードに対応する都道府県名を書き換え||
+|DELETE|`deletePref`|指定した既存の都道府県コードに対応する都道府県データ削除|要：削除対象の都道府県コードを付与されている空港も削除|
 
 #### Airports
 
 |Request|Type|Name|Function|Note|
-|--|--|--|--|--|
-|GET||getAirport|指定した既存の空港コードに対応する空港名、都道府県コード、都道府県名を返す|要：都道府県コードから都道府県名を取得|
-|GET||getAirportsInPref|指定した既存の都道府県に存在する空港コード、空港名を全て返す|要：都道府県コードから都道府県名を取得|
-|GET||getAllAirports|全ての既存の空港コードとこれに対応する空港名、都道府県コード、都道府県名を返す|要：都道府県コードから都道府県名に変換|
-|POST||createAirport|既存とは重複しない任意の空港コードで空港を新規追加|要：既存の都道府県コード/都道府県名から都道府県コードに変換|
-|PATCH||updateAirport|指定した既存の空港コードに対応する空港名、都道府県コードを書き換え||
-|DELETE||deleteAirport|指定した既存の空港コードに対応する空港名と所在都道府県を削除||
+|--|--|--|--|
+|GET|`getAirport`|指定した既存の空港コードに対応する空港名、都道府県コード、都道府県名を返す|要：都道府県コードから都道府県名を取得|
+|GET|`getAirportsInPref`|指定した既存の都道府県に存在する空港コード、空港名を全て返す|要：都道府県コードから都道府県名を取得|
+|GET|`getAllAirports`|全ての既存の空港コードとこれに対応する空港名、都道府県コード、都道府県名を返す|要：都道府県コードから都道府県名に変換|
+|POST|`createAirport`|既存とは重複しない任意の空港コードで空港を新規追加|要：既存の都道府県コード/都道府県名から都道府県コードに変換|
+|PATCH|`updateAirport`|指定した既存の空港コードに対応する空港名、都道府県コードを書き換え||
+|DELETE|`deleteAirport`|指定した既存の空港コードに対応する空港名と所在都道府県を削除||
 
