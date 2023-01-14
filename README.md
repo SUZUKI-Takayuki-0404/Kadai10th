@@ -73,27 +73,20 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 ### Service
 
-- getAirport|空港コードに対応する空港エンティティを返す
-- getAirportsByPref|都道府県コード/都道府県名に対応する空港エンティティ全てをリストとして返す
-- getAllAirports|空港エンティティ全てをリストとして返す
-- getPrefByCode|都道府県コードに対応する都道府県エンティティを返す
-- getPrefByName|都道府県名に対応する都道府県エンティティを返す
-- getAllPrefs|都道府県エンティティ全てをリストとして返す
 |Type|Name(Arguments)|Function|Note|
 |--|--|--|--|
-|PrefEntity|getPrefByCode||指定した既存の都道府県コードに対応する都道府県データを返す||
-|PrefEntity|getPrefByName||指定した既存の都道府県名に対応する都道府県データを返す||
-|List<PrefEntity>|getAllPrefs||既存の都道府県コードと対応する都道府県データを全て返す||
-|PrefEntity|createPref||既存とは重複しない都道府県コードとその都道府県名をデータとして追加||
-|PrefEntity|updatePref||指定した既存の都道府県コードに対応する都道府県名を書き換え||
-|void|deletePref||指定した既存の都道府県コードに対応する都道府県データ削除|要：削除対象の都道府県コードを付与されている空港も削除|
-- createAirport|既存と重複しない空港エンティティを追加登録する
-- createPref|既存と重複しない都道府県エンティティを追加登録する
-- updateAirport|指定した空港コードに対応する空港エンティティのうち空港コード以外を書き換える
-- updatePref|指定した都道府県コードに対応する都道府県エンティティのうち都道府県コード以外を書き換える
-- deleteAirport|指定した空港コードに対応する空港エンティティを削除する
-- deletePref|指定した都道府県コードに対応する都道府県エンティティを削除する
-
+|PrefEntity|getPrefByCode|都道府県コードに対応する都道府県エンティティを返す||
+|PrefEntity|getPrefByName|都道府県名に対応する都道府県エンティティを返す||
+|List<PrefEntity>|getAllPrefs|都道府県エンティティ全てをリストとして返す||
+|PrefEntity|createPref|既存と重複しない都道府県エンティティを追加登録する||
+|PrefEntity|updatePref|指定した都道府県コードに対応する都道府県エンティティのうち都道府県コード以外を書き換える||
+|void|deletePref|指定した都道府県コードに対応する都道府県エンティティを削除する||
+|AirportEntity|getAirport|空港コードに対応する空港エンティティを返す||
+|List<AirportEntity>|getAirportsByPref|都道府県コード/都道府県名に対応する空港エンティティ全てをリストとして返す||
+|List<AirportEntity>|getAllAirports|空港エンティティ全てをリストとして返す||
+|AirportEntity|createAirport|既存と重複しない空港エンティティを追加登録する||
+|AirportEntity|updateAirport|指定した空港コードに対応する空港エンティティのうち空港コード以外を書き換える||
+|void|deleteAirport|指定した空港コードに対応する空港エンティティを削除する||
 
 ### Controller
 
