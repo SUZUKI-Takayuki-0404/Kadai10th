@@ -47,7 +47,7 @@ HOST: http://localhost:8080
 
 ## Resource [/prefectures]
 ### getAllPrefs [GET]
-全ての既存の都道府県コードとこれに対応する都道府県名を返す
+既存の都道府県コードと対応する都道府県データを全て返す
 
 + Response 200 (application/json)
 
@@ -70,7 +70,7 @@ HOST: http://localhost:8080
             }
 
 ### createPref [POST]
-既存とは重複しない都道府県コードとその都道府県名を追加
+既存とは重複しない都道府県コードとその都道府県名をデータとして追加
 
 + Request
 
@@ -112,7 +112,7 @@ HOST: http://localhost:8080
     + prefCode: 11 (string, required) - 都道府県コード
 
 ### updatePref [PATCH]
-指定した既存の都道府県名に対応する都道府県コードを書き換え
+指定した既存の都道府県コードに対応する都道府県名を書き換え
 
 + Request
 
