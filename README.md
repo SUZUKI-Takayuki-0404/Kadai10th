@@ -51,25 +51,25 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 #### 都道府県テーブル
 
-|Type|Name (Arguments)|Function|Note|
-|--|--|--|--|
-|Optional\<PrefEntity\>|`findByCodeFromPrefs (String prefCode)`|指定した都道府県コードに対応する都道府県データを取得|
-|Optional\<PrefEntity\>|`findByNameFromPrefs (String prefName)`|指定した都道府県名に対応する都道府県データを取得|
-|List\<PrefEntity\>|`findAllFromPrefs ()`|全ての都道府県データを取得|
-|void|`createOfPref (String prefCode, String prefName)`|既存と重複しない都道府県データを挿入|
-|boolean|`updateOfPref (String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新|
-|boolean|`deleteOfPref (String prefCode)`|指定した都道府県コードに対応する都道府県データを削除|
+|Type|Name (Arguments)|Function|SQL|Note|
+|--|--|--|--|--|
+|Optional\<PrefEntity\>|`findByCodeFromPrefs (String prefCode)`|指定した都道府県コードに対応する都道府県データを取得|`SELECT * FROM prefectures WHERE prefCode = #{prefCode}`||
+|Optional\<PrefEntity\>|`findByNameFromPrefs (String prefName)`|指定した都道府県名に対応する都道府県データを取得|`SELECT * FROM prefectures WHERE prefName = #{prefName}`||
+|List\<PrefEntity\>|`findAllFromPrefs ()`|全ての都道府県データを取得|`SELECT * FROM prefectures`|
+|void|`createOfPref (String prefCode, String prefName)`|既存と重複しない都道府県データを挿入|`INSERT INTO prefectures (prefCode, prefName) VALUES (#{prefCode}, #{prefName})`||
+|boolean|`updateOfPref (String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新|`UPDATE prefectures SET prefName = #{prefName} WHERE prefCode = #{prefCode}`||
+|boolean|`deleteOfPref (String prefCode)`|指定した都道府県コードに対応する都道府県データを削除|`DELETE FROM prefectures WHERE prefCode = #{prefCode}`||
 
 #### 空港テーブル insert/update/delete
 
-|Type|Name (Arguments)|Function|Note|
-|--|--|--|--|
-|Optional\<AirportEntity\>|`findByCodeFromAirports (String airportCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得||
-|List\<AirportEntity\>|`findByPrefFromAirports (String airportCode, String airportName, String prefCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得||
-|List\<AirportEntity\>|`findAllFromAirports (airportCode)`|空港データと都道府県データとを都道府県コードで結合し、全データを取得||
-|void|`createOfAirport (String airportCode, String airportName, String prefCode)`|既存と重複しない空港データを挿入||
-|boolean|`updateOfAirport (String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新||
-|boolean|`deleteOfAirport (String airportCode)`|指定した空港コードに対応する空港データを削除||
+|Type|Name (Arguments)|Function|SQL|Note|
+|--|--|--|--|--|
+|Optional\<AirportEntity\>|`findByCodeFromAirports (String airportCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得|`SELECT * FROM airports WHERE airportCode = #{airportCode}`||
+|List\<AirportEntity\>|`findByPrefFromAirports (String airportCode, String airportName, String prefCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得|`SELECT * FROM airports WHERE prefCode = #{prefCode}`||
+|List\<AirportEntity\>|`findAllFromAirports (airportCode)`|空港データと都道府県データとを都道府県コードで結合し、全データを取得|`SELECT * FROM airports`||
+|void|`createOfAirport (String airportCode, String airportName, String prefCode)`|既存と重複しない空港データを挿入|`INSERT INTO airports (airportCode, airportName, prefCode) VALUES (#{airportCode}, #{airportName}, #{prefCode})`||
+|boolean|`updateOfAirport (String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新|`UPDATE airports SET airportName = #{airportName}, prefCode = #{prefCode} WHERE airportCode = #{airportCode}`||
+|boolean|`deleteOfAirport (String airportCode)`|指定した空港コードに対応する空港データを削除|`DELETE FROM airports WHERE airportCode = #{airportCode}`||
 
 
 ### Service
