@@ -64,7 +64,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 |Type|Name (Arguments)|Function|SQL|Note|
 |--|--|--|--|--|
-|Optional\<AirportEntity\>|`findByCodeFromAirports (String airportCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得|`SELECT * FROM airports WHERE airportCode = #{airportCode}`||
+|Optional\<AirportEntity\>|`findByCodeFromAirports (String airportCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得|`SELECT * FROM airports INNER JOIN WHERE airports.prefCode ON prefectures.prefCode WHERE airportCode = #{airportCode} `||
 |List\<AirportEntity\>|`findByPrefFromAirports (String airportCode, String airportName, String prefCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得|`SELECT * FROM airports WHERE prefCode = #{prefCode}`||
 |List\<AirportEntity\>|`findAllFromAirports (airportCode)`|空港データと都道府県データとを都道府県コードで結合し、全データを取得|`SELECT * FROM airports`||
 |void|`createOfAirport (String airportCode, String airportName, String prefCode)`|既存と重複しない空港データを挿入|`INSERT INTO airports (airportCode, airportName, prefCode) VALUES (#{airportCode}, #{airportName}, #{prefCode})`||
