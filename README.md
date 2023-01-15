@@ -1,4 +1,4 @@
-# 第10回課題（本課題の成果物は最終課題に使用）
+# 第10回課題
 
 ## アプリケーション概要
 
@@ -53,28 +53,23 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 |Type|Name (Arguments)|Function|Note|
 |--|--|--|--|
-|Optional\<PrefEntity\>|`findByCodeFromPrefs ()`|指定した都道府県コードに対応する都道府県データを取得|
-|Optional\<PrefEntity\>|`findByNameFromPrefs ()`|指定した都道府県名に対応する都道府県データを取得|
+|Optional\<PrefEntity\>|`findByCodeFromPrefs (String prefCode)`|指定した都道府県コードに対応する都道府県データを取得|
+|Optional\<PrefEntity\>|`findByNameFromPrefs (String prefName)`|指定した都道府県名に対応する都道府県データを取得|
 |List\<PrefEntity\>|`findAllFromPrefs ()`|全ての都道府県データを取得|
-|void|`createOfPref ()`|既存と重複しない都道府県データを挿入|
-|boolean|`updateOfPref ()`|指定した都道府県コードに対応する都道府県データを更新|
-|boolean|`deleteOfPref ()`|指定した都道府県コードに対応する都道府県データを削除|
+|void|`createOfPref (String prefCode, String prefName)`|既存と重複しない都道府県データを挿入|
+|boolean|`updateOfPref (String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新|
+|boolean|`deleteOfPref (String prefCode)`|指定した都道府県コードに対応する都道府県データを削除|
 
 #### 空港テーブル insert/update/delete
 
 |Type|Name (Arguments)|Function|Note|
 |--|--|--|--|
-|void|`createOfAirport`|既存と重複しない空港データを挿入||
-|boolean|`updateOfAirport`|指定した空港コードに対応する空港データを更新||
-|boolean|`deleteOfAirport`|指定した空港コードに対応する空港データを削除||
-
-#### 空港コード表 and 都道府県コード表 select inner join
-
-|Type|Name (Arguments)|Function|Note|
-|--|--|--|--|
-|Optional\<AirportEntity\>|`findByCodeFromAirports`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得||
-|List\<AirportEntity\>|`findAllByNameFromAirports`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得||
-|List\<AirportEntity\>|`findAllFromAirports`|空港データと都道府県データとを都道府県コードで結合し、全データを取得||
+|Optional\<AirportEntity\>|`findByCodeFromAirports (String airportCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得||
+|List\<AirportEntity\>|`findByPrefFromAirports (String airportCode, String airportName, String prefCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得||
+|List\<AirportEntity\>|`findAllFromAirports (airportCode)`|空港データと都道府県データとを都道府県コードで結合し、全データを取得||
+|void|`createOfAirport (String airportCode, String airportName, String prefCode)`|既存と重複しない空港データを挿入||
+|boolean|`updateOfAirport (String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新||
+|boolean|`deleteOfAirport (String airportCode)`|指定した空港コードに対応する空港データを削除||
 
 
 ### Service
