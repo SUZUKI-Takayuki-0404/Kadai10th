@@ -64,17 +64,17 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 |Type|Name (Arguments)|Function|Note|
 |--|--|--|--|
-|void|createOfAirport|既存と重複しない空港データを挿入||
-|boolean|updateOfAirport|指定した空港コードに対応する空港データを更新||
-|boolean|deleteOfAirport|指定した空港コードに対応する空港データを削除||
+|void|`createOfAirport`|既存と重複しない空港データを挿入||
+|boolean|`updateOfAirport`|指定した空港コードに対応する空港データを更新||
+|boolean|`deleteOfAirport`|指定した空港コードに対応する空港データを削除||
 
 #### 空港コード表 and 都道府県コード表 select inner join
 
 |Type|Name (Arguments)|Function|Note|
 |--|--|--|--|
-|Optional\<AirportEntity\>|findByCodeFromAirports|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得||
-|List\<AirportEntity\>|findAllByNameFromAirports|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得||
-|List\<AirportEntity\>|findAllFromAirports|空港データと都道府県データとを都道府県コードで結合し、全データを取得||
+|Optional\<AirportEntity\>|`findByCodeFromAirports`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得||
+|List\<AirportEntity\>|`findAllByNameFromAirports`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得||
+|List\<AirportEntity\>|`findAllFromAirports`|空港データと都道府県データとを都道府県コードで結合し、全データを取得||
 
 
 ### Service
