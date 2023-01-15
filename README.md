@@ -53,9 +53,9 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 |Type|Name (Arguments)|Function|Note|
 |--|--|--|--|
-|Optional/<PrefEntity/>|`findByCodeFromPrefs ()`|指定した都道府県コードに対応する都道府県データを取得|
-|Optional/<PrefEntity/>|`findByNameFromPrefs ()`|指定した都道府県名に対応する都道府県データを取得|
-|List/<PrefEntity/>|`findAllFromPrefs ()`|全ての都道府県データを取得|
+|Optional\<PrefEntity\>|`findByCodeFromPrefs ()`|指定した都道府県コードに対応する都道府県データを取得|
+|Optional\<PrefEntity\>|`findByNameFromPrefs ()`|指定した都道府県名に対応する都道府県データを取得|
+|List\<PrefEntity\>|`findAllFromPrefs ()`|全ての都道府県データを取得|
 |void|`createOfPref ()`|既存と重複しない都道府県データを挿入|
 |boolean|`updateOfPref ()`|指定した都道府県コードに対応する都道府県データを更新|
 |boolean|`deleteOfPref ()`|指定した都道府県コードに対応する都道府県データを削除|
@@ -64,17 +64,17 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 |Type|Name (Arguments)|Function|Note|
 |--|--|--|--|
-|createOfAirport|既存と重複しない空港データを挿入||
-|updateOfAirport|指定した空港コードに対応する空港データを更新||
-|deleteOfAirport|指定した空港コードに対応する空港データを削除||
+|void|createOfAirport|既存と重複しない空港データを挿入||
+|boolean|updateOfAirport|指定した空港コードに対応する空港データを更新||
+|boolean|deleteOfAirport|指定した空港コードに対応する空港データを削除||
 
 #### 空港コード表 and 都道府県コード表 select inner join
 
 |Type|Name (Arguments)|Function|Note|
 |--|--|--|--|
-|Optional/<AirportEntity/>||findByCodeFromAirports|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得||
-|List/<AirportEntity/>|findAllByNameFromAirports|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得||
-|List/<AirportEntity/>|findAllFromAirports|空港データと都道府県データとを都道府県コードで結合し、全データを取得||
+|Optional\<AirportEntity\>|findByCodeFromAirports|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得||
+|List\<AirportEntity\>|findAllByNameFromAirports|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得||
+|List\<AirportEntity\>|findAllFromAirports|空港データと都道府県データとを都道府県コードで結合し、全データを取得||
 
 
 ### Service
