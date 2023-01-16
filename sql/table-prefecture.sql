@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS prefectures;
 
-CREATE TABLE prefectures(
+CREATE TABLE prefectures (
   prefCode VARCHAR(2) PRIMARY KEY,
   prefName VARCHAR(8) NOT NULL
 );
