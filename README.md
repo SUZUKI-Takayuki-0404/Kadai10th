@@ -1,4 +1,4 @@
-# 第10回課題（本課題の成果物は最終課題に使用）
+# 第10回課題
 
 ## アプリケーション概要
 
@@ -49,66 +49,67 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 ### Mapper
 
-#### 都道府県テーブル
+#### Prefectures
 
-- findByCodeFromPrefs|指定した都道府県コードに対応する都道府県データを取得
-- findByNameFromPrefs|指定した都道府県名に対応する都道府県データを取得
-- findAllFromPrefs|全ての都道府県データを取得
-- createOfPref|既存と重複しない都道府県データを挿入
-- updateOfPref|指定した都道府県コードに対応する都道府県データを更新
-- deleteOfPref|指定した都道府県コードに対応する都道府県データを削除
+|Type|Method Name (Arguments)|Function|SQL|Note|
+|--|--|--|--|--|
+|Optional\<PrefEntity\>|`findByCodeFromPrefs (String prefCode)`|指定した都道府県コードに対応する都道府県データを取得|`SELECT * FROM prefectures WHERE prefCode = #{prefCode}`||
+|Optional\<PrefEntity\>|`findByNameFromPrefs (String prefName)`|指定した都道府県名に対応する都道府県データを取得|`SELECT * FROM prefectures WHERE prefName = #{prefName}`||
+|List\<PrefEntity\>|`findAllFromPrefs ()`|全ての都道府県データを取得|`SELECT * FROM prefectures`|
+|void|`createOfPref (String prefCode, String prefName)`|既存と重複しない都道府県データを挿入|`INSERT INTO prefectures (prefCode, prefName) VALUES (#{prefCode}, #{prefName})`||
+|boolean|`updateOfPref (String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新|`UPDATE prefectures SET prefName = #{prefName} WHERE prefCode = #{prefCode}`||
+|boolean|`deleteOfPref (String prefCode)`|指定した都道府県コードに対応する都道府県データを削除|`DELETE FROM prefectures WHERE prefCode = #{prefCode}`||
 
-#### 空港テーブル insert/update/delete
+#### Airports
 
-- createOfAirport|既存と重複しない空港データを挿入
-- updateOfAirport|指定した空港コードに対応する空港データを更新
-- deleteOfAirport|指定した空港コードに対応する空港データを削除
-
-#### 空港コード表 and 都道府県コード表 select inner join
-
-- findByCodeFromAirports|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得
-- findAllByNameFromAirports|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得
-- findAllFromAirports|空港データと都道府県データとを都道府県コードで結合し、全データを取得
+|Type|Method Name (Arguments)|Function|SQL|Note|
+|--|--|--|--|--|
+|Optional\<AirportEntity\>|`findByCodeFromAirports (String airportCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得|`SELECT airports.*, prefectures.prefName FROM airports INNER JOIN prefectures ON airports.prefCode = prefectures.prefCode WHERE airportCode = #{airportCode} `||
+|List\<AirportEntity\>|`findByPrefFromAirports (String airportCode, String airportName, String prefCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得|`SELECT airports.*, prefectures.prefName FROM airports INNER JOIN prefectures ON airports.prefCode = prefectures.prefCode WHERE prefCode = #{prefCode}`||
+|List\<AirportEntity\>|`findAllFromAirports (airportCode)`|空港データと都道府県データとを都道府県コードで結合し、全データを取得|`SELECT airports.*, prefectures.prefName FROM airports INNER JOIN prefectures ON airports.prefCode = prefectures.prefCode`||
+|void|`createOfAirport (String airportCode, String airportName, String prefCode)`|既存と重複しない空港データを挿入|`INSERT INTO airports (airportCode, airportName, prefCode) VALUES (#{airportCode}, #{airportName}, #{prefCode})`||
+|boolean|`updateOfAirport (String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新|`UPDATE airports SET airportName = #{airportName}, prefCode = #{prefCode} WHERE airportCode = #{airportCode}`||
+|boolean|`deleteOfAirport (String airportCode)`|指定した空港コードに対応する空港データを削除|`DELETE FROM airports WHERE airportCode = #{airportCode}`||
 
 
 ### Service
 
-|Type|Name(Arguments)|Function|Note|
+|Type|Method Name (Arguments)|Function|Note|
 |--|--|--|--|
-|PrefEntity|`getPrefByCode`|都道府県コードに対応する都道府県エンティティを返す||
-|PrefEntity|`getPrefByName`|都道府県名に対応する都道府県エンティティを返す||
-|List\<PrefEntity\>|`getAllPrefs`|都道府県エンティティ全てをリストとして返す||
-|PrefEntity|`createPref`|既存と重複しない都道府県エンティティを追加登録する||
-|PrefEntity|`updatePref`|指定した都道府県コードに対応する都道府県エンティティのうち都道府県コード以外を書き換える||
-|void|`deletePref`|指定した都道府県コードに対応する都道府県エンティティを削除する||
-|AirportEntity|`getAirport`|空港コードに対応する空港エンティティを返す||
-|List\<AirportEntity\>|`getAirportsByPref`|都道府県コード/都道府県名に対応する空港エンティティ全てをリストとして返す||
-|List\<AirportEntity\>|`getAllAirports`|空港エンティティ全てをリストとして返す||
-|AirportEntity|`createAirport`|既存と重複しない空港エンティティを追加登録する||
-|AirportEntity|`updateAirport`|指定した空港コードに対応する空港エンティティのうち空港コード以外を書き換える||
-|void|`deleteAirport`|指定した空港コードに対応する空港エンティティを削除する||
-  
+|PrefEntity|`getPrefByCode (String prefCode)`|都道府県コードに対応する都道府県エンティティを返す||
+|PrefEntity|`getPrefByName (String prefName)`|都道府県名に対応する都道府県エンティティを返す||
+|List\<PrefEntity\>|`getAllPrefs ()`|都道府県エンティティ全てをリストとして返す||
+|PrefEntity|`createPref (String prefCode, String prefName)`|既存と重複しない都道府県エンティティを追加登録する||
+|PrefEntity|`updatePref (String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県エンティティのうち都道府県コード以外を書き換える||
+|void|`deletePref (String prefCode)`|指定した都道府県コードに対応する都道府県エンティティを削除する||
+|AirportEntity|`getAirport (String airportCode)`|空港コードに対応する空港エンティティを返す||
+|List\<AirportEntity\>|`getAirportsByPref (String prefCode)`|都道府県コード/都道府県名に対応する空港エンティティ全てをリストとして返す||
+|List\<AirportEntity\>|`getAllAirports ()`|空港エンティティ全てをリストとして返す||
+|AirportEntity|`createAirport (String airportCode, String airportName, String prefCode)`|既存と重複しない空港エンティティを追加登録する||
+|AirportEntity|`updateAirport (String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港エンティティのうち空港コード以外を書き換える||
+|void|`deleteAirport (String airportCode)`|指定した空港コードに対応する空港エンティティを削除する||
+
 ### Controller
 
 #### Prefectures
 
-|Request|Name|Function|Note|
+|Request|Method Name (Arguments)|Function|Note|
 |--|--|--|--|
-|GET|`getPrefByCode`|指定した既存の都道府県コードに対応する都道府県データを返す||
-|GET|`getPrefByName`|指定した既存の都道府県名に対応する都道府県データを返す||
-|GET|`getAllPrefs`|既存の都道府県コードと対応する都道府県データを全て返す||
-|POST|`createPref`|既存とは重複しない都道府県コードとその都道府県名をデータとして追加||
-|PATCH|`updatePref`|指定した既存の都道府県コードに対応する都道府県名を書き換え||
-|DELETE|`deletePref`|指定した既存の都道府県コードに対応する都道府県データ削除|要：削除対象の都道府県コードを付与されている空港も削除|
+|GET|`getPrefByCode (String prefCode)`|指定した既存の都道府県コードに対応する都道府県データを返す||
+|GET|`getPrefByName (String prefName)`|指定した既存の都道府県名に対応する都道府県データを返す||
+|GET|`getAllPrefs ()`|既存の都道府県コードと対応する都道府県データを全て返す||
+|POST|`createPref (PrefForm prefForm)`|既存とは重複しない都道府県コードとその都道府県名をデータとして追加|`PrefForm (String prefCode, String prefName)`|
+|PATCH|`updatePref (PrefForm prefForm)`|指定した既存の都道府県コードに対応する都道府県名を書き換え|`PrefForm (String prefCode, String prefName)`|
+|DELETE|`deletePref (String prefCode)`|指定した既存の都道府県コードに対応する都道府県データ削除|要：削除対象の都道府県コードを付与されている空港も削除|
 
 #### Airports
 
-|Request|Name|Function|Note|
+|Request|Method Name (Arguments)|Function|Note|
 |--|--|--|--|
-|GET|`getAirport`|指定した既存の空港コードに対応する空港名、都道府県コード、都道府県名を返す|要：都道府県コードから都道府県名を取得|
-|GET|`getAirportsInPref`|指定した既存の都道府県に存在する空港コード、空港名を全て返す|要：都道府県コードから都道府県名を取得|
-|GET|`getAllAirports`|全ての既存の空港コードとこれに対応する空港名、都道府県コード、都道府県名を返す|要：都道府県コードから都道府県名に変換|
-|POST|`createAirport`|既存とは重複しない任意の空港コードで空港を新規追加|要：既存の都道府県コード/都道府県名から都道府県コードに変換|
-|PATCH|`updateAirport`|指定した既存の空港コードに対応する空港名、都道府県コードを書き換え|
-|DELETE|`deleteAirport`|指定した既存の空港コードに対応する空港名と所在都道府県を削除|
+|GET|`getAirport (String airportCode)`|指定した既存の空港コードに対応する空港データを返す|要：都道府県コードから都道府県名を取得|
+|GET|`getAirportsInPref (String prefCode)`|指定した既存の都道府県に存在する空港データを全て返す|要：都道府県コードから都道府県名を取得|
+|GET|`getAllAirports ()`|全ての既存の空港データを返す|要：都道府県コードから都道府県名に変換|
+|POST|`createAirport (AirportfForm airportForm)`|既存とは重複しない任意の空港コードで空港データを新規追加|・要：既存の都道府県コード/都道府県名から都道府県コードに変換 <br>・`AirportfForm (String airportCode, String airportName, String prefCode)`|
+|PATCH|`updateAirport`|指定した既存の空港コードに対応する空港名、都道府県コードを書き換え|`AirportfForm (String airportCode, String airportName, String prefCode)`|
+|DELETE|`deleteAirport (String airportCode)`|指定した既存の空港コードに対応する空港データを削除||
 
