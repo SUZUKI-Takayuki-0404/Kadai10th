@@ -49,7 +49,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 ### Mapper
 
-#### 都道府県テーブル
+#### Prefectures
 
 |Type|Method Name (Arguments)|Function|SQL|Note|
 |--|--|--|--|--|
@@ -60,7 +60,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 |boolean|`updateOfPref (String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新|`UPDATE prefectures SET prefName = #{prefName} WHERE prefCode = #{prefCode}`||
 |boolean|`deleteOfPref (String prefCode)`|指定した都道府県コードに対応する都道府県データを削除|`DELETE FROM prefectures WHERE prefCode = #{prefCode}`||
 
-#### 空港テーブル
+#### Airports
 
 |Type|Method Name (Arguments)|Function|SQL|Note|
 |--|--|--|--|--|
@@ -91,7 +91,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 ### Controller
 
-#### Prefectures リソース
+#### Prefectures
 
 |Request|Method Name|Function|Note|
 |--|--|--|--|
@@ -104,7 +104,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 #### Airports リソース
 
-|Request|method Name|Function|Note|
+|Request|Method Name|Function|Note|
 |--|--|--|--|
 |GET|`getAirport (String airportCode)`|指定した既存の空港コードに対応する空港名、都道府県コード、都道府県名を返す|要：都道府県コードから都道府県名を取得|
 |GET|`getAirportsInPref (String prefCode)`|指定した既存の都道府県に存在する空港コード、空港名を全て返す|要：都道府県コードから都道府県名を取得|
