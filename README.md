@@ -109,7 +109,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 |GET|`getAirport (String airportCode)`|指定した既存の空港コードに対応する空港データを返す|要：都道府県コードから都道府県名を取得|
 |GET|`getAirportsInPref (String prefCode)`|指定した既存の都道府県に存在する空港データを全て返す|要：都道府県コードから都道府県名を取得|
 |GET|`getAllAirports ()`|全ての既存の空港データを返す|要：都道府県コードから都道府県名に変換|
-|POST|`createAirport (AirportfForm airportForm)`|既存とは重複しない任意の空港コードで空港データを新規追加| 要：既存の都道府県コード/都道府県名から都道府県コードに変換 <br> `AirportfForm (String airportCode, String airportName, String prefCode)`|
+|POST|`createAirport (AirportfForm airportForm)`|既存とは重複しない任意の空港コードで空港データを新規追加|・要：既存の都道府県コード/都道府県名から都道府県コードに変換 <br>・`AirportfForm (String airportCode, String airportName, String prefCode)`|
 |PATCH|`updateAirport`|指定した既存の空港コードに対応する空港名、都道府県コードを書き換え|`AirportfForm (String airportCode, String airportName, String prefCode)`|
 |DELETE|`deleteAirport (String airportCode)`|指定した既存の空港コードに対応する空港データを削除||
 
