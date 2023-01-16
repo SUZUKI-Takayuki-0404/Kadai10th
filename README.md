@@ -93,7 +93,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 #### Prefectures
 
-|Request|Method Name|Function|Note|
+|Request|Method Name (Arguments)|Function|Note|
 |--|--|--|--|
 |GET|`getPrefByCode (String prefCode)`|指定した既存の都道府県コードに対応する都道府県データを返す||
 |GET|`getPrefByName (String prefName)`|指定した既存の都道府県名に対応する都道府県データを返す||
@@ -102,9 +102,9 @@ git clone コマンドにて各自PCにダウンロードし実行
 |PATCH|`updatePref (PrefForm prefForm)`|指定した既存の都道府県コードに対応する都道府県名を書き換え|`PrefForm (String prefCode, String prefName)`|
 |DELETE|`deletePref (String prefCode)`|指定した既存の都道府県コードに対応する都道府県データ削除|要：削除対象の都道府県コードを付与されている空港も削除|
 
-#### Airports リソース
+#### Airports
 
-|Request|Method Name|Function|Note|
+|Request|Method Name (Arguments)|Function|Note|
 |--|--|--|--|
 |GET|`getAirport (String airportCode)`|指定した既存の空港コードに対応する空港名、都道府県コード、都道府県名を返す|要：都道府県コードから都道府県名を取得|
 |GET|`getAirportsInPref (String prefCode)`|指定した既存の都道府県に存在する空港コード、空港名を全て返す|要：都道府県コードから都道府県名を取得|
