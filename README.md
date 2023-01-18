@@ -93,23 +93,23 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 #### Prefectures
 
-|Request|Method Name (Arguments)|Function|Note|
+|Request|Method Name (Arguments)|Function|Test Method|
 |--|--|--|--|
 |GET|`getPrefByCode (String prefCode)`|指定した既存の都道府県コードに対応する都道府県データを返す||
 |GET|`getPrefByName (String prefName)`|指定した既存の都道府県名に対応する都道府県データを返す||
 |GET|`getAllPrefs ()`|既存の都道府県コードと対応する都道府県データを全て返す||
-|POST|`createPref (PrefForm prefForm)`|既存とは重複しない都道府県コードとその都道府県名をデータとして追加|`PrefForm (String prefCode, String prefName)`|
-|PATCH|`updatePref (PrefForm prefForm)`|指定した既存の都道府県コードに対応する都道府県名を書き換え|`PrefForm (String prefCode, String prefName)`|
-|DELETE|`deletePref (String prefCode)`|指定した既存の都道府県コードに対応する都道府県データ削除|要：削除対象の都道府県コードを付与されている空港も削除|
+|POST|`createPref (PrefForm prefForm)`<br>　`PrefForm (String prefCode, String prefName)`|新規の都道府県コードとその都道府県名をデータとして追加||
+|PATCH|`updatePref (PrefForm prefForm)`<br>　`PrefForm (String prefCode, String prefName)`|指定した既存の都道府県コードに対応する都道府県名を書き換え||
+|DELETE|`deletePref (String prefCode)`|指定した既存の都道府県コードに対応する都道府県データ削除<br>　要：削除対象の都道府県コードを付与されている空港も削除||
 
 #### Airports
 
-|Request|Method Name (Arguments)|Function|Note|
+|Request|Method Name (Arguments)|Function|Test Method|
 |--|--|--|--|
-|GET|`getAirport (String airportCode)`|指定した既存の空港コードに対応する空港データを返す|要：都道府県コードから都道府県名を取得|
-|GET|`getAirportsInPref (String prefCode)`|指定した既存の都道府県に存在する空港データを全て返す|要：都道府県コードから都道府県名を取得|
-|GET|`getAllAirports ()`|全ての既存の空港データを返す|要：都道府県コードから都道府県名に変換|
-|POST|`createAirport (AirportfForm airportForm)`|既存とは重複しない任意の空港コードで空港データを新規追加|・要：既存の都道府県コード/都道府県名から都道府県コードに変換 <br>・`AirportfForm (String airportCode, String airportName, String prefCode)`|
-|PATCH|`updateAirport`|指定した既存の空港コードに対応する空港名、都道府県コードを書き換え|`AirportfForm (String airportCode, String airportName, String prefCode)`|
-|DELETE|`deleteAirport (String airportCode)`|指定した既存の空港コードに対応する空港データを削除||
+|GET|`getAirport (String airportCode)`|指定した既存の空港コードに対応する空港データを返す<br>　要：都道府県コードから都道府県名を取得||
+|GET|`getAirportsInPref (String prefCode)`|指定した既存の都道府県に存在する空港データを全て返す<br>　要：都道府県コードから都道府県名を取得||
+|GET|`getAllAirports ()`|全ての既存の空港データを返す<br>　要：都道府県コードから都道府県名に変換||
+|POST|`createAirport (AirportfForm airportForm)`<br>　`AirportfForm (String airportCode, String airportName, String prefCode)`|新規の空港コードで空港データを新規追加||
+|PATCH|`updateAirport`<br>　`AirportfForm (String airportCode, String airportName, String prefCode)`|指定の空港コードに対応する空港名、都道府県コードを書き換え||
+|DELETE|`deleteAirport (String airportCode)`|指定の空港コードに対応する空港データを削除||
 
