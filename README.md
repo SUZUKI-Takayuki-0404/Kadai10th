@@ -76,18 +76,18 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 |Type|Method Name (Arguments)|Function|Test Methods|
 |--|--|--|--|
-|PrefEntity|`getPrefByCode (String prefCode)`|指定の都道府県コードに対応する都道府県データを返す|・指定の都道府県コードに対応する都道府県のEntityがある場合はそれを返す<br>・指定の都道府県コードに対応する都道府県のEntityが存在しない場合はそれを表す例外を返す|
-|PrefEntity|`getPrefByName (String prefName)`|指定の都道府県名に対応する都道府県データを返す|・指定の都道府県名に対応する都道府県のEntityがある場合はそれを返す<br>・指定の都道府県名に対応する都道府県のEntityが無い場合はそれを表す例外を返す|
-|List\<PrefEntity\>|`getAllPrefs ()`|都道府県データ全てをListとして返す|・都道府県のEntityが存在する場合は全てをListで返す<br>・都道府県のEntityが無い場合は空のListを返す|
-|PrefEntity|`createPref (String prefCode, String prefName)`|新規の都道府県コードで都道府県データを登録する|・指定の都道府県コードが既存のものと重複しない場合は併せて指定した都道府県名で新規の都道府県のEntityを追加する<br>・指定の都道府県コードが既存のものと重複する場合はそれを表す例外を返す|
-|PrefEntity|`updatePref (String prefCode, String prefName)`|指定の都道府県コードに対応する都道府県データを更新する|・指定の都道府県コードに対応する都道府県のEntityがある場合は都道府県名を併せて指定したものに書き換える<br>・指定の都道府県コードに対応する都道府県のEntityがあるが、併せて指定した都道府県名が従前と同等の場合はそれを表す例外を返す<br>・指定の都道府県コードに対応する都道府県のEntityが無い場合はそれを表す例外を返す|
-|void|`deletePref (String prefCode)`|指定の都道府県コードに対応する都道府県データを削除する|・指定の都道府県コードに対応する都道府県のEntityがある場合は削除する<br>・指定の都道府県コードに対応する都道府県のEntityが無い場合はそれを表す例外を返す|
-|AirportEntity|`getAirport (String airportCode)`|指定の空港コードに対応する空港データを返す||
-|List\<AirportEntity\>|`getAirportsByPref (String prefCode)`|指定の都道府県名に対応する空港データ全てをListとして返す||
-|List\<AirportEntity\>|`getAllAirports ()`|空港データ全てをListとして返す||
-|AirportEntity|`createAirport (String airportCode, String airportName, String prefCode)`|新規の空港データを登録する||
-|AirportEntity|`updateAirport (String airportCode, String airportName, String prefCode)`|指定の空港コードに対応する空港データを更新する||
-|void|`deleteAirport (String airportCode)`|指定の空港コードに対応する空港データを削除する|||
+|PrefEntity|`getPrefByCode (String prefCode)`|指定の都道府県コードに対応する都道府県データを返す|<ul><li>指定の都道府県コードに対応する都道府県がある場合はそれを返す</li><li>指定の都道府県コードに対応する都道府県が存在しない場合はそれを表す例外を返す</li></ul>|
+|PrefEntity|`getPrefByName (String prefName)`|指定の都道府県名に対応する都道府県データを返す|<ul><li>指定の都道府県名に対応する都道府県がある場合はそれを返す</li><li>指定の都道府県名に対応する都道府県が無い場合はそれを表す例外を返す</li></ul>|
+|List\<PrefEntity\>|`getAllPrefs ()`|都道府県データ全てをListとして返す|<ul><li>都道府県が存在する場合はその全てをListで返す</li><li>都道府県が無い場合は空のListを返す</li></ul>|
+|PrefEntity|`createPref (String prefCode, String prefName)`|新規の都道府県コードで都道府県データを登録する|<ul><li>指定の都道府県コードが既存のものと重複しない場合は併せて指定した都道府県名で新規の都道府県を追加する</li><li>指定の都道府県コードが既存のものと重複する場合はそれを表す例外を返す</li></ul>|
+|PrefEntity|`updatePref (String prefCode, String prefName)`|指定の都道府県コードに対応する都道府県データを更新する|<ul><li>指定の都道府県コードに対応する都道府県のEntityがある場合は都道府県名を併せて指定したものに書き換える</li><li>指定の都道府県コードに対応する都道府県のEntityはあるが、併せて指定した都道府県名が従前と同等の場合はそれを表す例外を返す</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合はそれを表す例外を返す</li></ul>|
+|void|`deletePref (String prefCode)`|指定の都道府県コードに対応する都道府県データを削除する|<ul><li>指定の都道府県コードに対応する都道府県のEntityがある場合は削除する</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合はそれを表す例外を返す</li></ul>|
+|AirportEntity|`getAirport (String airportCode)`|指定の空港コードに対応する空港データを返す|<ul><li>指定の空港コードに対応する空港のEntityがある場合はそれを返す</li><li>指定の空港コードに対応する空港のEntityが存在しない場合はそれを表す例外を返す</li></ul>|
+|List\<AirportEntity\>|`getAirportsByPref (String prefCode)`|指定の都道府県名に対応する空港データ全てをListとして返す|<ul><li>指定の都道府県コードに対応する都道府県のEntityがある場合はその全てをListで返す</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合は空のListを返す</li></ul>|
+|List\<AirportEntity\>|`getAllAirports ()`|空港データ全てをListとして返す|<ul><li>空港のEntityが存在する場合はその全てをListで返す</li><li>空港のEntityが無い場合は空のListを返す</li></ul>|
+|AirportEntity|`createAirport (String airportCode, String airportName, String prefCode)`|新規の空港データを登録する|<ul><li>指定の空港コードが既存のものと重複しない場合は併せて指定した空港名と都道府県で新規の空港のEntityを追加する</li><li>指定の都道府県コードが既存のものと重複する場合はそれを表す例外を返す</li></ul>|
+|AirportEntity|`updateAirport (String airportCode, String airportName, String prefCode)`|指定の空港コードに対応する空港データを更新する|<ul><li>・指定の空港コードに対応する空港のEntityがある場合は空港名と都道府県コードを併せて指定したものに書き換える</li><li>指定の空港コードに対応する空港のEntityはあるが、併せて指定した空港名が従前と同等の場合はそれを表す例外を返す</li><li>指定の空港コードに対応する空港のEntityが無い場合はそれを表す例外を返す</li></ul>|
+|void|`deleteAirport (String airportCode)`|指定の空港コードに対応する空港データを削除する|<ul><li>指定の都道府県コードに対応する都道府県のEntityがある場合は削除する</li><li>指定の空港コードに対応する空港のEntityが無い場合はそれを表す例外を返す</li></ul>|
 
 ### Controller
 
