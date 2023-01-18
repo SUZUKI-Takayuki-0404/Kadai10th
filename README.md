@@ -10,15 +10,15 @@
 
 #### 空港コード表
 
-[空港コード](sql/table-airport.sql)
+[空港コード](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/sql/table-airport.sql)
 
-<img src=https://user-images.githubusercontent.com/113277395/210732765-8d3d43f6-994f-41b9-b948-8c5e09cfddac.PNG width="30%">
+<img src=https://user-images.githubusercontent.com/113277395/213170879-3c85d6f2-6976-4c95-8854-6d79c9d3faf7.PNG width="30%">
 
 #### 都道府県コード表
 
-[都道府県コード](sql/table-Pref.sql)
+[都道府県コード](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/sql/table-prefecture.sql)
 
-<img src="https://user-images.githubusercontent.com/113277395/210732796-9837f61f-de6c-4700-8222-7cc238f8e04f.PNG" width="30%">
+<img src="https://user-images.githubusercontent.com/113277395/213171032-961dad83-fe6e-4194-b49f-9e14ac52e30c.PNG" width="30%">
 
 ## API仕様書
 
