@@ -38,12 +38,20 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 コマンド一覧表
 
-| 処理 | コマンド | ステータスコード |
+| 処理 | curlコマンド | Note |
 |--|--|--|
-| GET | curl -X | 200 |
-| POST | curl -X | 201 |
-| PATCH | curl -X | 200 |
-| DELETE | curl -X | 204 |
+| GET | curl --include \ 'http://localhost:8080/prefectures/?prefCode=01' | 200 |
+| GET | curl --include \ 'http://localhost:8080/prefectures/?prefName=北海道' | 200 |
+| GET | curl --include \ 'http://localhost:8080/prefectures' | 200 |
+| POST | curl --include \ --request POST \ --header "Accept: application/json" \ --data-binary "{ \"prefCode\": \"11\", \"prefName\": \"さいたま県\" }" \ 'http://localhost:8080/prefectures' | 201 |
+| PATCH | curl --include \ --request PATCH \ --header "Accept: application/json" \ --data-binary "{ \"prefCode\": \"11\", \"prefName\": \"埼玉県\" }" \ 'http://localhost:8080/prefectures/11' | 200 |
+| DELETE | curl --include \ --request DELETE \ 'http://localhost:8080/prefectures/11' | 204 |
+| GET | curl --include \ 'http://localhost:8080/airports/?airportCode=HND' | 200 |
+| GET | curl --include \ 'http://localhost:8080/airports/?prefCode=27' | 200 |
+| GET | curl --include \ 'http://localhost:8080/prefectures' | 200 |
+| POST | curl --include \ --request POST \ --header "Accept: application/json" \ --data-binary "{ \"airportCode\": \"MYE\" , \"airportName\": \"三宅島\", \"prefCode\": \"13\" }" \ 'http://localhost:8080/airports' | 201 |
+| PATCH | curl --include \ --request PATCH \ --header "Accept: application/json" \ --data-binary "{ \"airportCode\": \"NKM\", \"airportName\": \"名古屋\", \"prefCode\": \"23\" }" \ 'http://localhost:8080/airports/NKM' | 200 |
+| DELETE | curl --include \ --request DELETE \ 'http://localhost:8080/airports/NKM' | 204 |
 
 ## テスト対象メソッド一覧
 
