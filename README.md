@@ -53,13 +53,12 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 
 ## 各クラスのメソッド一覧/テスト一覧
-
 ### Mapper
 #### Prefectures
 
-|Type Method(Arguments)|Function|SQL|Test|
+|Type Method-Name(Arguments)|Function|SQL|Test|
 |--|--|--|--|
-|`Optional<PrefEntity>`<br>`findByCodeFromPrefs(String prefCode)`|指定した都道府県コードに対応する都道府県データを取得|`SELECT * FROM prefectures WHERE prefCode = #{prefCode}`||
+|Optional<PrefEntity>`<br>`findByCodeFromPrefs(String prefCode)`|指定した都道府県コードに対応する都道府県データを取得|`SELECT * FROM prefectures WHERE prefCode = #{prefCode}`||
 |`Optional<PrefEntity>`<br>`findByNameFromPrefs(String prefName)`|指定した都道府県名に対応する都道府県データを取得|`SELECT * FROM prefectures WHERE prefName = #{prefName}`||
 |`List<PrefEntity> findAllFromPrefs()`|全ての都道府県データを取得|`SELECT * FROM prefectures`||
 |`void createOfPref(String prefCode, String prefName)`|既存と重複しない都道府県データを挿入|`INSERT INTO prefectures (prefCode, prefName) VALUES (#{prefCode}, #{prefName})`||
@@ -68,7 +67,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 #### Airports
 
-|Type Method(Arguments)|Function|SQL|Test|
+|Type Method-Name(Arguments)|Function|SQL|Test|
 |--|--|--|--|
 |`Optional<AirportEntity>`<br>`findByCodeFromAirports(String airportCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得|`SELECT airports.*, prefectures.prefName FROM airports INNER JOIN prefectures ON airports.prefCode = prefectures.prefCode WHERE airportCode = #{airportCode} `||
 |`List<AirportEntity>`<br>`findByPrefFromAirports(String airportCode, String airportName, String prefCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得|`SELECT airports.*, prefectures.prefName FROM airports INNER JOIN prefectures ON airports.prefCode = prefectures.prefCode WHERE prefCode = #{prefCode}`||
@@ -77,11 +76,10 @@ git clone コマンドにて各自PCにダウンロードし実行
 |`boolean updateOfAirport(String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新|`UPDATE airports SET airportName = #{airportName}, prefCode = #{prefCode} WHERE airportCode = #{airportCode}`||
 |`boolean deleteOfAirport(String airportCode)`|指定した空港コードに対応する空港データを削除|`DELETE FROM airports WHERE airportCode = #{airportCode}`||
 
-
 ### Service
 
-|Type|Method Name (Arguments)|Function|Test Methods|
-|--|--|--|--|
+|Type Method-Name(Arguments)|Function|Test Methods|
+|--|--|--|
 |`PrefEntity getPrefByCode(String prefCode)`|指定の都道府県コードに対応する都道府県データを返す|<ul><li>指定の都道府県コードに対応する都道府県がある場合はそれを返す</li><li>指定の都道府県コードに対応する都道府県が存在しない場合はそれを表す例外を返す</li></ul>|
 |`PrefEntity getPrefByName(String prefName)`|指定の都道府県名に対応する都道府県データを返す|<ul><li>指定の都道府県名に対応する都道府県がある場合はそれを返す</li><li>指定の都道府県名に対応する都道府県が無い場合はそれを表す例外を返す</li></ul>|
 |`List<PrefEntity> getAllPrefs()`|都道府県データ全てをListとして返す|<ul><li>都道府県が存在する場合はその全てをListで返す</li><li>都道府県が無い場合は空のListを返す</li></ul>|
@@ -95,11 +93,10 @@ git clone コマンドにて各自PCにダウンロードし実行
 |`AirportEntity updateAirport(String airportCode, String airportName, String prefCode)`|指定の空港コードに対応する空港データを更新する|<ul><li>指定の空港コードに対応する空港のEntityがある場合は空港名と都道府県コードを併せて指定したものに書き換える</li><li>指定の空港コードに対応する空港のEntityはあるが、併せて指定した空港名が従前と同等の場合はそれを表す例外を返す</li><li>指定の空港コードに対応する空港のEntityが無い場合はそれを表す例外を返す</li></ul>|
 |`void deleteAirport(String airportCode)`|指定の空港コードに対応する空港データを削除する|<ul><li>指定の都道府県コードに対応する都道府県のEntityがある場合は削除する</li><li>指定の空港コードに対応する空港のEntityが無い場合はそれを表す例外を返す</li></ul>|
 
-
 ### Controller
 #### Prefectures
 
-|Request|Type Method(Arguments)|Function|Test Method|
+|Request|Type Method-Name(Arguments)|Function|Test Method|
 |--|--|--|--|
 |GET|`ResponseEntity<PrefResponse>`<br>`getPrefByCode(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データを返す||
 |GET|`ResponseEntity<PrefResponse>`<br>`getPrefByName(String prefName)`|指定した既存の都道府県名に対応する都道府県データを返す||
@@ -108,11 +105,9 @@ git clone コマンドにて各自PCにダウンロードし実行
 |PATCH|`ResponseEntity<PrefResponse>`<br>`updatePref(PrefForm prefForm)`|指定した既存の都道府県コードに対応する都道府県名を書き換え||
 |DELETE|`ResponseEntity<Void> deletePref(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データ削除<br>　要：削除対象の都道府県コードを付与されている空港も削除||
 
-※`PrefForm (String prefCode, String prefName)`
-
 #### Airports
 
-|Request|Method Name (Arguments)|Function|Test Method|
+|Request|Type Method-Name(Arguments)|Function|Test Method|
 |--|--|--|--|
 |GET|`ResponseEntity<AirportResponse>`<br>`getAirport(String airportCode)`|指定した既存の空港コードに対応する空港データを返す<br>　要：都道府県コードから都道府県名を取得||
 |GET|`ResponseEntity<AirportResponse>`<br>`getAirportsInPref(String prefCode)`|指定した既存の都道府県に存在する空港データを全て返す<br>　要：都道府県コードから都道府県名を取得||
@@ -121,4 +116,3 @@ git clone コマンドにて各自PCにダウンロードし実行
 |PATCH|`ResponseEntity<AirportResponse>`<br>`updateAirport(AirportfForm airportForm)`|指定の空港コードに対応する空港名、都道府県コードを書き換え||
 |DELETE|`ResponseEntity<Void> deleteAirport(String airportCode)`|指定の空港コードに対応する空港データを削除||
 
-※`AirportfForm(String airportCode, String airportName, String prefCode)`
