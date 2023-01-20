@@ -55,8 +55,8 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 |Method<br>`type name(arguments)`|Function<br>`実行SQLコマンド`|Testメソッド確認事項|
 |--|--|--|
-|`Optional<PrefEntity>`<br>`findByCodeFromPrefs(String prefCode)`|指定した都道府県コードに対応する都道府県データを取得<br>`SELECT *`<br>`FROM prefectures WHERE prefCode = #{prefCode}`||
-|`Optional<PrefEntity>`<br>`findByNameFromPrefs(String prefName)`|指定した都道府県名に対応する都道府県データを取得<br>`SELECT *`<br>`FROM prefectures WHERE prefName = #{prefName}`||
+|`Optional<PrefEntity>`<br>`findByCodeFromPrefs(String prefCode)`|指定した都道府県コードに対応する都道府県データを取得<br>`SELECT * FROM prefectures`<br>`WHERE prefCode = #{prefCode}`||
+|`Optional<PrefEntity>`<br>`findByNameFromPrefs(String prefName)`|指定した都道府県名に対応する都道府県データを取得<br>`SELECT * FROM prefectures`<br>`WHERE prefName = #{prefName}`||
 |`List<PrefEntity> findAllFromPrefs()`|全ての都道府県データを取得<br>`SELECT * FROM prefectures`||
 |`void createOfPref`<br>`(String prefCode, String prefName)`|既存と重複しない都道府県データを挿入<br>`INSERT INTO prefectures (prefCode, prefName)`<br>`VALUES (#{prefCode}, #{prefName})`||
 |`boolean updateOfPref`<br>`(String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新<br>`UPDATE prefectures `<br>`SET prefName = #{prefName}`<br>`WHERE prefCode = #{prefCode}`||
