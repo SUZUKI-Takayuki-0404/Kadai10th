@@ -56,7 +56,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 ### Mapper
 #### Prefectures
 
-|Type Method-Name(Arguments)|Function|SQL|Test|
+|Type Method-Name(Arguments)|Function|SQL|Testメソッド確認事項|
 |--|--|--|--|
 |Optional<PrefEntity>`<br>`findByCodeFromPrefs(String prefCode)`|指定した都道府県コードに対応する都道府県データを取得|`SELECT * FROM prefectures WHERE prefCode = #{prefCode}`||
 |`Optional<PrefEntity>`<br>`findByNameFromPrefs(String prefName)`|指定した都道府県名に対応する都道府県データを取得|`SELECT * FROM prefectures WHERE prefName = #{prefName}`||
@@ -67,7 +67,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 #### Airports
 
-|Type Method-Name(Arguments)|Function|SQL|Test|
+|Type Method-Name(Arguments)|Function|SQL|Testメソッド確認事項|
 |--|--|--|--|
 |`Optional<AirportEntity>`<br>`findByCodeFromAirports(String airportCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得|`SELECT airports.*, prefectures.prefName FROM airports INNER JOIN prefectures ON airports.prefCode = prefectures.prefCode WHERE airportCode = #{airportCode} `||
 |`List<AirportEntity>`<br>`findByPrefFromAirports(String airportCode, String airportName, String prefCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得|`SELECT airports.*, prefectures.prefName FROM airports INNER JOIN prefectures ON airports.prefCode = prefectures.prefCode WHERE prefCode = #{prefCode}`||
@@ -77,8 +77,9 @@ git clone コマンドにて各自PCにダウンロードし実行
 |`boolean deleteOfAirport(String airportCode)`|指定した空港コードに対応する空港データを削除|`DELETE FROM airports WHERE airportCode = #{airportCode}`||
 
 ### Service
+#### Prefectures
 
-|Type Method-Name(Arguments)|Function|Test Methods|
+|Type Method-Name(Arguments)|Function|Testメソッド確認事項|
 |--|--|--|
 |`PrefEntity getPrefByCode(String prefCode)`|指定の都道府県コードに対応する都道府県データを返す|<ul><li>指定の都道府県コードに対応する都道府県がある場合はそれを返す</li><li>指定の都道府県コードに対応する都道府県が存在しない場合はそれを表す例外を返す</li></ul>|
 |`PrefEntity getPrefByName(String prefName)`|指定の都道府県名に対応する都道府県データを返す|<ul><li>指定の都道府県名に対応する都道府県がある場合はそれを返す</li><li>指定の都道府県名に対応する都道府県が無い場合はそれを表す例外を返す</li></ul>|
@@ -86,6 +87,10 @@ git clone コマンドにて各自PCにダウンロードし実行
 |`PrefEntity createPref(String prefCode, String prefName)`|新規の都道府県コードで都道府県データを登録する|<ul><li>指定の都道府県コードが既存のものと重複しない場合は併せて指定した都道府県名で新規の都道府県を追加する</li><li>指定の都道府県コードが既存のものと重複する場合はそれを表す例外を返す</li></ul>|
 |`PrefEntity updatePref(String prefCode, String prefName)`|指定の都道府県コードに対応する都道府県データを更新する|<ul><li>指定の都道府県コードに対応する都道府県のEntityがある場合は都道府県名を併せて指定したものに書き換える</li><li>指定の都道府県コードに対応する都道府県のEntityはあるが、併せて指定した都道府県名が従前と同等の場合はそれを表す例外を返す</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合はそれを表す例外を返す</li></ul>|
 |`void deletePref(String prefCode)`|指定の都道府県コードに対応する都道府県データを削除する|<ul><li>指定の都道府県コードに対応する都道府県のEntityがある場合は削除する</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合はそれを表す例外を返す</li></ul>|
+
+#### Airports
+|Type Method-Name(Arguments)|Function|Testメソッド確認事項|
+|--|--|--|
 |`AirportEntity getAirport(String airportCode)`|指定の空港コードに対応する空港データを返す|<ul><li>指定の空港コードに対応する空港のEntityがある場合はそれを返す</li><li>指定の空港コードに対応する空港のEntityが存在しない場合はそれを表す例外を返す</li></ul>|
 |`List<AirportEntity> getAirportsByPref(String prefCode)`|指定の都道府県名に対応する空港データ全てをListとして返す|<ul><li>指定の都道府県コードに対応する都道府県のEntityがある場合はその全てをListで返す</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合は空のListを返す</li></ul>|
 |`List<AirportEntity> getAllAirports()`|空港データ全てをListとして返す|<ul><li>空港のEntityが存在する場合はその全てをListで返す</li><li>空港のEntityが無い場合は空のListを返す</li></ul>|
@@ -96,7 +101,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 ### Controller
 #### Prefectures
 
-|Request|Type Method-Name(Arguments)|Function|Test Method|
+|Request|Type Method-Name(Arguments)|Function|Testメソッド確認事項|
 |--|--|--|--|
 |GET|`ResponseEntity<PrefResponse>`<br>`getPrefByCode(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データを返す||
 |GET|`ResponseEntity<PrefResponse>`<br>`getPrefByName(String prefName)`|指定した既存の都道府県名に対応する都道府県データを返す||
@@ -107,7 +112,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 #### Airports
 
-|Request|Type Method-Name(Arguments)|Function|Test Method|
+|Request|Type Method-Name(Arguments)|Function|メソッド確認事項|
 |--|--|--|--|
 |GET|`ResponseEntity<AirportResponse>`<br>`getAirport(String airportCode)`|指定した既存の空港コードに対応する空港データを返す<br>　要：都道府県コードから都道府県名を取得||
 |GET|`ResponseEntity<AirportResponse>`<br>`getAirportsInPref(String prefCode)`|指定した既存の都道府県に存在する空港データを全て返す<br>　要：都道府県コードから都道府県名を取得||
