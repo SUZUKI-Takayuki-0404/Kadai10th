@@ -26,55 +26,52 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 ### API仕様書
 
-[API仕様書](http://htmlpreview.github.io/?https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/Kadai10api.html)
+[API仕様書リンク](http://htmlpreview.github.io/?https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/Kadai10api.html)
 
 - [Apiaryエディタ](https://docs.oracle.com/cd/E91812_01/tools/apiary-editor/index.html)を使用し、API Blueprintにて作成
 - 上記で作成した仕様書を[aglio](https://github.com/danielgtaylor/aglio)にてhtml変換
 - GitHub上のhtmlファイル表示には[GitHub & BitBucket HTML Preview](https://htmlpreview.github.io/)を使用
 
-### API動作確認プロセス
+### API動作確認用 curlコマンド一覧
 
-コマンド一覧表
-
-| 処理 | curlコマンド | Note |
-|--|--|--|
-| GET | curl -X GET \ 'http://localhost:8080/prefectures/?prefCode=01' | 200 |
-| GET | curl -X GET \ 'http://localhost:8080/prefectures/?prefName=北海道' | 200 |
-| GET | curl -X GET \ 'http://localhost:8080/prefectures' | 200 |
-| POST | curl -X POST \ --request POST \ --header "Accept: application/json" \ --data-binary "{ \"prefCode\": \"11\", \"prefName\": \"さいたま県\" }" \ 'http://localhost:8080/prefectures' | 201 |
-| PATCH | curl -X PATCH \ --request PATCH \ --header "Accept: application/json" \ --data-binary "{ \"prefCode\": \"11\", \"prefName\": \"埼玉県\" }" \ 'http://localhost:8080/prefectures/11' | 200 |
-| DELETE | curl -X DELETE \ --request DELETE \ 'http://localhost:8080/prefectures/11' | 204 |
-| GET | curl -X GET \ 'http://localhost:8080/airports/?airportCode=HND' | 200 |
-| GET | curl -X GET \ 'http://localhost:8080/airports/?prefCode=27' | 200 |
-| GET | curl -X GET \ 'http://localhost:8080/prefectures' | 200 |
-| POST | curl -X POST \ --request POST \ --header "Accept: application/json" \ --data-binary "{ \"airportCode\": \"MYE\" , \"airportName\": \"三宅島\", \"prefCode\": \"13\" }" \ 'http://localhost:8080/airports' | 201 |
-| PATCH | curl -X PATCH \ --request PATCH \ --header "Accept: application/json" \ --data-binary "{ \"airportCode\": \"NKM\", \"airportName\": \"名古屋\", \"prefCode\": \"23\" }" \ 'http://localhost:8080/airports/NKM' | 200 |
-| DELETE | curl -X DELETE \ --request DELETE \ 'http://localhost:8080/airports/NKM' | 204 |
-
+| 処理 | curlコマンド |
+|--|--|
+| GET | curl -X GET \ 'http://localhost:8080/prefectures/?prefCode=01' |
+| GET | curl -X GET \ 'http://localhost:8080/prefectures/?prefName=北海道' |
+| GET | curl -X GET \ 'http://localhost:8080/prefectures' |
+| POST | curl -X POST \ --request POST \ --header "Accept: application/json" \ --data-binary "{ \"prefCode\": \"11\", \"prefName\": \"さいたま県\" }" \ 'http://localhost:8080/prefectures' |
+| PATCH | curl -X PATCH \ --request PATCH \ --header "Accept: application/json" \ --data-binary "{ \"prefCode\": \"11\", \"prefName\": \"埼玉県\" }" \ 'http://localhost:8080/prefectures/11' |
+| DELETE | curl -X DELETE \ --request DELETE \ 'http://localhost:8080/prefectures/11' |
+| GET | curl -X GET \ 'http://localhost:8080/airports/?airportCode=HND' |
+| GET | curl -X GET \ 'http://localhost:8080/airports/?prefCode=27' |
+| GET | curl -X GET \ 'http://localhost:8080/prefectures' |
+| POST | curl -X POST \ --request POST \ --header "Accept: application/json" \ --data-binary "{ \"airportCode\": \"MYE\" , \"airportName\": \"三宅島\", \"prefCode\": \"13\" }" \ 'http://localhost:8080/airports' |
+| PATCH | curl -X PATCH \ --request PATCH \ --header "Accept: application/json" \ --data-binary "{ \"airportCode\": \"NKM\", \"airportName\": \"名古屋\", \"prefCode\": \"23\" }" \ 'http://localhost:8080/airports/NKM' |
+| DELETE | curl -X DELETE \ --request DELETE \ 'http://localhost:8080/airports/NKM' |
 
 ## 各クラスのメソッド一覧/テスト一覧
 ### Mapper
 #### Prefectures
 
-|Method<br>`type name(arguments)`|Function|SQL|Testメソッド確認事項|
-|--|--|--|--|
-|`Optional<PrefEntity>`<br>`findByCodeFromPrefs(String prefCode)`|指定した都道府県コードに対応する都道府県データを取得|`SELECT *`<br>`FROM prefectures WHERE prefCode = #{prefCode}`||
-|`Optional<PrefEntity>`<br>`findByNameFromPrefs(String prefName)`|指定した都道府県名に対応する都道府県データを取得|`SELECT *`<br>`FROM prefectures WHERE prefName = #{prefName}`||
-|`List<PrefEntity> findAllFromPrefs()`|全ての都道府県データを取得|`SELECT * FROM prefectures`||
-|`void createOfPref`<br>`(String prefCode, String prefName)`|既存と重複しない都道府県データを挿入|`INSERT INTO prefectures (prefCode, prefName)`<br>`VALUES (#{prefCode}, #{prefName})`||
-|`boolean updateOfPref`<br>`(String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新|`UPDATE prefectures `<br>`SET prefName = #{prefName}`<br>`WHERE prefCode = #{prefCode}`||
-|`boolean deleteOfPref`<br>`(String prefCode)`|指定した都道府県コードに対応する都道府県データを削除|`DELETE FROM prefectures`<br>`WHERE prefCode = #{prefCode}`||
+|Method<br>`type name(arguments)`|Function<br>`実行SQLコマンド`|Testメソッド確認事項|
+|--|--|--|
+|`Optional<PrefEntity>`<br>`findByCodeFromPrefs(String prefCode)`|指定した都道府県コードに対応する都道府県データを取得<br>`SELECT *`<br>`FROM prefectures WHERE prefCode = #{prefCode}`||
+|`Optional<PrefEntity>`<br>`findByNameFromPrefs(String prefName)`|指定した都道府県名に対応する都道府県データを取得<br>`SELECT *`<br>`FROM prefectures WHERE prefName = #{prefName}`||
+|`List<PrefEntity> findAllFromPrefs()`|全ての都道府県データを取得<br>`SELECT * FROM prefectures`||
+|`void createOfPref`<br>`(String prefCode, String prefName)`|既存と重複しない都道府県データを挿入<br>`INSERT INTO prefectures (prefCode, prefName)`<br>`VALUES (#{prefCode}, #{prefName})`||
+|`boolean updateOfPref`<br>`(String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新<br>`UPDATE prefectures `<br>`SET prefName = #{prefName}`<br>`WHERE prefCode = #{prefCode}`||
+|`boolean deleteOfPref`<br>`(String prefCode)`|指定した都道府県コードに対応する都道府県データを削除<br>`DELETE FROM prefectures`<br>`WHERE prefCode = #{prefCode}`||
 
 #### Airports
 
-|Method<br>`type name(arguments)`|Function|SQL|Testメソッド確認事項|
-|--|--|--|--|
-|`Optional<AirportEntity>`<br>`findByCodeFromAirports(String airportCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得|`SELECT airports.*, prefectures.prefName`<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode`<br>`WHERE airportCode = #{airportCode} `||
-|`List<AirportEntity> findByPrefFromAirports`<br>`(String airportCode, String airportName, String prefCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得|`SELECT airports.*, prefectures.prefName`<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode `<br>`WHERE prefCode = #{prefCode}`||
-|`List<AirportEntity> findAllFromAirports(airportCode)`|空港データと都道府県データとを都道府県コードで結合し、全データを取得|`SELECT airports.*, prefectures.prefName `<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode`||
-|`void createOfAirport`<br>`(String airportCode, String airportName, String prefCode)`|既存と重複しない空港データを挿入|`INSERT INTO airports (airportCode, airportName, prefCode)`<br>`VALUES (#{airportCode}, #{airportName}, #{prefCode})`||
-|`boolean updateOfAirport`<br>`(String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新|`UPDATE airports `<br>`SET airportName = #{airportName}, prefCode = #{prefCode} `<br>`WHERE airportCode = #{airportCode}`||
-|`boolean deleteOfAirport`<br>`(String airportCode)`|指定した空港コードに対応する空港データを削除|`DELETE FROM airports `<br>`WHERE airportCode = #{airportCode}`||
+|Method<br>`type name(arguments)`|Function<br>`事項SQLコマンド`|Testメソッド確認事項|
+|--|--|--|
+|`Optional<AirportEntity>`<br>`findByCodeFromAirports(String airportCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得<br>`SELECT airports.*, prefectures.prefName`<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode`<br>`WHERE airportCode = #{airportCode} `||
+|`List<AirportEntity> findByPrefFromAirports`<br>`(String airportCode, String airportName, String prefCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得<br>`SELECT airports.*, prefectures.prefName`<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode `<br>`WHERE prefCode = #{prefCode}`||
+|`List<AirportEntity> findAllFromAirports(airportCode)`|空港データと都道府県データとを都道府県コードで結合し、全データを取得<br>`SELECT airports.*, prefectures.prefName `<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode`||
+|`void createOfAirport`<br>`(String airportCode, String airportName, String prefCode)`|既存と重複しない空港データを挿入<br>`INSERT INTO airports (airportCode, airportName, prefCode)`<br>`VALUES (#{airportCode}, #{airportName}, #{prefCode})`||
+|`boolean updateOfAirport`<br>`(String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新<br>`UPDATE airports `<br>`SET airportName = #{airportName}, prefCode = #{prefCode} `<br>`WHERE airportCode = #{airportCode}`||
+|`boolean deleteOfAirport`<br>`(String airportCode)`|指定した空港コードに対応する空港データを削除<br>`DELETE FROM airports `<br>`WHERE airportCode = #{airportCode}`||
 
 ### Service
 #### Prefectures
