@@ -6,8 +6,7 @@
 - JUnitによるテストコード実装
 - GitHub Actionsによる自動単体テスト実装
 
-### データテーブル
-
+## 取扱データテーブル
 #### 空港コード表
 
 [空港コード](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/sql/table-airport.sql)
@@ -20,19 +19,18 @@
 
 <img src="https://user-images.githubusercontent.com/113277395/213171032-961dad83-fe6e-4194-b49f-9e14ac52e30c.PNG" width="20%">
 
-## API仕様書
+## API動作確認プロセス
+### 事前準備
+
+git clone コマンドにて各自PCにダウンロードし実行
+
+### API仕様書
 
 [API仕様書](http://htmlpreview.github.io/?https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/Kadai10api.html)
 
-- [Apiaryエディタ](https://docs.oracle.com/cd/E91812_01/tools/apiary-editor/index.html)を使用し、API Blueprintベースで作成
+- [Apiaryエディタ](https://docs.oracle.com/cd/E91812_01/tools/apiary-editor/index.html)を使用し、API Blueprintにて作成
 - 上記で作成した仕様書を[aglio](https://github.com/danielgtaylor/aglio)にてhtml変換
 - GitHub上のhtmlファイル表示には[GitHub & BitBucket HTML Preview](https://htmlpreview.github.io/)を使用
-
-## 起動/API動作確認プロセス
-
-### 起動プロセス
-
-git clone コマンドにて各自PCにダウンロードし実行
 
 ### API動作確認プロセス
 
@@ -40,23 +38,23 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 | 処理 | curlコマンド | Note |
 |--|--|--|
-| GET | curl --include \ 'http://localhost:8080/prefectures/?prefCode=01' | 200 |
-| GET | curl --include \ 'http://localhost:8080/prefectures/?prefName=北海道' | 200 |
-| GET | curl --include \ 'http://localhost:8080/prefectures' | 200 |
-| POST | curl --include \ --request POST \ --header "Accept: application/json" \ --data-binary "{ \"prefCode\": \"11\", \"prefName\": \"さいたま県\" }" \ 'http://localhost:8080/prefectures' | 201 |
-| PATCH | curl --include \ --request PATCH \ --header "Accept: application/json" \ --data-binary "{ \"prefCode\": \"11\", \"prefName\": \"埼玉県\" }" \ 'http://localhost:8080/prefectures/11' | 200 |
-| DELETE | curl --include \ --request DELETE \ 'http://localhost:8080/prefectures/11' | 204 |
-| GET | curl --include \ 'http://localhost:8080/airports/?airportCode=HND' | 200 |
-| GET | curl --include \ 'http://localhost:8080/airports/?prefCode=27' | 200 |
-| GET | curl --include \ 'http://localhost:8080/prefectures' | 200 |
-| POST | curl --include \ --request POST \ --header "Accept: application/json" \ --data-binary "{ \"airportCode\": \"MYE\" , \"airportName\": \"三宅島\", \"prefCode\": \"13\" }" \ 'http://localhost:8080/airports' | 201 |
-| PATCH | curl --include \ --request PATCH \ --header "Accept: application/json" \ --data-binary "{ \"airportCode\": \"NKM\", \"airportName\": \"名古屋\", \"prefCode\": \"23\" }" \ 'http://localhost:8080/airports/NKM' | 200 |
-| DELETE | curl --include \ --request DELETE \ 'http://localhost:8080/airports/NKM' | 204 |
+| GET | curl -X GET \ 'http://localhost:8080/prefectures/?prefCode=01' | 200 |
+| GET | curl -X GET \ 'http://localhost:8080/prefectures/?prefName=北海道' | 200 |
+| GET | curl -X GET \ 'http://localhost:8080/prefectures' | 200 |
+| POST | curl -X POST \ --request POST \ --header "Accept: application/json" \ --data-binary "{ \"prefCode\": \"11\", \"prefName\": \"さいたま県\" }" \ 'http://localhost:8080/prefectures' | 201 |
+| PATCH | curl -X PATCH \ --request PATCH \ --header "Accept: application/json" \ --data-binary "{ \"prefCode\": \"11\", \"prefName\": \"埼玉県\" }" \ 'http://localhost:8080/prefectures/11' | 200 |
+| DELETE | curl -X DELETE \ --request DELETE \ 'http://localhost:8080/prefectures/11' | 204 |
+| GET | curl -X GET \ 'http://localhost:8080/airports/?airportCode=HND' | 200 |
+| GET | curl -X GET \ 'http://localhost:8080/airports/?prefCode=27' | 200 |
+| GET | curl -X GET \ 'http://localhost:8080/prefectures' | 200 |
+| POST | curl -X POST \ --request POST \ --header "Accept: application/json" \ --data-binary "{ \"airportCode\": \"MYE\" , \"airportName\": \"三宅島\", \"prefCode\": \"13\" }" \ 'http://localhost:8080/airports' | 201 |
+| PATCH | curl -X PATCH \ --request PATCH \ --header "Accept: application/json" \ --data-binary "{ \"airportCode\": \"NKM\", \"airportName\": \"名古屋\", \"prefCode\": \"23\" }" \ 'http://localhost:8080/airports/NKM' | 200 |
+| DELETE | curl -X DELETE \ --request DELETE \ 'http://localhost:8080/airports/NKM' | 204 |
 
-## テスト対象メソッド一覧
+
+## 各クラスのメソッド一覧/テスト一覧
 
 ### Mapper
-
 #### Prefectures
 
 |Type Method(Arguments)|Function|SQL|Test|
@@ -99,26 +97,28 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 
 ### Controller
-
 #### Prefectures
 
-|Request|Method Name (Arguments)|Function|Test Method|
+|Request|Type Method(Arguments)|Function|Test Method|
 |--|--|--|--|
-|GET|`getPrefByCode (String prefCode)`|指定した既存の都道府県コードに対応する都道府県データを返す||
-|GET|`getPrefByName (String prefName)`|指定した既存の都道府県名に対応する都道府県データを返す||
-|GET|`getAllPrefs ()`|既存の都道府県コードと対応する都道府県データを全て返す||
-|POST|`createPref (PrefForm prefForm)`<br>`PrefForm (String prefCode, String prefName)`|新規の都道府県コードとその都道府県名をデータとして追加||
-|PATCH|`updatePref (PrefForm prefForm)`<br>`PrefForm (String prefCode, String prefName)`|指定した既存の都道府県コードに対応する都道府県名を書き換え||
-|DELETE|`deletePref (String prefCode)`|指定した既存の都道府県コードに対応する都道府県データ削除<br>　要：削除対象の都道府県コードを付与されている空港も削除||
+|GET|`ResponseEntity<PrefResponse>`<br>`getPrefByCode(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データを返す||
+|GET|`ResponseEntity<PrefResponse>`<br>`getPrefByName(String prefName)`|指定した既存の都道府県名に対応する都道府県データを返す||
+|GET|`ResponseEntity<PrefResponse>`<br>`getAllPrefs()`|既存の都道府県コードと対応する都道府県データを全て返す||
+|POST|`ResponseEntity<PrefResponse>`<br>`createPref(PrefForm prefForm)`|新規の都道府県コードとその都道府県名をデータとして追加||
+|PATCH|`ResponseEntity<PrefResponse>`<br>`updatePref(PrefForm prefForm)`|指定した既存の都道府県コードに対応する都道府県名を書き換え||
+|DELETE|`ResponseEntity<Void> deletePref(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データ削除<br>　要：削除対象の都道府県コードを付与されている空港も削除||
+
+※`PrefForm (String prefCode, String prefName)`
 
 #### Airports
 
 |Request|Method Name (Arguments)|Function|Test Method|
 |--|--|--|--|
-|GET|`getAirport (String airportCode)`|指定した既存の空港コードに対応する空港データを返す<br>　要：都道府県コードから都道府県名を取得||
-|GET|`getAirportsInPref (String prefCode)`|指定した既存の都道府県に存在する空港データを全て返す<br>　要：都道府県コードから都道府県名を取得||
-|GET|`getAllAirports ()`|全ての既存の空港データを返す<br>　要：都道府県コードから都道府県名に変換||
-|POST|`createAirport (AirportfForm airportForm)`<br>`AirportfForm (String airportCode, String airportName, String prefCode)`|新規の空港コードで空港データを新規追加||
-|PATCH|`updateAirport`<br>`AirportfForm (String airportCode, String airportName, String prefCode)`|指定の空港コードに対応する空港名、都道府県コードを書き換え||
-|DELETE|`deleteAirport (String airportCode)`|指定の空港コードに対応する空港データを削除||
+|GET|`ResponseEntity<AirportResponse>`<br>`getAirport(String airportCode)`|指定した既存の空港コードに対応する空港データを返す<br>　要：都道府県コードから都道府県名を取得||
+|GET|`ResponseEntity<AirportResponse>`<br>`getAirportsInPref(String prefCode)`|指定した既存の都道府県に存在する空港データを全て返す<br>　要：都道府県コードから都道府県名を取得||
+|GET|`ResponseEntity<AirportResponse>`<br>`getAllAirports()`|全ての既存の空港データを返す<br>　要：都道府県コードから都道府県名に変換||
+|POST|`ResponseEntity<AirportResponse>`<br>`createAirport(AirportfForm airportForm)`|新規の空港コードで空港データを新規追加||
+|PATCH|`ResponseEntity<AirportResponse>`<br>`updateAirport(AirportfForm airportForm)`|指定の空港コードに対応する空港名、都道府県コードを書き換え||
+|DELETE|`ResponseEntity<Void> deleteAirport(String airportCode)`|指定の空港コードに対応する空港データを削除||
 
+※`AirportfForm(String airportCode, String airportName, String prefCode)`
