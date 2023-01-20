@@ -58,23 +58,23 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 |Method<br>`type name(arguments)`|Function|SQL|Testメソッド確認事項|
 |--|--|--|--|
-|Optional<PrefEntity>`<br>`findByCodeFromPrefs(String prefCode)`|指定した都道府県コードに対応する都道府県データを取得|`SELECT *`<br>`FROM prefectures WHERE prefCode = #{prefCode}`||
+|`Optional<PrefEntity>`<br>`findByCodeFromPrefs(String prefCode)`|指定した都道府県コードに対応する都道府県データを取得|`SELECT *`<br>`FROM prefectures WHERE prefCode = #{prefCode}`||
 |`Optional<PrefEntity>`<br>`findByNameFromPrefs(String prefName)`|指定した都道府県名に対応する都道府県データを取得|`SELECT *`<br>`FROM prefectures WHERE prefName = #{prefName}`||
 |`List<PrefEntity> findAllFromPrefs()`|全ての都道府県データを取得|`SELECT * FROM prefectures`||
-|`void createOfPref(String prefCode, String prefName)`|既存と重複しない都道府県データを挿入|`INSERT INTO prefectures (prefCode, prefName)`<br>`VALUES (#{prefCode}, #{prefName})`||
-|`boolean updateOfPref(String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新|`UPDATE prefectures `<br>`SET prefName = #{prefName}`<br>`WHERE prefCode = #{prefCode}`||
-|`boolean deleteOfPref(String prefCode)`|指定した都道府県コードに対応する都道府県データを削除|`DELETE FROM prefectures`<br>`WHERE prefCode = #{prefCode}`||
+|`void createOfPref`<br>`(String prefCode, String prefName)`|既存と重複しない都道府県データを挿入|`INSERT INTO prefectures (prefCode, prefName)`<br>`VALUES (#{prefCode}, #{prefName})`||
+|`boolean updateOfPref`<br>`(String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新|`UPDATE prefectures `<br>`SET prefName = #{prefName}`<br>`WHERE prefCode = #{prefCode}`||
+|`boolean deleteOfPref`<br>`(String prefCode)`|指定した都道府県コードに対応する都道府県データを削除|`DELETE FROM prefectures`<br>`WHERE prefCode = #{prefCode}`||
 
 #### Airports
 
 |Method<br>`type name(arguments)`|Function|SQL|Testメソッド確認事項|
 |--|--|--|--|
 |`Optional<AirportEntity>`<br>`findByCodeFromAirports(String airportCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得|`SELECT airports.*, prefectures.prefName`<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode`<br>`WHERE airportCode = #{airportCode} `||
-|`List<AirportEntity>`<br>`findByPrefFromAirports(String airportCode, String airportName, String prefCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得|`SELECT airports.*, prefectures.prefName`<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode `<br>`WHERE prefCode = #{prefCode}`||
+|`List<AirportEntity> findByPrefFromAirports`<br>`(String airportCode, String airportName, String prefCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得|`SELECT airports.*, prefectures.prefName`<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode `<br>`WHERE prefCode = #{prefCode}`||
 |`List<AirportEntity> findAllFromAirports(airportCode)`|空港データと都道府県データとを都道府県コードで結合し、全データを取得|`SELECT airports.*, prefectures.prefName `<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode`||
-|`void createOfAirport(String airportCode, String airportName, String prefCode)`|既存と重複しない空港データを挿入|`INSERT INTO airports (airportCode, airportName, prefCode)`<br>`VALUES (#{airportCode}, #{airportName}, #{prefCode})`||
-|`boolean updateOfAirport(String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新|`UPDATE airports `<br>`SET airportName = #{airportName}, prefCode = #{prefCode} `<br>`WHERE airportCode = #{airportCode}`||
-|`boolean deleteOfAirport(String airportCode)`|指定した空港コードに対応する空港データを削除|`DELETE FROM airports `<br>`WHERE airportCode = #{airportCode}`||
+|`void createOfAirport`<br>`(String airportCode, String airportName, String prefCode)`|既存と重複しない空港データを挿入|`INSERT INTO airports (airportCode, airportName, prefCode)`<br>`VALUES (#{airportCode}, #{airportName}, #{prefCode})`||
+|`boolean updateOfAirport`<br>`(String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新|`UPDATE airports `<br>`SET airportName = #{airportName}, prefCode = #{prefCode} `<br>`WHERE airportCode = #{airportCode}`||
+|`boolean deleteOfAirport`<br>`(String airportCode)`|指定した空港コードに対応する空港データを削除|`DELETE FROM airports `<br>`WHERE airportCode = #{airportCode}`||
 
 ### Service
 #### Prefectures
