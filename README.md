@@ -45,8 +45,8 @@ git clone コマンドにて各自PCにダウンロードし実行
 | GET | curl -X GET \ 'http://localhost:8080/airports/?airportCode=HND' |
 | GET | curl -X GET \ 'http://localhost:8080/airports/?prefCode=27' |
 | GET | curl -X GET \ 'http://localhost:8080/prefectures' |
-| POST | curl -X POST \ --request POST \ --header "Accept: application/json" \ --data-binary "{ \"airportCode\": \"MYE\" , \"airportName\": \"三宅島\", \"prefCode\": \"13\" }" \ 'http://localhost:8080/airports' |
-| PATCH | curl -X PATCH \ --request PATCH \ --header "Accept: application/json" \ --data-binary "{ \"airportCode\": \"NKM\", \"airportName\": \"名古屋\", \"prefCode\": \"23\" }" \ 'http://localhost:8080/airports/NKM' |
+| POST | curl -X POST -H "Content-type: application/json" -d '{ "airportCode": "MYE", "airportName": "三宅島", "prefCode": "13" }' 'http://localhost:8080/airports' |
+| PATCH | curl -X PATCH -H "Content-type: application/json" -d '{"airportCode": "NKM", "airportName": "名古屋", "prefCode": "23"}' 'http://localhost:8080/airports/NKM' |
 | DELETE | curl -X DELETE \ --request DELETE \ 'http://localhost:8080/airports/NKM' |
 
 ## 各クラスのメソッド一覧/テスト一覧
