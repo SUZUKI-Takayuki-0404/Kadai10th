@@ -34,20 +34,23 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 ### API動作確認用 curlコマンド一覧
 
-| 処理 | curlコマンド |
+| Request | curlコマンド |
 |--|--|
-| GET | curl 'http://localhost:8080/prefectures/?prefCode=01' |
-| GET | curl 'http://localhost:8080/prefectures/?prefName=北海道' |
-| GET | curl 'http://localhost:8080/prefectures' |
-| POST | curl -XPOST -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "さいたま県"}' 'http://localhost:8080/prefectures' |
-| PATCH | curl -XPATCH -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "埼玉県"}' 'http://localhost:8080/prefectures' |
-| DELETE | curl -X DELETE \ --request DELETE \ 'http://localhost:8080/prefectures/11' |
-| GET | curl 'http://localhost:8080/airports/?airportCode=HND' |
-| GET | curl 'http://localhost:8080/airports/?prefCode=27' |
-| GET | curl 'http://localhost:8080/airports' |
-| POST | curl -XPOST -H "Content-type: application/json" -d '{ "airportCode": "MYE", "airportName": "三宅島", "prefCode": "13" }' 'http://localhost:8080/airports' |
-| PATCH | curl -XPATCH -H "Content-type: application/json" -d '{"airportCode": "NKM", "airportName": "名古屋", "prefCode": "23"}' 'http://localhost:8080/airports/NKM' |
-| DELETE | curl -XDELETE 'http://localhost:8080/airports/NKM' |
+| GET | `curl 'http://localhost:8080/prefectures/?prefCode=01'` |
+| GET | `curl 'http://localhost:8080/prefectures/?prefName=北海道'` |
+| GET | `curl 'http://localhost:8080/prefectures'` |
+| POST | `curl -XPOST -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "さいたま県"}' 'http://localhost:8080/prefectures'` |
+| PATCH | `curl -XPATCH -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "埼玉県"}' 'http://localhost:8080/prefectures'` |
+| DELETE | `curl -XDELETE 'http://localhost:8080/prefectures/11'` |
+
+| Request | curlコマンド |
+|--|--|
+| GET | `curl 'http://localhost:8080/airports/?airportCode=HND'` |
+| GET | `curl 'http://localhost:8080/airports/?prefCode=27'` |
+| GET | `curl 'http://localhost:8080/airports'` |
+| POST | `curl -XPOST -H "Content-type: application/json" -d '{ "airportCode": "MYE", "airportName": "三宅島", "prefCode": "13" }' 'http://localhost:8080/airports'` |
+| PATCH | `curl -XPATCH -H "Content-type: application/json" -d '{"airportCode": "NKM", "airportName": "名古屋", "prefCode": "23"}' 'http://localhost:8080/airports/NKM'` |
+| DELETE | `curl -XDELETE 'http://localhost:8080/airports/NKM'` |
 
 ## 各クラスのメソッド一覧/テスト一覧
 ### Mapper
@@ -86,6 +89,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 |`void deletePref`<br>`(String prefCode)`|指定の都道府県コードに対応する都道府県データを削除する|<ul><li>指定の都道府県コードに対応する都道府県のEntityがある場合は削除する</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合はそれを表す例外を返す</li></ul>|
 
 #### Airports
+
 |Method<br>`type name(arguments)`|Function|Testメソッド確認事項|
 |--|--|--|
 |`AirportEntity`<br>`getAirport(String airportCode)`|指定の空港コードに対応する空港データを返す|<ul><li>指定の空港コードに対応する空港のEntityがある場合はそれを返す</li><li>指定の空港コードに対応する空港のEntityが存在しない場合はそれを表す例外を返す</li></ul>|
