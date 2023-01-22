@@ -36,11 +36,11 @@ git clone コマンドにて各自PCにダウンロードし実行
 
 | 処理 | curlコマンド |
 |--|--|
-| GET | curl -XGET 'http://localhost:8080/prefectures/?prefCode=01' |
-| GET | curl -XGET 'http://localhost:8080/prefectures/?prefName=北海道' |
-| GET | curl -XGET 'http://localhost:8080/prefectures' |
-| POST | curl -XPOST -H "Content-type: application/json" -d '{"prefCode": "11", "prefName": "さいたま県"}' 'http://localhost:8080/prefectures/?prefCode=01' |
-| PATCH | curl -X PATCH \ --request PATCH \ --header "Accept: application/json" \ --data-binary "{ \"prefCode\": \"11\", \"prefName\": \"埼玉県\" }" \ 'http://localhost:8080/prefectures/11' |
+| GET | curl 'http://localhost:8080/prefectures/?prefCode=01' |
+| GET | curl 'http://localhost:8080/prefectures/?prefName=北海道' |
+| GET | curl 'http://localhost:8080/prefectures' |
+| POST | curl -XPOST -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "さいたま県"}' 'http://localhost:8080/prefectures' |
+| PATCH | curl -XPATCH -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "埼玉県"}' 'http://localhost:8080/prefectures' |
 | DELETE | curl -X DELETE \ --request DELETE \ 'http://localhost:8080/prefectures/11' |
 | GET | curl 'http://localhost:8080/airports/?airportCode=HND' |
 | GET | curl 'http://localhost:8080/airports/?prefCode=27' |
