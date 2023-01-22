@@ -33,6 +33,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 - GitHub上のhtmlファイル表示には[GitHub & BitBucket HTML Preview](https://htmlpreview.github.io/)を使用
 
 ### API動作確認用 curlコマンド一覧
+#### Prefectures
 
 | Request | curlコマンド |
 |--|--|
@@ -42,6 +43,8 @@ git clone コマンドにて各自PCにダウンロードし実行
 | POST | `curl -XPOST -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "さいたま県"}' 'http://localhost:8080/prefectures'` |
 | PATCH | `curl -XPATCH -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "埼玉県"}' 'http://localhost:8080/prefectures'` |
 | DELETE | `curl -XDELETE 'http://localhost:8080/prefectures/11'` |
+
+#### Airports
 
 | Request | curlコマンド |
 |--|--|
