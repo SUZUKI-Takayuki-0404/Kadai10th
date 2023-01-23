@@ -57,7 +57,7 @@ git clone コマンドにて各自PCにダウンロードし実行
 | GET | `curl 'http://localhost:8080/airports/?airportCode=HND'` |
 | GET | `curl 'http://localhost:8080/airports/?prefCode=27'` |
 | GET | `curl 'http://localhost:8080/airports'` |
-| POST | `curl -XPOST -H "Content-type: application/json" -d '{ "airportCode": "MYE", "airportName": "三宅島", "prefCode": "13" }' 'http://localhost:8080/airports'` |
+| POST | Linux: <br>`curl -XPOST -H "Content-type: application/json" -d '{ "airportCode" : "MYE", "airportName": "Miyake", "country": "JAPAN" }' 'http://172.30.160.1:8080/airports/'`<br>Windows: <br>`curl -X POST -H "Content-type: application/json" -d '{ \"airportCode\": \"MYE\", \"airportName\": \"Miyake\", \"country\": \"JAPAN\" }' 'http://localhost:8080/airports'`|
 | PATCH | `curl -XPATCH -H "Content-type: application/json" -d '{"airportCode": "NKM", "airportName": "名古屋", "prefCode": "23"}' 'http://localhost:8080/airports/NKM'` |
 | DELETE | `curl -XDELETE 'http://localhost:8080/airports/NKM'` |
 
