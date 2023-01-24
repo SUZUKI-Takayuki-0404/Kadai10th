@@ -33,7 +33,9 @@ git clone コマンドにて各自PCにダウンロードし実行<br>
 
 [API仕様書リンク](http://htmlpreview.github.io/?https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/Kadai10api.html)
 
-- [Apiaryエディタ](https://docs.oracle.com/cd/E91812_01/tools/apiary-editor/index.html)を使用し、API Blueprintにて作成
+- [Apiaryエディタ](https://docs.oracle.com/cd/E91812_01/tools/apiary-editor/index.html)を使用し、API Blueprintにて作成<br>
+  <img src=https://user-images.githubusercontent.com/113277395/214299147-5fc6fb1f-a423-4307-8e57-b7e0ed844a0b.PNG width="40%">
+  <img src=https://user-images.githubusercontent.com/113277395/214299374-261dfee2-bd27-4993-93e6-83e276a34cf4.PNG width="40%">
 - 上記で作成した仕様書を[aglio](https://github.com/danielgtaylor/aglio)にてhtml変換
 - GitHub上のhtmlファイル表示には[GitHub & BitBucket HTML Preview](https://htmlpreview.github.io/)を使用
 
@@ -61,7 +63,7 @@ git clone コマンドにて各自PCにダウンロードし実行<br>
 | PATCH | `curl -XPATCH -H "Content-type: application/json" -d '{"airportCode": "NKM", "airportName": "名古屋", "prefCode": "23"}' 'http://localhost:8080/airports/NKM'` |
 | DELETE | `curl -XDELETE 'http://localhost:8080/airports/NKM'` |
 
-#### WindowsパソコンでPoweshell(含：IntelliJのターミナル)  or コマンドプロンプト使用時の注意事項
+**＜注意事項＞**  WindowsパソコンでPoweshell(含：IntelliJのターミナル) or コマンドプロンプト使用時の対応
 
 * json形式データ入力時に`"`の前に`\`が必要<br>
   `-d '{ "airportCode": "MYE", "airportName": "Miyakjimae", "country": "JAPAN" }`<br>
@@ -80,7 +82,7 @@ git clone コマンドにて各自PCにダウンロードし実行<br>
 |--|--|--|
 |`Optional<PrefEntity>`<br>`findByCodeFromPrefs(String prefCode)`|指定した都道府県コードに対応する都道府県データを取得<br>`SELECT * FROM prefectures`<br>`WHERE prefCode = #{prefCode}`||
 |`Optional<PrefEntity>`<br>`findByNameFromPrefs(String prefName)`|指定した都道府県名に対応する都道府県データを取得<br>`SELECT * FROM prefectures`<br>`WHERE prefName = #{prefName}`||
-|`List<PrefEntity> findAllFromPrefs()`|全ての都道府県データを取得<br>`SELECT * FROM prefectures`||
+|`List<PrefEntity> findAllFromPrefs()`|全ての都道府県データを取得<br>`SELECT * FROM prefectures`|<ul><li>存在する都道府県データ全てをListとして返す</li><li>都道府県データが存在しないときは空のListを返す</li></ul>|
 |`void createOfPref`<br>`(String prefCode, String prefName)`|既存と重複しない都道府県データを挿入<br>`INSERT INTO prefectures (prefCode, prefName)`<br>`VALUES (#{prefCode}, #{prefName})`||
 |`boolean updateOfPref`<br>`(String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新<br>`UPDATE prefectures `<br>`SET prefName = #{prefName}`<br>`WHERE prefCode = #{prefCode}`||
 |`boolean deleteOfPref`<br>`(String prefCode)`|指定した都道府県コードに対応する都道府県データを削除<br>`DELETE FROM prefectures`<br>`WHERE prefCode = #{prefCode}`||
@@ -92,7 +94,7 @@ git clone コマンドにて各自PCにダウンロードし実行<br>
 |--|--|--|
 |`Optional<AirportEntity>`<br>`findByCodeFromAirports(String airportCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得<br>`SELECT airports.*, prefectures.prefName`<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode`<br>`WHERE airportCode = #{airportCode} `||
 |`List<AirportEntity> findByPrefFromAirports`<br>`(String airportCode, String airportName, String prefCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得<br>`SELECT airports.*, prefectures.prefName`<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode `<br>`WHERE prefCode = #{prefCode}`||
-|`List<AirportEntity> findAllFromAirports(airportCode)`|空港データと都道府県データとを都道府県コードで結合し、全データを取得<br>`SELECT airports.*, prefectures.prefName `<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode`||
+|`List<AirportEntity> findAllFromAirports(airportCode)`|空港データと都道府県データとを都道府県コードで結合し、全データを取得<br>`SELECT airports.*, prefectures.prefName `<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode`|<ul><li>存在する空港データ全てを都道府県データと結合のうえListとして返す</li><li>空港データが存在しないときは空のListを返す</li></ul>|
 |`void createOfAirport`<br>`(String airportCode, String airportName, String prefCode)`|既存と重複しない空港データを挿入<br>`INSERT INTO airports (airportCode, airportName, prefCode)`<br>`VALUES (#{airportCode}, #{airportName}, #{prefCode})`||
 |`boolean updateOfAirport`<br>`(String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新<br>`UPDATE airports `<br>`SET airportName = #{airportName}, prefCode = #{prefCode} `<br>`WHERE airportCode = #{airportCode}`||
 |`boolean deleteOfAirport`<br>`(String airportCode)`|指定した空港コードに対応する空港データを削除<br>`DELETE FROM airports `<br>`WHERE airportCode = #{airportCode}`||
@@ -111,7 +113,7 @@ git clone コマンドにて各自PCにダウンロードし実行<br>
 |`void deletePref`<br>`(String prefCode)`|指定の都道府県コードに対応する都道府県データを削除する|<ul><li>指定の都道府県コードに対応する都道府県のEntityがある場合は削除する</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合はNoResourceExceptionをスローする</li></ul>|
 
 
-#### Airportsクラス
+#### Airports
 
 |Method<br>`type name(arguments)`|Function|Testメソッド<br>確認事項|
 |--|--|--|
