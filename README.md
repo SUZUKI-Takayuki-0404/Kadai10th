@@ -25,7 +25,7 @@
 ## 3. API動作確認プロセス
 ### 事前準備
 
-git clone コマンドにて各自PCにダウンロードし実行
+git clone コマンドにて各自PCにダウンロードし実行<br>
 `git clone git@github.com:SUZUKI-Takayuki-0404/Kadai10th.git`
 
 
@@ -57,9 +57,19 @@ git clone コマンドにて各自PCにダウンロードし実行
 | GET | `curl 'http://localhost:8080/airports/?airportCode=HND'` |
 | GET | `curl 'http://localhost:8080/airports/?prefCode=27'` |
 | GET | `curl 'http://localhost:8080/airports'` |
-| POST | Linux: <br>`curl -XPOST -H "Content-type: application/json" -d '{ "airportCode" : "MYE", "airportName": "三宅島", "country": "JAPAN" }' 'http://172.30.160.1:8080/airports/'`<br>Windows: <br>`curl -X POST -H "Content-type: application/json" -d '{ \"airportCode\": \"MYE\", \"airportName\": \"Miyakjimae\", \"country\": \"JAPAN\" }' 'http://localhost:8080/airports'`|
+| POST | `curl -XPOST -H "Content-type: application/json" -d '{ "airportCode" : "IRM", "airportName": "入間", "prefCode": "11" }' 'http://localhost:8080/airports/'` |
 | PATCH | `curl -XPATCH -H "Content-type: application/json" -d '{"airportCode": "NKM", "airportName": "名古屋", "prefCode": "23"}' 'http://localhost:8080/airports/NKM'` |
 | DELETE | `curl -XDELETE 'http://localhost:8080/airports/NKM'` |
+
+#### WindowsパソコンでPoweshell(含：IntelliJのターミナル)  or コマンドプロンプト使用時の注意事項
+
+* json形式データ入力時に`"`の前に`\`が必要<br>
+  `-d '{ "airportCode": "MYE", "airportName": "Miyakjimae", "country": "JAPAN" }`<br>
+  ⇒ `-d '{ \"airportCode\": \"MYE\", \"airportName\": \"Miyakjima\", \"country\": \"JAPAN\" }`
+
+* json形式データ内に日本語入力は不可<br>
+  Ubntu(Linux)ならば入力可能だが、WSLとWindowsではlocalhostが異なるのため、localhostから書替えが必要<br>
+  ⇒ `'http://172.18.16.x:8080/prefectures/?prefCode=01'` (IPアドレスはipconfigで確認)
 
 
 ## 4. 各クラスの実装メソッド/Testメソッド確認事項一覧
