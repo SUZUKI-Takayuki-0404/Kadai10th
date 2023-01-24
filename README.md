@@ -1,4 +1,7 @@
-# 第10回課題　（最終課題は本課題の成果物ベースで作成予定）
+# 第10回課題
+
+最終課題は本課題の成果物をベースに作成予定
+
 ## 1. アプリケーション概要
 
 - 以下データテーブルに対するCRUD処理すべてを備えたREST API
@@ -13,70 +16,16 @@
 
 [都道府県コード](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/sql/table-prefecture.sql)
 
-<img src="https://user-images.githubusercontent.com/113277395/213171032-961dad83-fe6e-4194-b49f-9e14ac52e30c.PNG" width="20%">
+<img src="https://user-images.githubusercontent.com/113277395/213171032-961dad83-fe6e-4194-b49f-9e14ac52e30c.PNG" width="25%">
 
 #### 空港コード表
 
 [空港コード](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/sql/table-airport.sql)
 
-<img src=https://user-images.githubusercontent.com/113277395/213170879-3c85d6f2-6976-4c95-8854-6d79c9d3faf7.PNG width="20%">
+<img src=https://user-images.githubusercontent.com/113277395/213170879-3c85d6f2-6976-4c95-8854-6d79c9d3faf7.PNG width="25%">
 
 
-## 3. API動作確認プロセス
-### 事前準備
-
-git clone コマンドにて各自PCにダウンロードし実行<br>
-```
-git clone git@github.com:SUZUKI-Takayuki-0404/Kadai10th.git
-```
-
-
-### API仕様書
-
-[API仕様書リンク](http://htmlpreview.github.io/?https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/Kadai10api.html)
-
-- [Apiaryエディタ](https://docs.oracle.com/cd/E91812_01/tools/apiary-editor/index.html)を使用し、API Blueprintにて作成<br>
-  <img src=https://user-images.githubusercontent.com/113277395/214299147-5fc6fb1f-a423-4307-8e57-b7e0ed844a0b.PNG width="40%">
-  <img src=https://user-images.githubusercontent.com/113277395/214299374-261dfee2-bd27-4993-93e6-83e276a34cf4.PNG width="40%">
-- 上記で作成した仕様書を[aglio](https://github.com/danielgtaylor/aglio)にてhtml変換
-- GitHub上のhtmlファイル表示には[GitHub & BitBucket HTML Preview](https://htmlpreview.github.io/)を使用
-
-
-### curlコマンド一覧
-#### Prefectures
-
-| Request | curlコマンド |
-|--|--|
-| GET | `curl 'http://localhost:8080/prefectures/?prefCode=01'` |
-| GET | `curl 'http://localhost:8080/prefectures/?prefName=北海道'` |
-| GET | `curl 'http://localhost:8080/prefectures'` |
-| POST | `curl -XPOST -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "さいたま県"}' 'http://localhost:8080/prefectures'` |
-| PATCH | `curl -XPATCH -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "埼玉県"}' 'http://localhost:8080/prefectures'` |
-| DELETE | `curl -XDELETE 'http://localhost:8080/prefectures/11'` |
-
-#### Airports
-
-| Request | curlコマンド |
-|--|--|
-| GET | `curl 'http://localhost:8080/airports/?airportCode=HND'` |
-| GET | `curl 'http://localhost:8080/airports/?prefCode=27'` |
-| GET | `curl 'http://localhost:8080/airports'` |
-| POST | `curl -XPOST -H "Content-type: application/json" -d '{ "airportCode" : "IRM", "airportName": "入間", "prefCode": "11" }' 'http://localhost:8080/airports/'` |
-| PATCH | `curl -XPATCH -H "Content-type: application/json" -d '{"airportCode": "NKM", "airportName": "名古屋", "prefCode": "23"}' 'http://localhost:8080/airports/NKM'` |
-| DELETE | `curl -XDELETE 'http://localhost:8080/airports/NKM'` |
-
-**＜注意事項＞**  WindowsパソコンでPoweshell(含：IntelliJのターミナル) or コマンドプロンプト使用時の対応
-
-* json形式データ入力時に`"`の前に`\`が必要<br>
-  `-d '{ "airportCode": "MYE", "airportName": "Miyakjimae", "country": "JAPAN" }`<br>
-  ⇒ `-d '{ \"airportCode\": \"MYE\", \"airportName\": \"Miyakjima\", \"country\": \"JAPAN\" }`
-
-* json形式データ内に日本語入力は不可<br>
-  Ubntu(Linux)ならば入力可能だが、WSLとWindowsではlocalhostが異なるのため、localhostから書替えが必要<br>
-  ⇒ `'http://172.18.16.x:8080/prefectures/?prefCode=01'` (IPアドレスはipconfigで確認)
-
-
-## 4. 各クラスの実装メソッド/Testメソッド確認事項一覧
+## 3. 各クラスの実装メソッド/Testメソッド確認事項一覧
 ### Mapperクラス
 #### Prefectures
 
@@ -150,3 +99,59 @@ git clone git@github.com:SUZUKI-Takayuki-0404/Kadai10th.git
 |`ResponseEntity<AirportResponse>`<br>`createAirport(AirportfForm airportForm)`|新規の空港コードで空港データを新規追加||
 |`ResponseEntity<AirportResponse>`<br>`updateAirport(AirportfForm airportForm)`|指定の空港コードに対応する空港名、都道府県コードを書き換え||
 |`ResponseEntity<Void>`<br>`deleteAirport(String airportCode)`|指定の空港コードに対応する空港データを削除||
+
+
+## 4. API動作確認プロセス
+### 事前準備
+
+git clone コマンドにて各自PCにダウンロードし実行<br>
+```
+git clone git@github.com:SUZUKI-Takayuki-0404/Kadai10th.git
+```
+
+
+### API仕様書
+
+[API仕様書リンク](http://htmlpreview.github.io/?https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/Kadai10api.html)
+
+- [Apiaryエディタ](https://docs.oracle.com/cd/E91812_01/tools/apiary-editor/index.html)を使用し、API Blueprintにて作成<br>
+  <img src=https://user-images.githubusercontent.com/113277395/214299147-5fc6fb1f-a423-4307-8e57-b7e0ed844a0b.PNG width="40%">
+  <img src=https://user-images.githubusercontent.com/113277395/214299374-261dfee2-bd27-4993-93e6-83e276a34cf4.PNG width="40%">
+- 上記で作成した仕様書を[aglio](https://github.com/danielgtaylor/aglio)にてhtml変換
+- GitHub上のhtmlファイル表示には[GitHub & BitBucket HTML Preview](https://htmlpreview.github.io/)を使用
+
+
+### curlコマンド一覧
+#### Prefectures
+
+| Request | curlコマンド |
+|--|--|
+| GET | `curl 'http://localhost:8080/prefectures/?prefCode=01'` |
+| GET | `curl 'http://localhost:8080/prefectures/?prefName=北海道'` |
+| GET | `curl 'http://localhost:8080/prefectures'` |
+| POST | `curl -XPOST -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "さいたま県"}' 'http://localhost:8080/prefectures'` |
+| PATCH | `curl -XPATCH -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "埼玉県"}' 'http://localhost:8080/prefectures'` |
+| DELETE | `curl -XDELETE 'http://localhost:8080/prefectures/11'` |
+
+
+#### Airports
+
+| Request | curlコマンド |
+|--|--|
+| GET | `curl 'http://localhost:8080/airports/?airportCode=HND'` |
+| GET | `curl 'http://localhost:8080/airports/?prefCode=27'` |
+| GET | `curl 'http://localhost:8080/airports'` |
+| POST | `curl -XPOST -H "Content-type: application/json" -d '{ "airportCode" : "IRM", "airportName": "入間", "prefCode": "11" }' 'http://localhost:8080/airports/'` |
+| PATCH | `curl -XPATCH -H "Content-type: application/json" -d '{"airportCode": "NKM", "airportName": "名古屋", "prefCode": "23"}' 'http://localhost:8080/airports/NKM'` |
+| DELETE | `curl -XDELETE 'http://localhost:8080/airports/NKM'` |
+
+**＜補足＞**  WindowsパソコンでPoweshell(含：IntelliJのターミナル) or コマンドプロンプト使用時の注意事項
+
+* json形式データ入力時に`"`の前に`\`が必要<br>
+  `-d '{ "airportCode": "MYE", "airportName": "Miyakjimae", "country": "JAPAN" }`<br>
+  ⇒ `-d '{ \"airportCode\": \"MYE\", \"airportName\": \"Miyakjima\", \"country\": \"JAPAN\" }`
+
+* json形式データ内に日本語入力は不可<br>
+  Ubntu(Linux)ならば入力可能だが、WSLとWindowsではlocalhostが異なるのため、localhostから書き換えが必要<br>
+  ⇒ `'http://172.18.16.x:8080/prefectures/?prefCode=01'` (IPアドレスは`ipconfig`で確認)
+
