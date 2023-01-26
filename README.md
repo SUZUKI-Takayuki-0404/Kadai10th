@@ -119,6 +119,7 @@ git clone git@github.com:SUZUKI-Takayuki-0404/Kadai10th.git
   <img src=https://user-images.githubusercontent.com/113277395/214299147-5fc6fb1f-a423-4307-8e57-b7e0ed844a0b.PNG width="40%"><br>
   <img src=https://user-images.githubusercontent.com/113277395/214299374-261dfee2-bd27-4993-93e6-83e276a34cf4.PNG width="40%">
 - 上記で作成した仕様書を[aglio](https://github.com/danielgtaylor/aglio)にてhtml変換
+  `aglio -i <filename.apib> -o <output.html>`
 - GitHub上のhtmlファイル表示には[GitHub & BitBucket HTML Preview](https://htmlpreview.github.io/)を使用
 
 
