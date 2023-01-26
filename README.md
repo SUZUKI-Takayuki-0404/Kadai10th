@@ -110,7 +110,6 @@ git clone コマンドにて各自PCにダウンロードし実行<br>
 git clone git@github.com:SUZUKI-Takayuki-0404/Kadai10th.git
 ```
 
-
 ### API仕様書
 
 [API仕様書リンク](http://htmlpreview.github.io/?https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/Kadai10api.html)
@@ -118,10 +117,13 @@ git clone git@github.com:SUZUKI-Takayuki-0404/Kadai10th.git
 - [Apiaryエディタ](https://docs.oracle.com/cd/E91812_01/tools/apiary-editor/index.html)を使用し、API Blueprintにて作成<br>
   <img src=https://user-images.githubusercontent.com/113277395/214299147-5fc6fb1f-a423-4307-8e57-b7e0ed844a0b.PNG width="40%"><br>
   <img src=https://user-images.githubusercontent.com/113277395/214299374-261dfee2-bd27-4993-93e6-83e276a34cf4.PNG width="40%">
-- 上記で作成した仕様書を[aglio](https://github.com/danielgtaylor/aglio)にてhtml変換
-  `aglio -i <filename.apib> -o <output.html>`
+- 上記で作成した仕様書を[aglio](https://github.com/danielgtaylor/aglio)にてhtml変換<br>
+  使用コマンド：
+  ```
+  aglio -i kadai10api.apib -o Kadai10api.html
+  ```
 - GitHub上のhtmlファイル表示には[GitHub & BitBucket HTML Preview](https://htmlpreview.github.io/)を使用
-
+<br>
 
 ### curlコマンド一覧
 #### Prefectures
