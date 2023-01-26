@@ -35,9 +35,9 @@
 |`Optional<PrefEntity>`<br>`findByCodeFromPrefs(String prefCode)`|指定した都道府県コードに対応する都道府県データを取得<br>`SELECT * FROM prefectures`<br>`WHERE prefCode = #{prefCode}`|<ul><li>指定の都道府県コードが存在するときは、対応する都道府県EntityをOptionalとして返す</li><li>指定の都道府県コードが無いときは、空のOptionalを返す</li></ul>|
 |`Optional<PrefEntity>`<br>`findByNameFromPrefs(String prefName)`|指定した都道府県名に対応する都道府県データを取得<br>`SELECT * FROM prefectures`<br>`WHERE prefName = #{prefName}`|<ul><li>指定の都道府県名が存在するときは、対応する都道府県EntityをOptionalとして返す</li><li>指定の都道府県名が無いときは、空のOptionalを返す</li></ul>|
 |`List<PrefEntity> findAllFromPrefs()`|全ての都道府県データを取得<br>`SELECT * FROM prefectures`|<ul><li>存在する都道府県データ全てをListとして返す</li><li>都道府県データが存在しないときは空のListを返す</li></ul>|
-|`void createOfPref`<br>`(String prefCode, String prefName)`|既存と重複しない都道府県データを挿入<br>`INSERT INTO prefectures (prefCode, prefName)`<br>`VALUES (#{prefCode}, #{prefName})`||
-|`boolean updateOfPref`<br>`(String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新<br>`UPDATE prefectures `<br>`SET prefName = #{prefName}`<br>`WHERE prefCode = #{prefCode}`||
-|`boolean deleteOfPref`<br>`(String prefCode)`|指定した都道府県コードに対応する都道府県データを削除<br>`DELETE FROM prefectures`<br>`WHERE prefCode = #{prefCode}`||
+|`void createOfPref`<br>`(String prefCode, String prefName)`|既存と重複しない都道府県データを挿入<br>`INSERT INTO prefectures (prefCode, prefName)`<br>`VALUES (#{prefCode}, #{prefName})`|<ul><li>指定の都道府県コードが既存のものと重複しない場合は、都道府県名と共に新しいデータとして追加する</li><li>指定の都道府県コードが既存のものと重複する場合は、DuplicateKeyExceptionをスローする</li></ul>|
+|`boolean updateOfPref`<br>`(String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新<br>`UPDATE prefectures `<br>`SET prefName = #{prefName}`<br>`WHERE prefCode = #{prefCode}`|<ul><li>指定の都道府県コード</li><li>指定の都道府県コード</li><li>指定の都道府県コード</li></ul>|
+|`boolean deleteOfPref`<br>`(String prefCode)`|指定した都道府県コードに対応する都道府県データを削除<br>`DELETE FROM prefectures`<br>`WHERE prefCode = #{prefCode}`|<ul><li>指定の都道府県コード</li><li>指定の都道府県コード</li></ul>|
 
 
 #### Airports
@@ -47,9 +47,9 @@
 |`Optional<AirportEntity>`<br>`findByCodeFromAirports(String airportCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した空港コードに該当するデータを取得<br>`SELECT airports.*, prefectures.prefName`<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode`<br>`WHERE airportCode = #{airportCode} `|<ul><li>指定の空港コードが存在するときは、対応する空港EntityをOptionalとして返す</li><li>指定の空港コードが無いときは、空のOptionalを返す</li></ul>|
 |`List<AirportEntity> findByPrefFromAirports`<br>`(String airportCode, String airportName, String prefCode)`|空港データと都道府県データとを都道府県コードで結合し、指定した都道府県名に該当するデータを取得<br>`SELECT airports.*, prefectures.prefName`<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode `<br>`WHERE prefCode = #{prefCode}`|<ul><li>指定の都道府県コードが存在するときは、対応する空港EntityをListとして返す</li><li>指定の都道府県コードが無いときは、空のListを返す</li></ul>|
 |`List<AirportEntity> findAllFromAirports(airportCode)`|空港データと都道府県データとを都道府県コードで結合し、全データを取得<br>`SELECT airports.*, prefectures.prefName `<br>`FROM airports INNER JOIN prefectures`<br>`ON airports.prefCode = prefectures.prefCode`|<ul><li>存在する全ての空港EntityをListとして返す</li><li>空港が存在しないときは空のListを返す</li></ul>|
-|`void createOfAirport`<br>`(String airportCode, String airportName, String prefCode)`|既存と重複しない空港データを挿入<br>`INSERT INTO airports (airportCode, airportName, prefCode)`<br>`VALUES (#{airportCode}, #{airportName}, #{prefCode})`||
-|`boolean updateOfAirport`<br>`(String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新<br>`UPDATE airports `<br>`SET airportName = #{airportName}, prefCode = #{prefCode} `<br>`WHERE airportCode = #{airportCode}`||
-|`boolean deleteOfAirport`<br>`(String airportCode)`|指定した空港コードに対応する空港データを削除<br>`DELETE FROM airports `<br>`WHERE airportCode = #{airportCode}`||
+|`void createOfAirport`<br>`(String airportCode, String airportName, String prefCode)`|既存と重複しない空港データを挿入<br>`INSERT INTO airports (airportCode, airportName, prefCode)`<br>`VALUES (#{airportCode}, #{airportName}, #{prefCode})`|<ul><li>指定の空港コードが既存のものと重複しない場合は、空港名および都道府県コードと共に新しいデータとして追加する</li><li>指定の空港コードが既存のものと重複する場合は、DuplicateKeyExceptionをスローする</li></ul>|
+|`boolean updateOfAirport`<br>`(String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新<br>`UPDATE airports `<br>`SET airportName = #{airportName}, prefCode = #{prefCode} `<br>`WHERE airportCode = #{airportCode}`|<ul><li>指定の空港コード</li><li>指定の空港コード</li><li>指定の空港コード</li></ul>|
+|`boolean deleteOfAirport`<br>`(String airportCode)`|指定した空港コードに対応する空港データを削除<br>`DELETE FROM airports `<br>`WHERE airportCode = #{airportCode}`|<ul><li>指定の空港コード</li><li>指定の空港コード</li></ul>|
 
 
 ### Serviceクラス
