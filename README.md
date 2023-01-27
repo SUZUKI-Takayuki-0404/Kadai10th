@@ -131,6 +131,8 @@ git clone git@github.com:SUZUKI-Takayuki-0404/Kadai10th.git
 ### curlコマンド一覧
 #### Prefectures
 
+※2023/1/31時点では未実装
+
 | Request | curlコマンド |
 |--|--|
 | GET | `curl 'http://localhost:8080/prefectures/?prefCode=01'` |
