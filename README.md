@@ -27,11 +27,11 @@
 
 
 ## 3. 各クラスの実装メソッド/Testメソッド確認事項一覧
+進捗にあわせ更新予定
 
 <details>
 <summary> </summary>
-
- ### Mapperクラス
+### Mapperクラス
 #### Prefectures
 
 |Method<br>`type name(arguments)`|Function<br>`実行SQLコマンド`|Testメソッド確認事項|
