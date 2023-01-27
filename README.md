@@ -27,7 +27,11 @@
 
 
 ## 3. 各クラスの実装メソッド/Testメソッド確認事項一覧
-### Mapperクラス
+
+<details>
+<summary> </summary>
+
+ ### Mapperクラス
 #### Prefectures
 
 |Method<br>`type name(arguments)`|Function<br>`実行SQLコマンド`|Testメソッド確認事項|
@@ -101,6 +105,9 @@
 |`ResponseEntity<AirportResponse>`<br>`updateAirport(AirportfForm airportForm)`|指定の空港コードに対応する空港名、都道府県コードを更新する|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する空港データを更新できた場合 **204**</li><li>指定した空港コードに対応する空港データを更新できなかった場合 **409**</li><li>指定した空港コードに対応する空港データ、または指定した都道府県コードに対応する都道府県データが存在しなかった場合 **404**</li></ul>|
 |`ResponseEntity<Void>`<br>`deleteAirport(String airportCode)`|指定の空港コードに対応する空港データを削除する|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する都道府県データを削除できた場合 **204**</li><li>指定した空港コードに対応する空港データが存在しなかった場合 **404**</li></ul>|
 
+]
+
+</details>
 
 ## 4. API動作確認プロセス
 ### 事前準備
@@ -156,6 +163,6 @@ git clone git@github.com:SUZUKI-Takayuki-0404/Kadai10th.git
   ⇒ `-d '{ \"airportCode\": \"MYE\", \"airportName\": \"Miyakjima\", \"country\": \"JAPAN\" }`
 
 * json形式データ内に日本語入力は不可<br>
-  Ubntu(Linux)ならば入力可能だが、WSLとWindowsではlocalhostが異なるため、localhostから書き換えが必要<br>
+  Ubntu(Linux)を代用すれば入力可能だが、WSLとWindowsではlocalhostが異なるため、localhostから書き換えが必要<br>
   ⇒ `'http://172.18.16.x:8080/prefectures/?prefCode=01'` (IPアドレスは`ipconfig`で確認)
 
