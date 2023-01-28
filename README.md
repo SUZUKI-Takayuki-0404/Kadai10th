@@ -7,8 +7,9 @@
 - 以下データテーブルに対するCRUD処理すべてを備えたREST API
 - JUnitによるテストコード実装
 - GitHub Actionsによる自動単体テスト実装
-- プロジェクト構成図
- (ここに付図)
+- アプリケーション概略図（下図）
+
+<img src="https://user-images.githubusercontent.com/113277395/215264501-339f35df-cefd-456c-a377-9b010bcb49b6.PNG" width="60%">
 
 
 ## 2. 取扱データテーブル
