@@ -6,7 +6,7 @@
 
 - 取扱データテーブルに対するCRUD処理すべてを備えたREST API
 - JUnitによるテストコード実装
-- GitHub Actionsによる自動単体テスト実装
+- GitHub Actionsによる自動単体テスト実装<br> [自動テストコード](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/.github/workflows/kadai10thtest.yml)
 - アプリケーション概略図（下図）
 
 <img src="https://user-images.githubusercontent.com/113277395/215264501-339f35df-cefd-456c-a377-9b010bcb49b6.PNG" width="70%">
@@ -159,7 +159,7 @@ git clone https://github.com/SUZUKI-Takayuki-0404/Kadai10th.git
 **＜補足＞**  WindowsパソコンでPoweshell（含：IntelliJのターミナル）またはコマンドプロンプト使用時の注意事項
 
 * json形式データ入力時に`"`の前に`\`が必要<br>
-  `-d '{ "airportCode": "MYE", "airportName": "Miyakjimae", "country": "JAPAN" }`<br>
+  `-d '{ "airportCode": "MYE", "airportName": "Miyakjima", "country": "JAPAN" }`<br>
   ⇒ `-d '{ \"airportCode\": \"MYE\", \"airportName\": \"Miyakjima\", \"country\": \"JAPAN\" }`
 
 * json形式データ内に日本語入力は不可<br>
