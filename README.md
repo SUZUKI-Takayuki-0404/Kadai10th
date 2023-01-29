@@ -4,7 +4,7 @@
 
 ## 1. アプリケーション概要
 
-- 以下データテーブルに対するCRUD処理すべてを備えたREST API
+- 取扱データテーブルに対するCRUD処理すべてを備えたREST API
 - JUnitによるテストコード実装
 - GitHub Actionsによる自動単体テスト実装
 - アプリケーション概略図（下図）
@@ -134,13 +134,13 @@ git clone https://github.com/SUZUKI-Takayuki-0404/Kadai10th.git
 
 #### Prefectures
 
-※2023/1/31時点では未実装
+※2023/1/30時点では未実装
 
 | Request | curlコマンド |
 |--|--|
 | GET | `curl 'http://localhost:8080/prefectures/?prefCode=01'` |
 | GET | `curl 'http://localhost:8080/prefectures/?prefName=北海道'` |
-| GET | `curl 'http://localhost:8080/prefectures'`  |
+| GET | `curl 'http://localhost:8080/prefectures'` |
 | POST| `curl -XPOST -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "さいたま県"}' 'http://localhost:8080/prefectures'` |
 | PATCH| `curl -XPATCH -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "埼玉県"}' 'http://localhost:8080/prefectures'` |
 | DELETE | `curl -XDELETE 'http://localhost:8080/prefectures/11'` |
