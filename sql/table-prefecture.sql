@@ -14,7 +14,6 @@ INSERT INTO prefectures (prefCode,prefName) VALUES('06','山形県');
 INSERT INTO prefectures (prefCode,prefName) VALUES('07','福島県');
 INSERT INTO prefectures (prefCode,prefName) VALUES('08','茨城県');
 INSERT INTO prefectures (prefCode,prefName) VALUES('09','栃木県');
-INSERT INTO prefectures (prefCode,prefName) VALUES('11','埼玉県');
 INSERT INTO prefectures (prefCode,prefName) VALUES('12','千葉県');
 INSERT INTO prefectures (prefCode,prefName) VALUES('13','東京都');
 INSERT INTO prefectures (prefCode,prefName) VALUES('14','神奈川県');

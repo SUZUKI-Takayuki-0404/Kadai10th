@@ -127,22 +127,8 @@ HOST: http://localhost:8080
                 "prefName": "埼玉県"
             }
 
-+ Response 200 (application/json)
++ Response 204
 
-    + Attributes
-        + prefCode: 11 (string) - 都道府県コード
-        + prefName: 埼玉県 (string) - 都道府県名
-
-    + Body
-
-            {
-                "message" : "successfully updated",
-                "Prefectures" :
-                {
-                    "prefCode" : "11",
-                    "prefName" : "埼玉県"
-                }
-            }
 
 ### deletePref [DELETE]
 指定した既存の都道府県コードに対応する所在都道府県を削除
@@ -312,25 +298,8 @@ HOST: http://localhost:8080
                 "prefCode": "23"
             }
 
-+ Response 200 (application/json)
++ Response 204
 
-    + Attributes
-        + airportCode: NKM (string) - 空港コード
-        + airportName: 名古屋 (string) - 空港名
-        + prefCode: 23 (string) - 都道府県コード
-        + prefName: 愛知県 (string) - 所在都道府県
-
-    + Body
-
-            {
-                "message": "successfully created",
-                "Airports": {
-                    "airportCode": "NKM",
-                    "airportName": "名古屋",
-                    "prefCode": "23",
-                    "prefName": "愛知県"
-                }
-            }
 
 ### deleteAirport [DELETE]
 指定した既存の空港コードに対応する空港名と所在都道府県を削除
@@ -341,7 +310,7 @@ HOST: http://localhost:8080
 # Group Exceptions
 
 ## NotFound
-### No-Resource
+### No Resource
 GET/PATCH/DELETEリクエスト、および空港データベースのPOSTリクエスト(createAirport)に対し、指定したパラメータに該当するデータが無い場合の処理
 
 + Response 404
@@ -349,14 +318,21 @@ GET/PATCH/DELETEリクエスト、および空港データベースのPOSTリク
             {"message" : "not found"}
 
 ## Conflict
-### Code-Duplicated
+### Code Duplication
 POSTリクエストで指定プライマリーキーが既に存在している場合の処理
 + Response 409
             
             {"message" : "code duplicated"}
 
-### Same-As-Current
-PATCHリクエストで書き換え前に対し変更が無い場合の処理
+### Same As Current
+PATCHリクエストで更新前に対し変更が無い場合の処理
 + Response 409
             
             {"message" : "nothing updated"}
+
+### Code In Use
+DELETEリクエストで指定プライマリーキーが外部キーとして使用中であり削除できない場合の処理
++ Response 409
+            
+            {"message" : "code in use"}
+
