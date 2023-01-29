@@ -112,7 +112,7 @@
 git clone コマンドにて各自PCにダウンロードし実行<br>
 
 ```
-git clone git@github.com:SUZUKI-Takayuki-0404/Kadai10th.git
+git clone https://github.com/SUZUKI-Takayuki-0404/Kadai10th.git
 ```
 
 ### API仕様書
