@@ -9,7 +9,7 @@
 - GitHub Actionsによる自動単体テスト実装
 - アプリケーション概略図（下図）
 
-<img src="https://user-images.githubusercontent.com/113277395/215264501-339f35df-cefd-456c-a377-9b010bcb49b6.PNG" width="60%">
+<img src="https://user-images.githubusercontent.com/113277395/215264501-339f35df-cefd-456c-a377-9b010bcb49b6.PNG" width="70%">
 
 ## 2. 取扱データテーブル
 
@@ -156,7 +156,7 @@ git clone git@github.com:SUZUKI-Takayuki-0404/Kadai10th.git
 | PATCH | `curl -XPATCH -H "Content-type: application/json" -d '{"airportCode": "NKM", "airportName": "名古屋", "prefCode": "23"}' 'http://localhost:8080/airports/NKM'` |
 | DELETE | `curl -XDELETE 'http://localhost:8080/airports/NKM'` |
 
-**＜補足＞**  WindowsパソコンでPoweshell(含：IntelliJのターミナル) or コマンドプロンプト使用時の注意事項
+**＜補足＞**  WindowsパソコンでPoweshell（含：IntelliJのターミナル）またはコマンドプロンプト使用時の注意事項
 
 * json形式データ入力時に`"`の前に`\`が必要<br>
   `-d '{ "airportCode": "MYE", "airportName": "Miyakjimae", "country": "JAPAN" }`<br>
