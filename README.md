@@ -29,7 +29,7 @@
 ## 3. 各クラスの実装メソッド/Testメソッド確認事項一覧
 
 <details>
-<summary>進捗にあわせ更新予定 ◀</summary>
+<summary>進捗にあわせ更新予定</summary>
 
 ### Mapperクラス
 
