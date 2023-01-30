@@ -163,5 +163,5 @@ git clone https://github.com/SUZUKI-Takayuki-0404/Kadai10th.git
   ⇒ `-d '{ \"airportCode\": \"MYE\", \"airportName\": \"Miyakjima\", \"country\": \"JAPAN\" }`
 
 * json形式データ内に日本語入力は不可<br>
-  Ubntu(Linux)を代用すれば入力可能だが、WSLとWindowsではlocalhostが異なるため、localhostから書き換えが必要<br>
+  Ubuntu(Linux)を代用すれば入力可能だが、WSLとWindowsではlocalhostが異なるため、localhostから書き換えが必要<br>
   ⇒ `'http://172.18.16.x:8080/prefectures/?prefCode=01'` (IPアドレスは`ipconfig`で確認)
