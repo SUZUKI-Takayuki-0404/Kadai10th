@@ -7,68 +7,7 @@ HOST: http://localhost:8080
 # Group Prefectures
 都道府県データベースに対する操作
 
-## Resource [/prefectures/{?prefCode}]
-### getPrefByCode [GET]
-指定した既存の都道府県コードに対応する都道府県データを返す
-
-+ Parameters
-    + prefCode: 01 (string, required) - 都道府県コード
-
-+ Response 200 (application/json)
-
-    + Attributes
-        + prefName: 北海道 (string) - 都道府県名
-
-    + Body
-
-            {
-                "message" : "successfully got",
-                "prefName" : "北海道"
-            }
-
-## Resource [/prefectures/{?prefName}]
-### getPrefByName [GET]
-指定した既存の都道府県名に対応する都道府県データを返す
-
-+ Parameters
-    + prefName: 北海道 (string, required) - 都道府県名
-
-+ Response 200 (application/json)
-
-    + Attributes
-        + prefCode: 01 (string) - 都道府県コード
-
-    + Body
-
-            {
-                "message" : "successfully got",
-                "prefCode" : "01"
-            }
-
 ## Resource [/prefectures]
-### getAllPrefs [GET]
-既存の都道府県コードと対応する都道府県データを全て返す
-
-+ Response 200 (application/json)
-
-    + Attributes
-        + prefCode: 01 (string) - 都道府県コード
-        + prefName: 北海道 (string) - 都道府県名
-
-    + Body
-
-            {
-                "message" : "successfully got",
-                "Prefectures" :
-                [{
-                    "prefCode" : "01",
-                    "prefName" : "北海道"
-                },{
-                    "prefCode" : "11",
-                    "prefName" : "埼玉県"
-                }]
-            }
-
 ### createPref [POST]
 既存とは重複しない都道府県コードとその都道府県名をデータとして追加
 
@@ -106,10 +45,71 @@ HOST: http://localhost:8080
                 }
             }
 
+
+### getAllPrefs [GET]
+既存の都道府県コードと対応する都道府県データを全て返す
+
++ Response 200 (application/json)
+
+    + Attributes
+        + prefCode: 01 (string) - 都道府県コード
+        + prefName: 北海道 (string) - 都道府県名
+
+    + Body
+
+            {
+                "message" : "successfully got",
+                "Prefectures" :
+                [{
+                    "prefCode" : "01",
+                    "prefName" : "北海道"
+                },{
+                    "prefCode" : "11",
+                    "prefName" : "埼玉県"
+                }]
+            }
+
+
+## Resource [/prefectures/{?prefName}]
+### getPrefByName [GET]
+指定した既存の都道府県名に対応する都道府県データを返す
+
++ Parameters
+    + prefName: 北海道 (string, required) - 都道府県名
+
++ Response 200 (application/json)
+
+    + Attributes
+        + prefCode: 01 (string) - 都道府県コード
+
+    + Body
+
+            {
+                "message" : "successfully got",
+                "prefCode" : "01"
+            }
+
+
 ## Resource [/prefectures/{prefCode}]
 
 + Parameters
     + prefCode: 11 (string, required) - 都道府県コード
+
+### getPrefByCode [GET]
+指定した既存の都道府県コードに対応する都道府県データを返す
+
++ Response 200 (application/json)
+
+    + Attributes
+        + prefName: 埼玉県 (string) - 都道府県名
+
+    + Body
+
+            {
+                "message" : "successfully got",
+                "prefName" : "埼玉県"
+            }
+
 
 ### updatePref [PATCH]
 指定した既存の都道府県コードに対応する都道府県名を書き換え
@@ -139,68 +139,44 @@ HOST: http://localhost:8080
 # Group Airports
 空港データベースに対する操作
 
-## Resource [/airports/{?airportCode}]
-### getAirport [GET]
-指定した既存の空港コードに対応する空港名、都道府県コード、都道府県名を返す
+## Resource [/airports]
+### createAirport [POST]
+既存とは重複しない任意の空港コードで空港を新規追加（要：既存の都道府県コード）
 
-+ Parameters
-    + airportCode: HND (string, required) - 空港コード
++ Request
 
-+ Response 200 (application/json)
+    + Headers
 
-    + Attributes
-        + airportCode: HND (string) - 空港コード
-        + airportName: 羽田 (string) - 空港名
-        + prefCode: 13 (string) - 都道府県コード
-        + prefName: 東京都 (string) - 所在都道府県
+            Accept: application/json
 
     + Body
 
             {
-                "message" : "successfully got",
-                "airports" :
+                "airportCode": "MYE",
+                "airportName": "三宅島",
+                "prefCode": "13"
+            }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /airports/MYE
+
+    + Body
+
+            {
+                "message": "successfully created",
+                "airports":
                 {
-                    "airportCode" : "HND",
-                    "airportName" : "羽田",
+                    "airportCode" : "MYE",
+                    "airportName" : "三宅島",
                     "prefCode": "13",
                     "prefName" : "東京都"
                 }
             }
 
-## Resource [/airports/{?prefCode}]
-### getAirportsInPref [GET]
-指定した既存の都道府県に存在する空港コード、空港名を全て返す
 
-+ Parameters
-    + prefCode: 27 (string, required) - 都道府県コード
-
-+ Response 200 (application/json)
-
-    + Attributes
-        + airportCode: KIX (string) - 空港コード
-        + airportName: 関西国際空港 (string) - 空港名
-        + prefCode: 27 (string) - 都道府県コード
-        + prefName: 大阪府 (string) - 所在都道府県
-
-    + Body
-
-            {
-                "message": "successfully got",
-                "airports":
-                [{
-                    "airportCode": "ITM",
-                    "airportName": "伊丹空港",
-                    "prefCode": "27",
-                    "prefName": "大阪府"
-                },{
-                    "airportCode": "KIX",
-                    "airportName": "関西国際空港",
-                    "prefCode": "27",
-                    "prefName": "大阪府"
-                }]
-            }
-
-## Resource [/airports]
 ### getAllAirports [GET]
 全ての既存の空港コードとこれに対応する空港名、都道府県コード、都道府県名を返す
 
@@ -240,46 +216,70 @@ HOST: http://localhost:8080
                 }]
             }
 
-### createAirport [POST]
-既存とは重複しない任意の空港コードで空港を新規追加（要：既存の都道府県コード）
 
-+ Request
+## Resource [/airports/prefectures/{prefCode}]
+### getAirportsInPref [GET]
+指定した既存の都道府県に存在する空港コード、空港名を全て返す
 
-    + Headers
++ Parameters
+    + prefCode: 27 (string, required) - 都道府県コード
 
-            Accept: application/json
++ Response 200 (application/json)
 
-    + Body
-
-            {
-                "airportCode": "MYE",
-                "airportName": "三宅島",
-                "prefCode": "13"
-            }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /airports/MYE
+    + Attributes
+        + airportCode: KIX (string) - 空港コード
+        + airportName: 関西国際空港 (string) - 空港名
+        + prefCode: 27 (string) - 都道府県コード
+        + prefName: 大阪府 (string) - 所在都道府県
 
     + Body
 
             {
-                "message": "successfully created",
+                "message": "successfully got",
                 "airports":
-                {
-                    "airportCode" : "MYE",
-                    "airportName" : "三宅島",
-                    "prefCode": "13",
-                    "prefName" : "東京都"
-                }
+                [{
+                    "airportCode": "ITM",
+                    "airportName": "伊丹空港",
+                    "prefCode": "27",
+                    "prefName": "大阪府"
+                },{
+                    "airportCode": "KIX",
+                    "airportName": "関西国際空港",
+                    "prefCode": "27",
+                    "prefName": "大阪府"
+                }]
             }
+
 
 ## Resource [/airports/{airportCode}]
 
 + Parameters
     + airportCode: NKM (string, required) - 空港コード
+
+### getAirport [GET]
+指定した既存の空港コードに対応する空港名、都道府県コード、都道府県名を返す
+
++ Response 200 (application/json)
+
+    + Attributes
+        + airportCode: NKM (string) - 空港コード
+        + airportName: 小牧 (string) - 空港名
+        + prefCode: 23 (string) - 都道府県コード
+        + prefName: 愛知県 (string) - 所在都道府県
+
+    + Body
+
+            {
+                "message" : "successfully got",
+                "airports" :
+                {
+                    "airportCode" : "NKM",
+                    "airportName" : "小牧",
+                    "prefCode": "23",
+                    "prefName" : "愛知県"
+                }
+            }
+
 
 ### updateAirport [PATCH]
 指定した既存の空港コードに対応する空港名、都道府県コードを書き換え
@@ -296,6 +296,7 @@ HOST: http://localhost:8080
                 "airportCode": "NKM",
                 "airportName": "名古屋",
                 "prefCode": "23"
+                "prefName" : "愛知県"
             }
 
 + Response 204
@@ -317,6 +318,7 @@ GET/PATCH/DELETEリクエスト、および空港データベースのPOSTリク
             
             {"message" : "not found"}
 
+
 ## Conflict
 ### Code Duplication
 POSTリクエストで指定プライマリーキーが既に存在している場合の処理
@@ -324,11 +326,13 @@ POSTリクエストで指定プライマリーキーが既に存在している�
             
             {"message" : "code duplicated"}
 
+
 ### Same As Current
 PATCHリクエストで更新前に対し変更が無い場合の処理
 + Response 409
             
             {"message" : "nothing updated"}
+
 
 ### Code In Use
 DELETEリクエストで指定プライマリーキーが外部キーとして使用中であり削除できない場合の処理
