@@ -27,18 +27,23 @@
 
 <img src=https://user-images.githubusercontent.com/113277395/213170879-3c85d6f2-6976-4c95-8854-6d79c9d3faf7.PNG width="25%">
 
-#### データテーブルER図
+#### データテーブルのER図
 
-```mermaid LR
+```mermaid
+
+---
+title: Entity Relationship Diagram
+---
+
 erDiagram
-Prefectures ||--o{ Airports :"have 0 or more"
+Prefecture ||--o{ Airport :"has 0 or more"
 
-  Prefectures {
+  Prefecture {
     string prefCode PK
     string prefName
   }
 
-  Airports {
+  Airport {
     string airportCode PK
     string airportName
     string prefCode FK
