@@ -29,18 +29,19 @@
 
 #### データテーブルER図
 
-```mermaid
+```mermaid LR
 erDiagram
+Prefectures ||--o{ Airports :"A prefecture has 0 or more airports"
 
   Prefectures {
-    string prefCode
+    string prefCode PK
     string prefName
   }
 
   Airports {
-    string airportCode
+    string airportCode PK
     string airportName
-    string prefCode
+    string prefCode FK
   }
 
 ```
