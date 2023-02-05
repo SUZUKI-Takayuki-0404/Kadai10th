@@ -9,7 +9,7 @@ HOST: http://localhost:8080
 
 ## Resource [/prefectures]
 ### createPref [POST]
-既存とは重複しない都道府県コードとその都道府県名をデータとして追加
+既存とは重複しない都道府県コードで都道府県名データを新規追加する
 
 + Request
 
@@ -32,7 +32,7 @@ HOST: http://localhost:8080
 
     + Attributes
         + prefCode: 11 (string) - 都道府県コード
-        + prefName: 埼玉県 (string) - 都道府県名
+        + prefName: さいたま県 (string) - 都道府県名
 
     + Body
 
@@ -41,13 +41,13 @@ HOST: http://localhost:8080
                 "Prefectures" :
                 {
                     "prefCode" : "11",
-                    "prefName" : "埼玉県"
+                    "prefName" : "さいたま県"
                 }
             }
 
 
 ### getAllPrefs [GET]
-既存の都道府県コードと対応する都道府県データを全て返す
+既存の都道府県データを全て返す
 
 + Response 200 (application/json)
 
@@ -72,7 +72,7 @@ HOST: http://localhost:8080
 
 ## Resource [/prefectures/{?prefName}]
 ### getPrefByName [GET]
-指定した既存の都道府県名に対応する都道府県データを返す
+指定した都道府県名に対応する都道府県データを返す
 
 + Parameters
     + prefName: 北海道 (string, required) - 都道府県名
@@ -86,7 +86,8 @@ HOST: http://localhost:8080
 
             {
                 "message" : "successfully got",
-                "prefCode" : "01"
+                "prefCode" : "01",
+                "prefName" : "北海道"
             }
 
 
@@ -107,12 +108,13 @@ HOST: http://localhost:8080
 
             {
                 "message" : "successfully got",
-                "prefName" : "埼玉県"
+                "prefCode": "11",
+                "prefName" : "さいたま県"
             }
 
 
 ### updatePref [PATCH]
-指定した既存の都道府県コードに対応する都道府県名を書き換え
+指定した既存の都道府県コードに対応する都道府県データを書き換える
 
 + Request
 
@@ -131,7 +133,7 @@ HOST: http://localhost:8080
 
 
 ### deletePref [DELETE]
-指定した既存の都道府県コードに対応する所在都道府県を削除
+指定した既存の都道府県コードに対応する都道府県データを削除する
 
 + Response 204
 
@@ -141,7 +143,7 @@ HOST: http://localhost:8080
 
 ## Resource [/airports]
 ### createAirport [POST]
-既存とは重複しない任意の空港コードで空港を新規追加（要：既存の都道府県コード）
+既存とは重複しない空港コードで空港データを新規追加する（要：既存の都道府県コード）
 
 + Request
 
@@ -171,21 +173,19 @@ HOST: http://localhost:8080
                 {
                     "airportCode" : "MYE",
                     "airportName" : "三宅島",
-                    "prefCode": "13",
                     "prefName" : "東京都"
                 }
             }
 
 
 ### getAllAirports [GET]
-全ての既存の空港コードとこれに対応する空港名、都道府県コード、都道府県名を返す
+既存の空港データを全て返す
 
 + Response 200 (application/json)
 
     + Attributes
         + airportCode: KIX (string) - 空港コード
         + airportName: 関西国際空港 (string) - 空港名
-        + prefCode: 27 (string) - 都道府県コード
         + prefName: 大阪府 (string) - 所在都道府県
 
     + Body
@@ -196,22 +196,18 @@ HOST: http://localhost:8080
                 [{
                     "airportCode": "NKM",
                     "airportName": "小牧空港",
-                    "prefCode": "23",
                     "prefName": "愛知県"
                 },{
                     "airportCode": "NGO",
                     "airportName": "中部国際空港",
-                    "prefCode": "23",
                     "prefName": "愛知県"
                 },{
                     "airportCode": "ITM",
                     "airportName": "伊丹空港",
-                    "prefCode": "27",
                     "prefName": "大阪府"
                 },{
                     "airportCode": "KIX",
                     "airportName": "関西国際空港",
-                    "prefCode": "27",
                     "prefName": "大阪府"
                 }]
             }
@@ -219,7 +215,7 @@ HOST: http://localhost:8080
 
 ## Resource [/airports/prefectures/{prefCode}]
 ### getAirportsInPref [GET]
-指定した既存の都道府県に存在する空港コード、空港名を全て返す
+指定した都道府県コードをもつ空港データを全て返す
 
 + Parameters
     + prefCode: 27 (string, required) - 都道府県コード
@@ -229,7 +225,6 @@ HOST: http://localhost:8080
     + Attributes
         + airportCode: KIX (string) - 空港コード
         + airportName: 関西国際空港 (string) - 空港名
-        + prefCode: 27 (string) - 都道府県コード
         + prefName: 大阪府 (string) - 所在都道府県
 
     + Body
@@ -240,12 +235,10 @@ HOST: http://localhost:8080
                 [{
                     "airportCode": "ITM",
                     "airportName": "伊丹空港",
-                    "prefCode": "27",
                     "prefName": "大阪府"
                 },{
                     "airportCode": "KIX",
                     "airportName": "関西国際空港",
-                    "prefCode": "27",
                     "prefName": "大阪府"
                 }]
             }
@@ -257,14 +250,13 @@ HOST: http://localhost:8080
     + airportCode: NKM (string, required) - 空港コード
 
 ### getAirport [GET]
-指定した既存の空港コードに対応する空港名、都道府県コード、都道府県名を返す
+指定した既存の空港コードに対応する空港データを返す
 
 + Response 200 (application/json)
 
     + Attributes
         + airportCode: NKM (string) - 空港コード
         + airportName: 小牧 (string) - 空港名
-        + prefCode: 23 (string) - 都道府県コード
         + prefName: 愛知県 (string) - 所在都道府県
 
     + Body
@@ -275,14 +267,13 @@ HOST: http://localhost:8080
                 {
                     "airportCode" : "NKM",
                     "airportName" : "小牧",
-                    "prefCode": "23",
                     "prefName" : "愛知県"
                 }
             }
 
 
 ### updateAirport [PATCH]
-指定した既存の空港コードに対応する空港名、都道府県コードを書き換え
+指定した既存の空港コードに対応する空港データを書き換える
 
 + Request
 
@@ -296,14 +287,13 @@ HOST: http://localhost:8080
                 "airportCode": "NKM",
                 "airportName": "名古屋",
                 "prefCode": "23"
-                "prefName" : "愛知県"
             }
 
 + Response 204
 
 
 ### deleteAirport [DELETE]
-指定した既存の空港コードに対応する空港名と所在都道府県を削除
+指定した既存の空港コードに対応する空港データを削除する
 
 + Response 204
 
