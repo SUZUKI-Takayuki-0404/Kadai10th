@@ -79,7 +79,7 @@
 |`void updateAirport`<br>`(String airportCode, String airportName, String prefCode)`|指定の空港コードに対応する空港データを更新する|<ul><li>指定の空港コードに対応する空港のEntityがあり、かつ併せて指定した空港名が従前とは異なる場合は（都道府県コードは同等でも可）、空港名と都道府県コードを更新すること</li><li>指定の空港コードに対応する空港のEntityはあるが、併せて指定した空港名が従前と同等の場合は、SameAsCurrentExceptionをスローすること</li><li>指定の空港コードに対応する空港のEntity、または指定の都道府県コードに対応する都道府県データが無い場合はNoResourceExceptionをスローすること</li></ul>|
 |`void deleteAirport`<br>`(String airportCode)`|指定の空港コードに対応する空港データを削除する|<ul><li>指定の都道府県コードに対応する都道府県のEntityがある場合は削除すること</li><li>指定の空港コードに対応する空港のEntityが無い場合はNoResourceExceptionをスローすること</li></ul>|
 
-### Controller
+### Controllerクラス
 
 #### Prefectures
 
@@ -88,8 +88,8 @@
 |`ResponseEntity<PrefResponse>`<br>`getPrefByCode(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データを返す|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県コードに対応する都道府県データを取得できた場合 **200**</li><li>指定した都道府県コードに対応する都道府県データが存在しなかった場合 **404**</li></ul>|
 |`ResponseEntity<PrefResponse>`<br>`getPrefByName(String prefName)`|指定した都道府県名に対応する都道府県データを返す|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県名に対応する都道府県データを取得できた場合 **200**</li><li>指定した都道府県名に対応する都道府県データが存在しなかった場合 **404**</li></ul>|
 |`ResponseEntity<PrefResponse>`<br>`getAllPrefs()`|既存の都道府県コードと対応する都道府県データを全て返す|以下ステータスコードを返すこと<ul><li>**200**</li></ul>|
-|`ResponseEntity<List<PrefResponse>>`<br>`createPref(PrefForm prefForm)`|新規の都道府県コードとその都道府県名をデータとして追加する|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県コードに対応する新規の都道府県データを追加できた場合 **201**</li><li>指定した都道府県コードに対応する新規の都道府県データを追加できなかった場合 **409**</li></ul>|
-|`ResponseEntity<Void>`<br>`updatePref(PrefForm prefForm)`|指定した既存の都道府県コードに対応する都道府県名を更新する|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県コードに対応する都道府県データを更新できた場合 **204**</li><li>指定した都道府県コードに対応する新規の都道府県データを更新できなかった場合 **409**</li><li>指定した都道府県コードに対応する都道府県データが存在しなかった場合 **404**</li></ul>|
+|`ResponseEntity<PrefResponse>`<br>`createPref(PrefRequestForm prefRequestForm)`|新規の都道府県コードとその都道府県名をデータとして追加する|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県コードに対応する新規の都道府県データを追加できた場合 **201**</li><li>指定した都道府県コードに対応する新規の都道府県データを追加できなかった場合 **409**</li></ul>|
+|`ResponseEntity<Void>`<br>`updatePref(PrefRequestForm prefRequestForm)`|指定した既存の都道府県コードに対応する都道府県名を更新する|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県コードに対応する都道府県データを更新できた場合 **204**</li><li>指定した都道府県コードに対応する新規の都道府県データを更新できなかった場合 **409**</li><li>指定した都道府県コードに対応する都道府県データが存在しなかった場合 **404**</li></ul>|
 |`ResponseEntity<Void>`<br>`deletePref(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データ削除する|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県コードに対応する都道府県データを削除できた場合 **204**</li><li>指定した都道府県コードに対応する都道府県データを削除できなかった場合 **409**</li><li>指定した都道府県コードに対応する都道府県データが存在しなかった場合 **404**</li></ul>|
 
 #### Airports
@@ -97,10 +97,10 @@
 |Method<br>`type name(arguments)`|Function|Testメソッド確認事項|
 |--|--|--|
 |`ResponseEntity<AirportResponse>`<br>`getAirport(String airportCode)`|指定した空港コードに対応する空港データを返す|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する空港データを取得できた場合 **200**</li><li>指定した空港コードに対応する空港データが存在しなかった場合 **404**</li></ul>|
-|`ResponseEntity<List<AirportResponse>>`<br>`getAirportsInPref(String prefCode)`|指定した都道府県コードに存在する空港データを全て返す|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県コードに対応する空港データを取得できた場合 **200**</li><li>指定した都道府県コードに対応する空港データが存在しなかった場合 **404**</li></ul>|
-|`ResponseEntity<List<AirportResponse>>`<br>`getAllAirports()`|既存の全ての空港データを返す|以下ステータスコードを返すこと<ul><li>**200**</li></ul>|
-|`ResponseEntity<AirportResponse>`<br>`createAirport(AirportfForm airportForm)`|新規の空港コードで空港データを新規追加する|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する新規の空港データを追加できた場合 **201**</li><li>指定した空港コードに対応する新規の都道府県データを追加できなかった場合 **409**</li></ul>|
-|`ResponseEntity<Void>`<br>`updateAirport(AirportfForm airportForm)`|指定の空港コードに対応する空港名、都道府県コードを更新する|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する空港データを更新できた場合 **204**</li><li>指定した空港コードに対応する空港データを更新できなかった場合 **409**</li><li>指定した空港コードに対応する空港データ、または指定した都道府県コードに対応する都道府県データが存在しなかった場合 **404**</li></ul>|
+|`ResponseEntity<AirportResponse>`<br>`getAirportsInPref(String prefCode)`|指定した都道府県コードに存在する空港データを全て返す|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県コードに対応する空港データを取得できた場合 **200**</li><li>指定した都道府県コードに対応する空港データが存在しなかった場合 **404**</li></ul>|
+|`ResponseEntity<AirportResponse>`<br>`getAllAirports()`|既存の全ての空港データを返す|以下ステータスコードを返すこと<ul><li>**200**</li></ul>|
+|`ResponseEntity<AirportResponse>`<br>`createAirport(AirportfRequestForm airportRequestForm)`|新規の空港コードで空港データを新規追加する|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する新規の空港データを追加できた場合 **201**</li><li>指定した空港コードに対応する新規の都道府県データを追加できなかった場合 **409**</li></ul>|
+|`ResponseEntity<Void>`<br>`updateAirport(AirportfRequestForm airportRequestForm)`|指定の空港コードに対応する空港名、都道府県コードを更新する|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する空港データを更新できた場合 **204**</li><li>指定した空港コードに対応する空港データを更新できなかった場合 **409**</li><li>指定した空港コードに対応する空港データ、または指定した都道府県コードに対応する都道府県データが存在しなかった場合 **404**</li></ul>|
 |`ResponseEntity<Void>`<br>`deleteAirport(String airportCode)`|指定の空港コードに対応する空港データを削除する|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する都道府県データを削除できた場合 **204**</li><li>指定した空港コードに対応する空港データが存在しなかった場合 **404**</li></ul>|
 
 </details>
@@ -149,18 +149,18 @@ git clone https://github.com/SUZUKI-Takayuki-0404/Kadai10th.git
 
 | Request | curlコマンド |
 |--|--|
-| GET | `curl 'http://localhost:8080/airports/HND'` |
-| GET | `curl 'http://localhost:8080/airports/prefectures/27'` |
+| GET | `curl 'http://localhost:8080/airports/NKM'` |
+| GET | `curl 'http://localhost:8080/airports/prefectures/13'` |
 | GET | `curl 'http://localhost:8080/airports'` |
 | POST | `curl -XPOST -H "Content-type: application/json" -d '{ "airportCode" : "IRM", "airportName": "入間", "prefCode": "11" }' 'http://localhost:8080/airports/'` |
 | PATCH | `curl -XPATCH -H "Content-type: application/json" -d '{"airportCode": "NKM", "airportName": "名古屋", "prefCode": "23"}' 'http://localhost:8080/airports/NKM'` |
-| DELETE | `curl -XDELETE 'http://localhost:8080/airports/NKM'` |
+| DELETE | `curl -XDELETE 'http://localhost:8080/airports/IRM'` |
 
 **＜補足＞**  WindowsパソコンでPoweshell（含：IntelliJのターミナル）またはコマンドプロンプト使用時の注意事項
 
 * json形式データ入力時に`"`の前に`\`が必要<br>
-  `-d '{ "airportCode": "MYE", "airportName": "Miyakejima", "country": "JAPAN" }`<br>
-  ⇒ `-d '{ \"airportCode\": \"MYE\", \"airportName\": \"Miyakejima\", \"country\": \"JAPAN\" }`
+  `-d '{ "airportCode": "MYE", "airportName": "Miyakejima", "airportCode": "13" }`<br>
+  ⇒ `-d '{ \"airportCode\": \"MYE\", \"airportName\": \"Miyakejima\", \"airportCode\": \"13\" }`
 
 * json形式データ内に日本語入力は不可<br>
   Ubuntu(Linux)を代用すれば入力可能だが、WSLとWindowsではlocalhostが異なるため、localhostから書き換えが必要<br>
