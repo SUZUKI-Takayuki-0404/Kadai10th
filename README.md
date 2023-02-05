@@ -31,7 +31,7 @@
 
 ```mermaid LR
 erDiagram
-Prefectures ||--o{ Airports :"A prefecture has 0 or more airports"
+Prefectures ||--o{ Airports :"have 0 or more"
 
   Prefectures {
     string prefCode PK
