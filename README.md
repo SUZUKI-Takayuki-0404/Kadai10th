@@ -7,9 +7,10 @@
 - 取扱データテーブルに対するCRUD処理すべてを備えたREST API
 - JUnitによるテストコード実装
 - GitHub Actionsによる自動単体テスト実装<br> [自動テストコード](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/.github/workflows/kadai10thtest.yml)
-- アプリケーション概略図（下図）
+- アプリケーション概略図
 
 <img src="https://user-images.githubusercontent.com/113277395/216799248-6fbad9ff-8df6-43b8-93e2-4340e9547ab2.PNG" width="70%">
+
 
 ## 2. 取扱データテーブル
 
@@ -25,6 +26,25 @@
 [空港コード](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/sql/table-airport.sql)
 
 <img src=https://user-images.githubusercontent.com/113277395/213170879-3c85d6f2-6976-4c95-8854-6d79c9d3faf7.PNG width="25%">
+
+#### データテーブルER図
+
+```mermaid
+erDiagram
+
+  Prefectures {
+    string prefCode
+    string prefName
+  }
+
+  Airports {
+    string airportCode
+    string airportName
+    string prefCode
+  }
+
+```
+
 
 ## 3. 各クラスの実装メソッド/Testメソッド確認事項一覧
 
