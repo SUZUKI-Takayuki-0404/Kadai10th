@@ -18,8 +18,10 @@
       
     - [Codecov](https://github.com/codecov/example-java-gradle)
     
-      <img src="https://user-images.githubusercontent.com/113277395/221409023-6223a498-9fd1-44f7-bebd-691333c7dd00.PNG" width="50%">
-            
+      <img src="https://user-images.githubusercontent.com/113277395/221409023-6223a498-9fd1-44f7-bebd-691333c7dd00.PNG" width="35%">
+      
+      <img src="https://user-images.githubusercontent.com/113277395/221415080-859ffbea-ab83-47b6-a745-db22a8f19d11.PNG" width="45%">
+      
     - [テストレポート可視化(action-junit-report)](https://github.com/mikepenz/action-junit-report)
       
       <img src="https://user-images.githubusercontent.com/113277395/221408488-3f628396-cd62-42b1-9fbd-924e23b02803.PNG" width="40%">
