@@ -2,6 +2,7 @@ name: Kadai10-CI
 on: [ push, pull_request ]
 permissions:
   contents: read
+  checks: write
 jobs:
   build:
     runs-on: ubuntu-latest
