@@ -6,7 +6,7 @@
 
 - 取扱データテーブルに対するCRUD処理すべてを備えたREST API
 - JUnitによるテストコード実装
-- GitHub Actionsによる自動単体テスト実装<br> [自動テストコード](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/.github/workflows/kadai10thtest.yml)
+- GitHub Actionsによる自動単体テスト実装<br> [自動テストコード](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/Update-Readme/.github/workflows/kadai10thtest.yml)
 - アプリケーション概略図
 
 <img src="https://user-images.githubusercontent.com/113277395/216799248-6fbad9ff-8df6-43b8-93e2-4340e9547ab2.PNG" width="70%">
