@@ -5,12 +5,37 @@
 ## 1. アプリケーション概要
 
 - 取扱データテーブルに対するCRUD処理すべてを備えたREST API
-- JUnitによるテストコード実装
-- GitHub Actionsによる自動単体テスト実装<br> [自動テストコード](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/Update-Readme/.github/workflows/kadai10thtest.yml)
+
 - アプリケーション概略図
+  
+  <img src="https://user-images.githubusercontent.com/113277395/216799248-6fbad9ff-8df6-43b8-93e2-4340e9547ab2.PNG" width="70%">
+  
+- JUnitによるテストコード実装
+- CIの実装
+    - [Checkstyle](https://github.com/raisetech-for-student/checkstyle-hands-on)
+    
+      <img src="https://user-images.githubusercontent.com/113277395/221409604-18519446-4944-4008-ac34-98e97241c05c.PNG" width="60%">
+      
+    - [Codecov](https://github.com/codecov/example-java-gradle)
+    
+      <img src="https://user-images.githubusercontent.com/113277395/221409023-6223a498-9fd1-44f7-bebd-691333c7dd00.PNG" width="50%">
+            
+    - [テストレポート可視化(action-junit-report)](https://github.com/mikepenz/action-junit-report)
+      
+      <img src="https://user-images.githubusercontent.com/113277395/221408488-3f628396-cd62-42b1-9fbd-924e23b02803.PNG" width="40%">
+            
+    - [SpotBugs](https://github.com/spotbugs/spotbugs-gradle-plugin)
+    - [Slack Integration](https://github.blog/changelog/2022-12-06-github-actions-workflow-notifications-in-slack-and-microsoft-teams/)
+      
+      <img src="https://user-images.githubusercontent.com/113277395/221408334-8cf517f1-33bd-41a3-8264-eb968cdf4e1f.PNG" width="40%">
+      
 
-<img src="https://user-images.githubusercontent.com/113277395/216799248-6fbad9ff-8df6-43b8-93e2-4340e9547ab2.PNG" width="70%">
-
+- GitHub Actionsによる自動単体テスト
+  
+    - [自動テストコード](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/Update-Readme/.github/workflows/kadai10thtest.yml)
+    
+    - [実行結果の例](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/actions/runs/4274337865/jobs/7440876285)
+  
 
 ## 2. 取扱データテーブル
 
@@ -50,6 +75,16 @@ Prefecture ||--o{ Airport :"has 0 or more"
   }
 
 ```
+
+#### 関連処置：日本語の文字化け対策
+
+- 文字化けの例
+
+  <img src="https://user-images.githubusercontent.com/113277395/221407888-e0ebf0db-da08-4c3d-a7fa-fb615f8f6965.PNG" width="50%">
+
+- 処置（文字エンコード指定）
+
+  <img src="https://user-images.githubusercontent.com/113277395/221407938-f1ca6a79-7164-49bd-a4a3-3f80fb8f5f13.PNG" width="40%">
 
 
 ## 3. 各クラスの実装メソッド/Testメソッド確認事項一覧
