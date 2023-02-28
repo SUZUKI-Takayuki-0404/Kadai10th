@@ -17,10 +17,10 @@
       <img src="https://user-images.githubusercontent.com/113277395/221409604-18519446-4944-4008-ac34-98e97241c05c.PNG" width="60%">
       
     - [Codecov](https://github.com/codecov/example-java-gradle)
-    
+
       <img src="https://user-images.githubusercontent.com/113277395/221409023-6223a498-9fd1-44f7-bebd-691333c7dd00.PNG" width="35%">
       
-      <img src="https://user-images.githubusercontent.com/113277395/221415080-859ffbea-ab83-47b6-a745-db22a8f19d11.PNG" width="45%">
+      <img src="https://user-images.githubusercontent.com/113277395/221875033-b2bf5657-5a65-4e0c-9723-8cabcea272d7.PNG" width="45%">
       
     - [テストレポート可視化(action-junit-report)](https://github.com/mikepenz/action-junit-report)
       
