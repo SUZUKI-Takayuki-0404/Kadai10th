@@ -29,8 +29,8 @@
     - [SpotBugs](https://github.com/spotbugs/spotbugs-gradle-plugin)
     - [Slack Integration](https://github.blog/changelog/2022-12-06-github-actions-workflow-notifications-in-slack-and-microsoft-teams/)
       
-      <img src="https://user-images.githubusercontent.com/113277395/221408334-8cf517f1-33bd-41a3-8264-eb968cdf4e1f.PNG" width="40%">
-      
+      <img src="https://user-images.githubusercontent.com/113277395/221877035-341a2a55-01dd-4940-aac3-e4cc0a773058.PNG" width="40%">
+
 
 - GitHub Actionsによる自動単体テスト
   
