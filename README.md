@@ -9,7 +9,8 @@
 - GitHub Actionsによる自動単体テスト実装<br> [自動テストコード](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/main/.github/workflows/kadai10thtest.yml)
 - アプリケーション概略図（下図）
 
-<img src="https://user-images.githubusercontent.com/113277395/215264501-339f35df-cefd-456c-a377-9b010bcb49b6.PNG" width="70%">
+<img src="https://user-images.githubusercontent.com/113277395/222161517-9de6ea69-cf68-4ffb-84ab-177205a84430.PNG" width="70%">
+
 
 ## 2. 取扱データテーブル
 
