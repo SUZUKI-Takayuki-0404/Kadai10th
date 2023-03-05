@@ -1,38 +1,74 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.0.1'
-	id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+    id 'org.springframework.boot' version '3.0.1'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'com.github.spotbugs' version '5.0.13'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    spotbugsStylesheets { transitive = false }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
+}
+
+tasks.withType(Test) {
+    systemProperty "file.encoding", "UTF-8"
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.jetbrains:annotations:23.0.0'
-	implementation 'org.springframework.boot:spring-boot-starter-validation:2.7.5'
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.jetbrains:annotations:23.0.0'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.7.5'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.0'
+    spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'
+    //testImplementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '2.0.0-alpha0'
+    spotbugsStylesheets 'com.github.spotbugs:spotbugs:${spotbugsVersion}'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+checkstyle {
+    toolVersion = '10.2'
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+spotbugs {
+    ignoreFailures = true
+    spotbugsMain.enabled = true
+    spotbugsTest.enabled = false
+    reportsDir = file("$project.buildDir/reports")
+}
+
+spotbugsMain {
+    reports {
+        html.enabled = true
+    }
 }
