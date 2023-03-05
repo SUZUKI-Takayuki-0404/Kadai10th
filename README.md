@@ -8,8 +8,8 @@
 
 - アプリケーション概略図
   
-  <img src="https://user-images.githubusercontent.com/113277395/216799248-6fbad9ff-8df6-43b8-93e2-4340e9547ab2.PNG" width="70%">
-  
+  <img src="https://user-images.githubusercontent.com/113277395/222946335-006a6234-36f2-4e0c-bfa9-b61c2db33bdf.PNG" width="70%">
+
 - JUnitによるテストコード実装
 - CIの実装
     - [Checkstyle](https://github.com/raisetech-for-student/checkstyle-hands-on)
