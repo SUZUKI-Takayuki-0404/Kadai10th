@@ -1,5 +1,7 @@
 [![Java Kadai10th CI](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/actions/workflows/kadai10thtest.yml/badge.svg)](https://github.com/SUZUKI-Takayuki-0404/Kadai10th/actions/workflows/kadai10thtest.yml)
 
+[![codecov](https://codecov.io/gh/SUZUKI-Takayuki-0404/Kadai10th/branch/main/graph/badge.svg?token=KS7K88T8QE)](https://codecov.io/gh/SUZUKI-Takayuki-0404/Kadai10th)
+
 # 第10回課題
 
 最終課題は本課題の成果物をベースに作成予定
