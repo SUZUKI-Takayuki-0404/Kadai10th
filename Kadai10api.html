@@ -2,8 +2,8 @@
 <section id="prefectures" class="resource-group"><h2 class="group-heading">Prefectures <a href="#prefectures" class="permalink">&para;</a></h2><p>都道府県データベースに対する操作</p>
 <div id="prefectures-resource" class="resource"><h3 class="resource-heading">Resource <a href="#prefectures-resource" class="permalink">&nbsp;&para;</a></h3><div id="prefectures-resource-post" class="action post"><h4 class="action-heading"><div class="name">createPref</div><a href="#prefectures-resource-post" class="method post">POST</a><code class="uri">/prefectures</code></h4><p>既存とは重複しない都道府県コードで都道府県データを新規追加する</p>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">http://localhost:8080</span>/prefectures</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">prefCode</span>": <span class="hljs-value"><span class="hljs-string">"11"</span></span>,
-  "<span class="hljs-attribute">prefName</span>": <span class="hljs-value"><span class="hljs-string">"さいたま県"</span>
+    "<span class="hljs-attribute">prefCode</span>": <span class="hljs-value"><span class="hljs-string">"11"</span> - <span class="hljs-number">01</span>～<span class="hljs-number">47</span>までの<span class="hljs-number">2</span>桁の数字</span>,
+    "<span class="hljs-attribute">prefName</span>": <span class="hljs-value"><span class="hljs-string">"さいたま県"</span> - <span class="hljs-number">8</span>文字以内の文字列
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Location</span>: <span class="hljs-string">/prefectures/11</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">prefCode</span>": <span class="hljs-value"><span class="hljs-string">"11"</span></span>,
   "<span class="hljs-attribute">prefName</span>": <span class="hljs-value"><span class="hljs-string">"さいたま県"</span>
@@ -39,6 +39,9 @@
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="prefectures-resource-1" class="resource"><h3 class="resource-heading">Resource <a href="#prefectures-resource-1" class="permalink">&nbsp;&para;</a></h3><div id="prefectures-resource-get-1" class="action get"><h4 class="action-heading"><div class="name">getPrefByName</div><a href="#prefectures-resource-get-1" class="method get">GET</a><code class="uri">/prefectures/{?prefName}</code></h4><p>指定した都道府県名に対応する都道府県データを返す</p>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">http://localhost:8080</span>/prefectures/?<span class="hljs-attribute">prefName=</span><span class="hljs-literal">北海道</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>prefName</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>北海道</span></span><p>都道府県名</p>
+<ul>
+<li>8文字以内の文字列</li>
+</ul>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">prefCode</span>": <span class="hljs-value"><span class="hljs-string">"01"</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
@@ -52,6 +55,9 @@
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="prefectures-resource-2" class="resource"><h3 class="resource-heading">Resource <a href="#prefectures-resource-2" class="permalink">&nbsp;&para;</a></h3><div id="prefectures-resource-get-2" class="action get"><h4 class="action-heading"><div class="name">getPrefByCode</div><a href="#prefectures-resource-get-2" class="method get">GET</a><code class="uri">/prefectures/{prefCode}</code></h4><p>指定した既存の都道府県コードに対応する都道府県データを返す</p>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">http://localhost:8080</span>/prefectures/<span class="hljs-attribute" title="prefCode">11</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>prefCode</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>11</span></span><p>都道府県コード</p>
+<ul>
+<li>01～47までの2桁の数字</li>
+</ul>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">prefName</span>": <span class="hljs-value"><span class="hljs-string">"埼玉県"</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
@@ -65,17 +71,23 @@
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="prefectures-resource-patch" class="action patch"><h4 class="action-heading"><div class="name">updatePref</div><a href="#prefectures-resource-patch" class="method patch">PATCH</a><code class="uri">/prefectures/{prefCode}</code></h4><p>指定した既存の都道府県コードに対応する都道府県データを書き換える</p>
 <h4>Example URI</h4><div class="definition"><span class="method patch">PATCH</span>&nbsp;<span class="uri"><span class="hostname">http://localhost:8080</span>/prefectures/<span class="hljs-attribute" title="prefCode">11</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>prefCode</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>11</span></span><p>都道府県コード</p>
+<ul>
+<li>01～47までの2桁の数字</li>
+</ul>
 </dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">prefCode</span>": <span class="hljs-value"><span class="hljs-string">"11"</span></span>,
-  "<span class="hljs-attribute">prefName</span>": <span class="hljs-value"><span class="hljs-string">"埼玉県"</span>
+    "<span class="hljs-attribute">prefCode</span>": <span class="hljs-value"><span class="hljs-string">"11"</span> - <span class="hljs-number">01</span>～<span class="hljs-number">47</span>までの<span class="hljs-number">2</span>桁の数字</span>,
+    "<span class="hljs-attribute">prefName</span>": <span class="hljs-value"><span class="hljs-string">"埼玉県"</span> - <span class="hljs-number">8</span>文字以内の文字列
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>204</code></strong></div></div><div id="prefectures-resource-delete" class="action delete"><h4 class="action-heading"><div class="name">deletePref</div><a href="#prefectures-resource-delete" class="method delete">DELETE</a><code class="uri">/prefectures/{prefCode}</code></h4><p>指定した既存の都道府県コードに対応する都道府県データを削除する</p>
 <h4>Example URI</h4><div class="definition"><span class="method delete">DELETE</span>&nbsp;<span class="uri"><span class="hostname">http://localhost:8080</span>/prefectures/<span class="hljs-attribute" title="prefCode">11</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>prefCode</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>11</span></span><p>都道府県コード</p>
+<ul>
+<li>01～47までの2桁の数字</li>
+</ul>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>204</code></strong></div></div></div></section><section id="airports" class="resource-group"><h2 class="group-heading">Airports <a href="#airports" class="permalink">&para;</a></h2><p>空港データベースに対する操作</p>
 <div id="airports-resource" class="resource"><h3 class="resource-heading">Resource <a href="#airports-resource" class="permalink">&nbsp;&para;</a></h3><div id="airports-resource-post" class="action post"><h4 class="action-heading"><div class="name">createAirport</div><a href="#airports-resource-post" class="method post">POST</a><code class="uri">/airports</code></h4><p>既存とは重複しない空港コードで空港データを新規追加する（要：既存の都道府県コード）</p>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">http://localhost:8080</span>/airports</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">airportCode</span>": <span class="hljs-value"><span class="hljs-string">"MYE"</span></span>,
-  "<span class="hljs-attribute">airportName</span>": <span class="hljs-value"><span class="hljs-string">"三宅島"</span></span>,
-  "<span class="hljs-attribute">prefCode</span>": <span class="hljs-value"><span class="hljs-string">"13"</span>
+    "<span class="hljs-attribute">airportCode</span>": <span class="hljs-value"><span class="hljs-string">"MYE"</span> - <span class="hljs-number">3</span>文字の大文字アルファベット</span>,
+    "<span class="hljs-attribute">airportName</span>": <span class="hljs-value"><span class="hljs-string">"三宅島"</span> - <span class="hljs-number">8</span>文字以内の文字列</span>,
+    "<span class="hljs-attribute">prefCode</span>": <span class="hljs-value"><span class="hljs-string">"13"</span> - <span class="hljs-number">01</span>～<span class="hljs-number">47</span>までの<span class="hljs-number">2</span>桁の数
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>201</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Location</span>: <span class="hljs-string">/airports/MYE</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"successfully created"</span></span>,
   "<span class="hljs-attribute">airports</span>": <span class="hljs-value">{
@@ -107,6 +119,9 @@
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="airports-resource-1" class="resource"><h3 class="resource-heading">Resource <a href="#airports-resource-1" class="permalink">&nbsp;&para;</a></h3><div id="airports-resource-get-1" class="action get"><h4 class="action-heading"><div class="name">getAirportsInPref</div><a href="#airports-resource-get-1" class="method get">GET</a><code class="uri">/airports/prefectures/{prefCode}</code></h4><p>指定した都道府県コードをもつ空港データを全て返す</p>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">http://localhost:8080</span>/airports/prefectures/<span class="hljs-attribute" title="prefCode">27</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>prefCode</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>27</span></span><p>都道府県コード</p>
+<ul>
+<li>01～47までの2桁の数字</li>
+</ul>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">airportCode</span>": <span class="hljs-value"><span class="hljs-string">"KIX"</span></span>,
   "<span class="hljs-attribute">airportName</span>": <span class="hljs-value"><span class="hljs-string">"関西国際空港"</span></span>,
@@ -130,6 +145,9 @@
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="airports-resource-2" class="resource"><h3 class="resource-heading">Resource <a href="#airports-resource-2" class="permalink">&nbsp;&para;</a></h3><div id="airports-resource-get-2" class="action get"><h4 class="action-heading"><div class="name">getAirport</div><a href="#airports-resource-get-2" class="method get">GET</a><code class="uri">/airports/{airportCode}</code></h4><p>指定した既存の空港コードに対応する空港データを返す</p>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">http://localhost:8080</span>/airports/<span class="hljs-attribute" title="airportCode">NKM</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>airportCode</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>NKM</span></span><p>空港コード</p>
+<ul>
+<li>3文字の大文字アルファベット</li>
+</ul>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">airportCode</span>": <span class="hljs-value"><span class="hljs-string">"NKM"</span></span>,
   "<span class="hljs-attribute">airportName</span>": <span class="hljs-value"><span class="hljs-string">"小牧"</span></span>,
@@ -153,12 +171,18 @@
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="airports-resource-patch" class="action patch"><h4 class="action-heading"><div class="name">updateAirport</div><a href="#airports-resource-patch" class="method patch">PATCH</a><code class="uri">/airports/{airportCode}</code></h4><p>指定した既存の空港コードに対応する空港データを書き換える</p>
 <h4>Example URI</h4><div class="definition"><span class="method patch">PATCH</span>&nbsp;<span class="uri"><span class="hostname">http://localhost:8080</span>/airports/<span class="hljs-attribute" title="airportCode">NKM</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>airportCode</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>NKM</span></span><p>空港コード</p>
+<ul>
+<li>3文字の大文字アルファベット</li>
+</ul>
 </dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">airportCode</span>": <span class="hljs-value"><span class="hljs-string">"NKM"</span></span>,
-  "<span class="hljs-attribute">airportName</span>": <span class="hljs-value"><span class="hljs-string">"名古屋"</span></span>,
-  "<span class="hljs-attribute">prefCode</span>": <span class="hljs-value"><span class="hljs-string">"23"</span>
+    "<span class="hljs-attribute">airportCode</span>": <span class="hljs-value"><span class="hljs-string">"NKM"</span> - <span class="hljs-number">3</span>文字の大文字アルファベット</span>,
+    "<span class="hljs-attribute">airportName</span>": <span class="hljs-value"><span class="hljs-string">"名古屋"</span> - <span class="hljs-number">8</span>文字以内の文字列</span>,
+    "<span class="hljs-attribute">prefCode</span>": <span class="hljs-value"><span class="hljs-string">"23"</span> - <span class="hljs-number">01</span>～<span class="hljs-number">47</span>までの<span class="hljs-number">2</span>桁の数
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>204</code></strong></div></div><div id="airports-resource-delete" class="action delete"><h4 class="action-heading"><div class="name">deleteAirport</div><a href="#airports-resource-delete" class="method delete">DELETE</a><code class="uri">/airports/{airportCode}</code></h4><p>指定した既存の空港コードに対応する空港データを削除する</p>
 <h4>Example URI</h4><div class="definition"><span class="method delete">DELETE</span>&nbsp;<span class="uri"><span class="hostname">http://localhost:8080</span>/airports/<span class="hljs-attribute" title="airportCode">NKM</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>airportCode</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>NKM</span></span><p>空港コード</p>
+<ul>
+<li>3文字の大文字アルファベット</li>
+</ul>
 </dd></dl></div><div class="title"><strong>Response&nbsp;&nbsp;<code>204</code></strong></div></div></div></section><section id="exceptions" class="resource-group"><h2 class="group-heading">Exceptions <a href="#exceptions" class="permalink">&para;</a></h2><h2 id="header-notfound">NotFound <a class="permalink" href="#header-notfound" aria-hidden="true">¶</a></h2>
 <h3 id="header-no-resource">No Resource <a class="permalink" href="#header-no-resource" aria-hidden="true">¶</a></h3>
 <p>GET/PATCH/DELETEリクエスト、および空港データベースのPOSTリクエスト(createAirport)に対し、指定したパラメータに該当するデータが無い場合の処理</p>
@@ -193,7 +217,7 @@
 <pre><code>{"<span class="hljs-attribute">message</span>" : <span class="hljs-value"><span class="hljs-string">"code in use"</span></span>}</code></pre>
 </li>
 </ul>
-</section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 05 Feb 2023</p><script>/* eslint-env browser */
+</section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 05 Mar 2023</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 

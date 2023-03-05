@@ -20,8 +20,8 @@ HOST: http://localhost:8080
     + Body
 
             {
-                "prefCode": "11",
-                "prefName": "さいたま県"
+                "prefCode": "11" - 01～47までの2桁の数字,
+                "prefName": "さいたま県" - 8文字以内の文字列
             }
 
 + Response 201 (application/json)
@@ -76,6 +76,7 @@ HOST: http://localhost:8080
 
 + Parameters
     + prefName: 北海道 (string, required) - 都道府県名
+        - 8文字以内の文字列
 
 + Response 200 (application/json)
 
@@ -95,6 +96,7 @@ HOST: http://localhost:8080
 
 + Parameters
     + prefCode: 11 (string, required) - 都道府県コード
+        - 01～47までの2桁の数字
 
 ### getPrefByCode [GET]
 指定した既存の都道府県コードに対応する都道府県データを返す
@@ -125,8 +127,8 @@ HOST: http://localhost:8080
     + Body
 
             {
-                "prefCode": "11",
-                "prefName": "埼玉県"
+                "prefCode": "11" - 01～47までの2桁の数字,
+                "prefName": "埼玉県" - 8文字以内の文字列
             }
 
 + Response 204
@@ -154,9 +156,9 @@ HOST: http://localhost:8080
     + Body
 
             {
-                "airportCode": "MYE",
-                "airportName": "三宅島",
-                "prefCode": "13"
+                "airportCode": "MYE" - 3文字の大文字アルファベット,
+                "airportName": "三宅島" - 8文字以内の文字列,
+                "prefCode": "13" - 01～47までの2桁の数
             }
 
 + Response 201 (application/json)
@@ -219,6 +221,7 @@ HOST: http://localhost:8080
 
 + Parameters
     + prefCode: 27 (string, required) - 都道府県コード
+         - 01～47までの2桁の数字
 
 + Response 200 (application/json)
 
@@ -248,6 +251,7 @@ HOST: http://localhost:8080
 
 + Parameters
     + airportCode: NKM (string, required) - 空港コード
+        - 3文字の大文字アルファベット
 
 ### getAirport [GET]
 指定した既存の空港コードに対応する空港データを返す
@@ -284,9 +288,9 @@ HOST: http://localhost:8080
     + Body
 
             {
-                "airportCode": "NKM",
-                "airportName": "名古屋",
-                "prefCode": "23"
+                "airportCode": "NKM" - 3文字の大文字アルファベット,
+                "airportName": "名古屋" - 8文字以内の文字列,
+                "prefCode": "23" - 01～47までの2桁の数
             }
 
 + Response 204
