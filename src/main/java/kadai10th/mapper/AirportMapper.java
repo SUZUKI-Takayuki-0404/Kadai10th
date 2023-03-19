@@ -1,8 +1,11 @@
 package kadai10th.mapper;
 
 import kadai10th.entity.AirportEntity;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,13 +22,13 @@ public interface AirportMapper {
     @Select("SELECT airports.*, prefectures.prefName FROM airports INNER JOIN prefectures ON airports.prefCode = prefectures.prefCode")
     List<AirportEntity> findAllFromAirports();
 
-    @Select("INSERT INTO airports (airportCode, airportName, prefCode) VALUES (#{airportCode}, #{airportName}, #{prefCode})")
+    @Insert("INSERT INTO airports (airportCode, airportName, prefCode) VALUES (#{airportCode}, #{airportName}, #{prefCode})")
     void insertAirport(String airportCode, String airportName, String prefCode);
 
-    @Select("UPDATE airports SET airportName = #{airportName}, prefCode = #{prefCode} WHERE airportCode = #{airportCode}")
+    @Update("UPDATE airports SET airportName = #{airportName}, prefCode = #{prefCode} WHERE airportCode = #{airportCode}")
     boolean updateAirport(String airportCode, String airportName, String prefCode);
 
-    @Select("DELETE FROM airports WHERE airportCode = #{airportCode}")
+    @Delete("DELETE FROM airports WHERE airportCode = #{airportCode}")
     boolean deleteAirport(String airportCode);
 
 }
