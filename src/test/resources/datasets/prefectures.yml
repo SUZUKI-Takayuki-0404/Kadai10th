@@ -1,0 +1,9 @@
+prefectures:
+  - prefCode: "01"
+    prefName: "北海道"
+  - prefCode: "02"
+    prefName: "青森県"
+  - prefCode: "03"
+    prefName: "岩手県"
+  - prefCode: "04"
+    prefName: "宮城県"
