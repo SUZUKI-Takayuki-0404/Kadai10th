@@ -109,11 +109,6 @@ Prefecture ||--o{ Airport :"has 0 or more"
 |`boolean deletePref`<br>`(String prefCode)`|指定した都道府県コードに対応する都道府県のデータを削除する<br>`DELETE FROM prefectures`<br>`WHERE prefCode = #{prefCode}`|<ul><li>指定の都道府県コードが存在する場合は、対応する都道府県データを削除すること</li><li>指定の都道府県コードが存在しない場合は何も変更しないこと</li></ul>|
 
 
-<details>
-<summary>進捗にあわせ更新予定</summary>
-
-### Mapperクラス
-
 #### Airports
 
 |Method<br>`type name(arguments)`|Function<br>`実行SQLコマンド`|Testメソッド確認事項|
@@ -124,6 +119,10 @@ Prefecture ||--o{ Airport :"has 0 or more"
 |`void insertAirport`<br>`(String airportCode, String airportName, String prefCode)`|既存と重複しない空港データを挿入する<br>`INSERT INTO airports (airportCode, airportName, prefCode)`<br>`VALUES (#{airportCode}, #{airportName}, #{prefCode})`|<ul><li>指定の空港コードが既存のものと重複しない場合は、併せて指定した空港名および都道府県コードと共にデータ登録すること</li><li>指定の空港コードが既存のものと重複する場合は、DuplicateKeyExceptionをスローすること</li></ul>|
 |`boolean updateAirport`<br>`(String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新する<br>`UPDATE airports `<br>`SET airportName = #{airportName}, prefCode = #{prefCode} `<br>`WHERE airportCode = #{airportCode}`|<ul><li>指定の空港コードが存在する場合は、併せて指定した空港名および都道府県コードでデータ更新すること</li><li>指定の空港コードが存在しない場合は何も変更しないこと</li></ul>|
 |`boolean deleteAirport`<br>`(String airportCode)`|指定した空港コードに対応する空港データを削除する<br>`DELETE FROM airports `<br>`WHERE airportCode = #{airportCode}`|<ul><li>指定の空港コードが存在する場合は、対応する空港データを削除すること</li><li>指定の空港コードが存在しない場合は何も変更しないこと</li></ul>|
+
+
+<details>
+<summary>進捗にあわせ更新予定</summary>
 
 ### Serviceクラス
 
