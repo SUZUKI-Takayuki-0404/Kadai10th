@@ -51,7 +51,7 @@ class AirportMapperTest {
     @Test
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
-    @DisplayName("指定の都道府県コードが存在するときは、対応する空港EntityをListとして返すこと")
+    @DisplayName("指定の都道府県に空港が存在するときは、対応する空港Entity全てをListとして返すこと")
     void findByPrefFromAirportsTest1() {
         assertThat(airportMapper.findByPrefFromAirports("北海道"))
                 .hasSize(2)
@@ -65,7 +65,7 @@ class AirportMapperTest {
     @Test
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
-    @DisplayName("指定の都道府県コードが無いときは、空のListを返すこと")
+    @DisplayName("指定の都道府県に空港が無いときは、空のListを返すこと")
     void findByPrefFromAirportsTest2() {
         assertThat(airportMapper.findByPrefFromAirports("埼玉県")).isEmpty();
     }
@@ -73,7 +73,15 @@ class AirportMapperTest {
     @Test
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
-    @DisplayName("存在する全ての空港EntityをListとして返すこと/空港が存在しないときは空のListを返すこと")
+    @DisplayName("誤った都道府県名を指定したときは、空のListを返すこと")
+    void findByPrefFromAirportsTest3() {
+        assertThat(airportMapper.findByPrefFromAirports("北海道県")).isEmpty();
+    }
+
+    @Test
+    @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
+    @Transactional
+    @DisplayName("存在する全ての空港EntityをListとして返すこと")
     void findAllFromAirportsTest1() {
         assertThat(airportMapper.findAllFromAirports())
                 .hasSize(5)
