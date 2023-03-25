@@ -20,6 +20,10 @@
     
       <img src="https://user-images.githubusercontent.com/113277395/221409604-18519446-4944-4008-ac34-98e97241c05c.PNG" width="60%">
       
+       - reviewdog指摘事項の例：入力規則に違反していたパッケージ名を修正
+         - [Befrore](http://htmlpreview.github.io/?https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/Update/PackageName/main_before.html)
+         - [After](http://htmlpreview.github.io/?https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/Update/PackageName/main_after.html)
+      
     - [Codecov](https://github.com/codecov/example-java-gradle)
 
       <img src="https://user-images.githubusercontent.com/113277395/221409023-6223a498-9fd1-44f7-bebd-691333c7dd00.PNG" width="35%">
