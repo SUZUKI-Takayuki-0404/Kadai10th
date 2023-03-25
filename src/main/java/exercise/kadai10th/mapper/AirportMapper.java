@@ -1,6 +1,6 @@
-package kadai10th.mapper;
+package exercise.kadai10th.mapper;
 
-import kadai10th.entity.AirportEntity;
+import exercise.kadai10th.entity.AirportEntity;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;

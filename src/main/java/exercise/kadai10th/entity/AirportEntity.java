@@ -1,4 +1,4 @@
-package kadai10th.entity;
+package exercise.kadai10th.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

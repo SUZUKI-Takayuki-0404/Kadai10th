@@ -1,10 +1,11 @@
-package kadai10th.mapper;
+package exercise.kadai10th.mapper;
 
+import exercise.kadai10th.entity.PrefectureEntity;
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
-import kadai10th.entity.PrefectureEntity;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -34,7 +35,7 @@ class PrefectureMapperTest {
     @Transactional
     @DisplayName("指定の都道府県コードが存在するときは、対応する都道府県EntityをOptionalとして返すこと")
     void findByCodeFromPrefsTest1() {
-        assertThat(prefectureMapper.findByCodeFromPrefs("01"))
+        Assertions.assertThat(prefectureMapper.findByCodeFromPrefs("01"))
                 .get()
                 .usingRecursiveComparison()
                 .isEqualTo(new PrefectureEntity("01", "北海道"));
@@ -45,7 +46,7 @@ class PrefectureMapperTest {
     @Transactional
     @DisplayName("指定の都道府県コードが無いときは、空のOptionalを返すこと")
     void findByCodeFromPrefsTest2() {
-        assertThat(prefectureMapper.findByCodeFromPrefs("11")).isEmpty();
+        Assertions.assertThat(prefectureMapper.findByCodeFromPrefs("11")).isEmpty();
     }
 
     @Test
@@ -53,7 +54,7 @@ class PrefectureMapperTest {
     @Transactional
     @DisplayName("指定の都道府県名が存在するときは、対応する都道府県EntityをOptionalとして返すこと")
     void findByNameFromPrefsTest1() {
-        assertThat(prefectureMapper.findByNameFromPrefs("青森県"))
+        Assertions.assertThat(prefectureMapper.findByNameFromPrefs("青森県"))
                 .get()
                 .usingRecursiveComparison()
                 .isEqualTo(new PrefectureEntity("02", "青森県"));
@@ -64,7 +65,7 @@ class PrefectureMapperTest {
     @Transactional
     @DisplayName("指定の都道府県名が無いときは、空のOptionalを返すこと")
     void findByNameFromPrefsTest2() {
-        assertThat(prefectureMapper.findByNameFromPrefs("埼玉県")).isEmpty();
+        Assertions.assertThat(prefectureMapper.findByNameFromPrefs("埼玉県")).isEmpty();
     }
 
     @Test
@@ -72,7 +73,7 @@ class PrefectureMapperTest {
     @Transactional
     @DisplayName("存在する都道府県データ全てをListとして返すこと")
     void findAllFromPrefsTest1() {
-        assertThat(prefectureMapper.findAllFromPrefs())
+        Assertions.assertThat(prefectureMapper.findAllFromPrefs())
                 .hasSize(4)
                 .extracting("prefCode", "prefName")
                 .contains(
@@ -88,7 +89,7 @@ class PrefectureMapperTest {
     @Transactional
     @DisplayName("都道府県データが存在しないときは空のListを返すこと")
     void findAllFromPrefsTest2() {
-        assertThat(prefectureMapper.findAllFromPrefs()).isEmpty();
+        Assertions.assertThat(prefectureMapper.findAllFromPrefs()).isEmpty();
     }
 
     @Test

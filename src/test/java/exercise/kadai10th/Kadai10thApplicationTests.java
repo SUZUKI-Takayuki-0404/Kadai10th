@@ -1,4 +1,4 @@
-package kadai10th;
+package exercise.kadai10th;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
