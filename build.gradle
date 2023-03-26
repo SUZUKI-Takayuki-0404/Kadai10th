@@ -38,11 +38,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.4'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.1'
-    spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.4.7'
+    spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.6.0'
     spotbugsStylesheets 'com.github.spotbugs:spotbugs:4.7.3'
     testImplementation 'com.github.database-rider:rider-spring:1.36.0'
-    testImplementation 'com.github.database-rider:rider-junit5:1.34.0'
-    testImplementation 'com.github.database-rider:rider-core:1.34.0'
+    testImplementation 'com.github.database-rider:rider-junit5:1.36.0'
+    testImplementation 'com.github.database-rider:rider-core:1.36.0'
 }
 
 tasks.named('test') {
