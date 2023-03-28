@@ -1,7 +1,6 @@
 package exercise.kadai10th.service;
 
 import exercise.kadai10th.entity.AirportEntity;
-import exercise.kadai10th.entity.PrefectureEntity;
 import exercise.kadai10th.exceptionhandler.NoResourceException;
 import exercise.kadai10th.exceptionhandler.SameAsCurrentException;
 import exercise.kadai10th.mapper.AirportMapper;

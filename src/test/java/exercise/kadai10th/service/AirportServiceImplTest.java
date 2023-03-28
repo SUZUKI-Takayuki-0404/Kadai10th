@@ -6,7 +6,6 @@ import exercise.kadai10th.exceptionhandler.NoResourceException;
 import exercise.kadai10th.exceptionhandler.SameAsCurrentException;
 import exercise.kadai10th.mapper.AirportMapper;
 import exercise.kadai10th.mapper.PrefectureMapper;
-import it.unibo.tuprolog.solve.stdlib.primitive.Op;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -135,9 +134,6 @@ class AirportServiceImplTest {
     @Test
     @DisplayName("指定の空港コードが既存のものと重複せず、かつ指定の都道府県が存在する場合は、新規の空港Entityを追加すること")
     void createAirportTest1() {
-//        doReturn(Optional.empty())
-//                .when(airportMapper)
-//                .findByCodeFromAirports("OKA");
         doReturn(Optional.of(new PrefectureEntity("47", "沖縄県")))
                 .when(prefectureMapper)
                 .findByCodeFromPrefs("47");
@@ -145,7 +141,6 @@ class AirportServiceImplTest {
         airportServiceImpl.createAirport("OKA", "那覇空港", "47");
 
         verify(prefectureMapper, times(1)).findByCodeFromPrefs("47");
-        //verify(airportMapper, times(1)).findByCodeFromAirports("OKA");
         verify(airportMapper, times(1)).insertAirport("OKA", "那覇空港", "47");
     }
 
@@ -200,9 +195,6 @@ class AirportServiceImplTest {
         doReturn(Optional.of(new AirportEntity("SDJ", "仙台空港", "04", "宮城県")))
                 .when(airportMapper)
                 .findByCodeFromAirports("SDJ");
-//        doReturn(Optional.of(new PrefectureEntity("04", "宮城県")))
-//                .when(prefectureMapper)
-//                .findByCodeFromPrefs("04");
 
         assertThatExceptionOfType(SameAsCurrentException.class)
                 .isThrownBy(() -> {
@@ -211,14 +203,11 @@ class AirportServiceImplTest {
     }
 
     @Test
-    @DisplayName("指定の都道府県コードに対応する都道府県のEntityが無い場合はNoResourceExceptionをスローすること")
+    @DisplayName("指定の空港コードに対応する空港のEntityが存在しない場合はNoResourceExceptionをスローすること")
     void updateAirportTest3() {
         doReturn(Optional.empty())
                 .when(airportMapper)
                 .findByCodeFromAirports("SDJ");
-//        doReturn(Optional.of(new PrefectureEntity("04", "宮城県")))
-//                .when(prefectureMapper)
-//                .findByCodeFromPrefs("04");
 
         assertThatExceptionOfType(NoResourceException.class)
                 .isThrownBy(() -> {
@@ -227,7 +216,7 @@ class AirportServiceImplTest {
     }
 
     @Test
-    @DisplayName("指定の空港コードに対応する空港のEntityが存在しない場合はNoResourceExceptionをスローすること")
+    @DisplayName("指定の都道府県コードに対応する都道府県のEntityが無い場合はNoResourceExceptionをスローすること")
     void updateAirportTest4() {
         doReturn(Optional.of(new AirportEntity("SDJ", "仙台空港", "04", "宮城県")))
                 .when(airportMapper)
