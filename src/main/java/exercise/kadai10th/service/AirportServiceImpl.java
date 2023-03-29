@@ -10,6 +10,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AirportServiceImpl implements AirportService {
@@ -44,6 +45,7 @@ public class AirportServiceImpl implements AirportService {
                 .findByCodeFromPrefs(prefCode)
                 .orElseThrow(() -> new NoResourceException(prefCode))
                 .getPrefName();
+
         try {
             airportMapper.insertAirport(airportCode, airportName, prefCode);
         } catch (DuplicateKeyException e) {
@@ -54,19 +56,14 @@ public class AirportServiceImpl implements AirportService {
 
     @Override
     public void updateAirport(String airportCode, String airportName, String prefCode) {
-        AirportEntity airportEntity
-                = airportMapper
-                .findByCodeFromAirports(airportCode)
-                .orElseThrow(() -> new NoResourceException(airportCode));
+        Optional<AirportEntity> optionalAirportEntity = airportMapper.findByCodeFromAirports(airportCode);
 
-        if (airportEntity.getAirportName().equals(airportName)) {
-            throw new SameAsCurrentException(airportName);
-        }
-
-        if (prefectureMapper.findByCodeFromPrefs(prefCode).isEmpty()) {
+        if (optionalAirportEntity.isEmpty() || prefectureMapper.findByCodeFromPrefs(prefCode).isEmpty()) {
             throw new NoResourceException(prefCode);
         }
-
+        if (optionalAirportEntity.get().getAirportName().equals(airportName)) {
+            throw new SameAsCurrentException(airportName);
+        }
         airportMapper.updateAirport(airportCode, airportName, prefCode);
     }
 

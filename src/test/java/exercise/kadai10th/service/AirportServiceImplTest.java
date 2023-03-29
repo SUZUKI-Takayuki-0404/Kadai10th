@@ -195,6 +195,9 @@ class AirportServiceImplTest {
         doReturn(Optional.of(new AirportEntity("SDJ", "仙台空港", "04", "宮城県")))
                 .when(airportMapper)
                 .findByCodeFromAirports("SDJ");
+        doReturn(Optional.of(new PrefectureEntity("04", "宮城県")))
+                .when(prefectureMapper)
+                .findByCodeFromPrefs("04");
 
         assertThatExceptionOfType(SameAsCurrentException.class)
                 .isThrownBy(() -> {
