@@ -2,23 +2,23 @@ package exercise.kadai10th.exceptionhandler;
 
 public class SameAsCurrentException extends RuntimeException {
 
-    /* istanbul ignore next */
     public SameAsCurrentException() {
+        /* istanbul ignore next */
         super();
     }
 
-    /* istanbul ignore next */
     public SameAsCurrentException(String message, Throwable cause) {
+        /* istanbul ignore next */
         super(message + " nothing updated", cause);
     }
 
-    /* istanbul ignore next */
     public SameAsCurrentException(String message) {
+        /* istanbul ignore next */
         super(message + " nothing updated");
     }
 
-    /* istanbul ignore next */
     public SameAsCurrentException(Throwable cause) {
+        /* istanbul ignore next */
         super(cause);
     }
 }

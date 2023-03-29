@@ -2,23 +2,23 @@ package exercise.kadai10th.exceptionhandler;
 
 public class CodeInUseException extends RuntimeException {
 
-    /* istanbul ignore next */
     public CodeInUseException() {
+        /* istanbul ignore next */
         super();
     }
 
-    /* istanbul ignore next */
     public CodeInUseException(String message, Throwable cause) {
+        /* istanbul ignore next */
         super(message + " code in use", cause);
     }
 
-    /* istanbul ignore next */
     public CodeInUseException(String message) {
+        /* istanbul ignore next */
         super(message + " code in use");
     }
 
-    /* istanbul ignore next */
     public CodeInUseException(Throwable cause) {
+        /* istanbul ignore next */
         super(cause);
     }
 }

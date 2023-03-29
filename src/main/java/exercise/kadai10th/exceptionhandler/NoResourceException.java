@@ -2,23 +2,23 @@ package exercise.kadai10th.exceptionhandler;
 
 public class NoResourceException extends RuntimeException {
 
-    /* istanbul ignore next */
     public NoResourceException() {
+        /* istanbul ignore next */
         super();
     }
 
-    /* istanbul ignore next */
     public NoResourceException(String message, Throwable cause) {
+        /* istanbul ignore next */
         super(message + " : not found", cause);
     }
 
-    /* istanbul ignore next */
     public NoResourceException(String message) {
+        /* istanbul ignore next */
         super(message + " : not found");
     }
 
-    /* istanbul ignore next */
     public NoResourceException(Throwable cause) {
+        /* istanbul ignore next */
         super(cause);
     }
 }
