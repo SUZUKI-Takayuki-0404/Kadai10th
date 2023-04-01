@@ -54,3 +54,9 @@ jobs:
         with:
           name: SpotBugsTestReport
           path: build/reports/spotbugs/main.html
+
+      - name: Actions Status Discord
+        uses: sarisia/actions-status-discord@v1.11.1
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
