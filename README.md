@@ -35,9 +35,16 @@
       <img src="https://user-images.githubusercontent.com/113277395/221408488-3f628396-cd62-42b1-9fbd-924e23b02803.PNG" width="40%">
             
     - [SpotBugs](https://github.com/spotbugs/spotbugs-gradle-plugin)
+    
     - [Slack Integration](https://github.blog/changelog/2022-12-06-github-actions-workflow-notifications-in-slack-and-microsoft-teams/)
       
       <img src="https://user-images.githubusercontent.com/113277395/221877035-341a2a55-01dd-4940-aac3-e4cc0a773058.PNG" width="40%">
+
+    - [Actions Status Discord](https://github.com/sarisia/actions-status-discord)
+
+      SlackからDiscodeへの移行に伴い追加
+      
+      <img src="https://user-images.githubusercontent.com/113277395/229259430-0cdcd453-66d3-4cdf-b3f1-6adf940a8acb.PNG" width="40%">
 
 
 - GitHub Actionsによる自動単体テスト
