@@ -44,7 +44,7 @@
 
       SlackからDiscordへのチャットツール移行に伴い追加
       
-      <img src="https://user-images.githubusercontent.com/113277395/229259430-0cdcd453-66d3-4cdf-b3f1-6adf940a8acb.PNG" width="40%">
+      <img src="https://user-images.githubusercontent.com/113277395/229260923-ccdcb4c5-1ced-4d39-b874-0867d528655d.PNG" width="40%">
 
 
 - GitHub Actionsによる自動単体テスト
