@@ -7,6 +7,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Actions Status Discord
+        uses: sarisia/actions-status-discord@v1.11.1
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+
       - name: Checkout
         uses: actions/checkout@v3
       - name: Run Docker
@@ -54,9 +60,3 @@ jobs:
         with:
           name: SpotBugsTestReport
           path: build/reports/spotbugs/main.html
-
-      - name: Actions Status Discord
-        uses: sarisia/actions-status-discord@v1.11.1
-        if: always()
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
