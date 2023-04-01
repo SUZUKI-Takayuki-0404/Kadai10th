@@ -25,14 +25,14 @@ public class PrefectureServiceImpl implements PrefectureService {
     public PrefectureEntity getPrefByCode(String prefCode) {
         return prefectureMapper
                 .findByCodeFromPrefs(prefCode)
-                .orElseThrow(() -> new NoResourceException(prefCode));
+                .orElseThrow(() -> new NoResourceException(prefCode + " : This code is not found"));
     }
 
     @Override
     public PrefectureEntity getPrefByName(String prefName) {
         return prefectureMapper
                 .findByNameFromPrefs(prefName)
-                .orElseThrow(() -> new NoResourceException(prefName));
+                .orElseThrow(() -> new NoResourceException(prefName + " : This name is not found"));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class PrefectureServiceImpl implements PrefectureService {
         try {
             prefectureMapper.insertPref(prefCode, prefName);
         } catch (DuplicateKeyException e) {
-            throw new DuplicateKeyException(prefCode + " code duplicated");
+            throw new DuplicateKeyException(prefCode + " : This code will be duplicated");
         }
         return new PrefectureEntity(prefCode, prefName);
     }
@@ -55,10 +55,10 @@ public class PrefectureServiceImpl implements PrefectureService {
         PrefectureEntity prefectureEntity
                 = prefectureMapper
                 .findByCodeFromPrefs(prefCode)
-                .orElseThrow(() -> new NoResourceException(prefCode));
+                .orElseThrow(() -> new NoResourceException(prefCode + " : This code is not found"));
 
         if (prefectureEntity.getPrefName().equals(prefName)) {
-            throw new SameAsCurrentException(prefName);
+            throw new SameAsCurrentException(prefName + " : Current name will be nothing updated");
         } else {
             prefectureMapper.updatePref(prefCode, prefName);
         }
@@ -69,13 +69,13 @@ public class PrefectureServiceImpl implements PrefectureService {
         String prefName
                 = prefectureMapper
                 .findByCodeFromPrefs(prefCode)
-                .orElseThrow(() -> new NoResourceException(prefCode))
+                .orElseThrow(() -> new NoResourceException(prefCode + " : This code is not found"))
                 .getPrefName();
 
         if (airportMapper.findByPrefFromAirports(prefName).isEmpty()) {
             prefectureMapper.deletePref(prefCode);
         } else {
-            throw new CodeInUseException(prefCode);
+            throw new CodeInUseException(prefCode + " : This code is in use");
         }
     }
 }

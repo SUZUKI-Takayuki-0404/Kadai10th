@@ -36,7 +36,6 @@ class PrefectureMapperTest {
     void findByCodeFromPrefsTest1() {
         assertThat(prefectureMapper.findByCodeFromPrefs("01"))
                 .get()
-                .usingRecursiveComparison()
                 .isEqualTo(new PrefectureEntity("01", "北海道"));
     }
 
@@ -55,7 +54,6 @@ class PrefectureMapperTest {
     void findByNameFromPrefsTest1() {
         assertThat(prefectureMapper.findByNameFromPrefs("青森県"))
                 .get()
-                .usingRecursiveComparison()
                 .isEqualTo(new PrefectureEntity("02", "青森県"));
     }
 
@@ -106,9 +104,7 @@ class PrefectureMapperTest {
     @DisplayName("指定の都道府県コードが既存のものと重複する場合は、DuplicateKeyExceptionをスローすること")
     void insertPrefTest2() {
         assertThatExceptionOfType(DuplicateKeyException.class)
-                .isThrownBy(() -> {
-                    prefectureMapper.insertPref("04", "宮城県");
-                });
+                .isThrownBy(() -> prefectureMapper.insertPref("04", "宮城県"));
     }
 
     @Test

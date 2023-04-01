@@ -47,7 +47,6 @@ class PrefectureServiceImplTest {
                 .findByCodeFromPrefs("01");
 
         assertThat(prefectureServiceImpl.getPrefByCode("01"))
-                .usingRecursiveComparison()
                 .isEqualTo(new PrefectureEntity("01", "北海道"));
 
         verify(prefectureMapper, times(1)).findByCodeFromPrefs("01");
@@ -61,9 +60,7 @@ class PrefectureServiceImplTest {
                 .findByCodeFromPrefs("11");
 
         assertThatExceptionOfType(NoResourceException.class)
-                .isThrownBy(() -> {
-                    prefectureServiceImpl.getPrefByCode("11");
-                });
+                .isThrownBy(() -> prefectureServiceImpl.getPrefByCode("11"));
     }
 
     @Test
@@ -74,7 +71,6 @@ class PrefectureServiceImplTest {
                 .findByNameFromPrefs("青森県");
 
         assertThat(prefectureServiceImpl.getPrefByName("青森県"))
-                .usingRecursiveComparison()
                 .isEqualTo(new PrefectureEntity("02", "青森県"));
 
         verify(prefectureMapper, times(1)).findByNameFromPrefs("青森県");
@@ -89,9 +85,7 @@ class PrefectureServiceImplTest {
                 .findByNameFromPrefs("埼玉県");
 
         assertThatExceptionOfType(NoResourceException.class)
-                .isThrownBy(() -> {
-                    prefectureServiceImpl.getPrefByName("埼玉県");
-                });
+                .isThrownBy(() -> prefectureServiceImpl.getPrefByName("埼玉県"));
     }
 
     @Test
@@ -144,9 +138,7 @@ class PrefectureServiceImplTest {
         doThrow(new DuplicateKeyException("04")).when(prefectureMapper).insertPref("04", "宮城県");
 
         assertThatExceptionOfType(DuplicateKeyException.class)
-                .isThrownBy(() -> {
-                    prefectureServiceImpl.createPref("04", "宮城県");
-                });
+                .isThrownBy(() -> prefectureServiceImpl.createPref("04", "宮城県"));
     }
 
     @Test
@@ -171,9 +163,7 @@ class PrefectureServiceImplTest {
                 .findByCodeFromPrefs("02");
 
         assertThatExceptionOfType(SameAsCurrentException.class)
-                .isThrownBy(() -> {
-                    prefectureServiceImpl.updatePref("02", "青森県");
-                });
+                .isThrownBy(() -> prefectureServiceImpl.updatePref("02", "青森県"));
     }
 
     @Test
@@ -184,9 +174,7 @@ class PrefectureServiceImplTest {
                 .findByCodeFromPrefs("02");
 
         assertThatExceptionOfType(NoResourceException.class)
-                .isThrownBy(() -> {
-                    prefectureServiceImpl.updatePref("02", "あおもりけん");
-                });
+                .isThrownBy(() -> prefectureServiceImpl.updatePref("02", "あおもりけん"));
     }
 
     @Test
@@ -200,7 +188,7 @@ class PrefectureServiceImplTest {
                 .findByPrefFromAirports("埼玉県");
 
         prefectureServiceImpl.deletePref("11");
-        
+
         verify(prefectureMapper).findByCodeFromPrefs("11");
         verify(prefectureMapper).deletePref("11");
     }
@@ -218,9 +206,7 @@ class PrefectureServiceImplTest {
                 .findByPrefFromAirports("北海道");
 
         assertThatExceptionOfType(CodeInUseException.class)
-                .isThrownBy(() -> {
-                    prefectureServiceImpl.deletePref("01");
-                });
+                .isThrownBy(() -> prefectureServiceImpl.deletePref("01"));
     }
 
     @Test
@@ -231,8 +217,6 @@ class PrefectureServiceImplTest {
                 .findByCodeFromPrefs("05");
 
         assertThatExceptionOfType(NoResourceException.class)
-                .isThrownBy(() -> {
-                    prefectureServiceImpl.deletePref("05");
-                });
+                .isThrownBy(() -> prefectureServiceImpl.deletePref("05"));
     }
 }

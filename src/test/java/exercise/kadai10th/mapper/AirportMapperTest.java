@@ -36,7 +36,6 @@ class AirportMapperTest {
     void findByCodeFromAirportsTest1() {
         assertThat(airportMapper.findByCodeFromAirports("CTS"))
                 .get()
-                .usingRecursiveComparison()
                 .isEqualTo(new AirportEntity("CTS", "新千歳空港", "01", "北海道"));
     }
 
@@ -118,9 +117,7 @@ class AirportMapperTest {
     @DisplayName("指定の空港コードが既存のものと重複する場合は、DuplicateKeyExceptionをスローすること")
     void insertAirportTest2() {
         assertThatExceptionOfType(DuplicateKeyException.class)
-                .isThrownBy(() -> {
-                    airportMapper.insertAirport("HNA", "花巻空港", "03");
-                });
+                .isThrownBy(() -> airportMapper.insertAirport("HNA", "花巻空港", "03"));
     }
 
     @Test

@@ -46,7 +46,6 @@ class AirportServiceImplTest {
                 .findByCodeFromAirports("CTS");
 
         assertThat(airportServiceImpl.getAirport("CTS"))
-                .usingRecursiveComparison()
                 .isEqualTo(new AirportEntity("CTS", "新千歳空港", "01", "北海道"));
 
         verify(airportMapper, times(1)).findByCodeFromAirports("CTS");
@@ -60,9 +59,7 @@ class AirportServiceImplTest {
                 .findByCodeFromAirports("WKJ");
 
         assertThatExceptionOfType(NoResourceException.class)
-                .isThrownBy(() -> {
-                    airportServiceImpl.getAirport("WKJ");
-                });
+                .isThrownBy(() -> airportServiceImpl.getAirport("WKJ"));
     }
 
     @Test
@@ -155,9 +152,7 @@ class AirportServiceImplTest {
                 .insertAirport("HNA", "花巻空港", "03");
 
         assertThatExceptionOfType(DuplicateKeyException.class)
-                .isThrownBy(() -> {
-                    airportServiceImpl.createAirport("HNA", "花巻空港", "03");
-                });
+                .isThrownBy(() -> airportServiceImpl.createAirport("HNA", "花巻空港", "03"));
     }
 
     @Test
@@ -167,9 +162,7 @@ class AirportServiceImplTest {
                 .when(prefectureMapper).findByCodeFromPrefs("13");
 
         assertThatExceptionOfType(NoResourceException.class)
-                .isThrownBy(() -> {
-                    airportServiceImpl.createAirport("NRT", "成田国際空港", "13");
-                });
+                .isThrownBy(() -> airportServiceImpl.createAirport("NRT", "成田国際空港", "13"));
     }
 
     @Test
@@ -195,14 +188,9 @@ class AirportServiceImplTest {
         doReturn(Optional.of(new AirportEntity("SDJ", "仙台空港", "04", "宮城県")))
                 .when(airportMapper)
                 .findByCodeFromAirports("SDJ");
-        doReturn(Optional.of(new PrefectureEntity("04", "宮城県")))
-                .when(prefectureMapper)
-                .findByCodeFromPrefs("04");
 
         assertThatExceptionOfType(SameAsCurrentException.class)
-                .isThrownBy(() -> {
-                    airportServiceImpl.updateAirport("SDJ", "仙台空港", "04");
-                });
+                .isThrownBy(() -> airportServiceImpl.updateAirport("SDJ", "仙台空港", "04"));
     }
 
     @Test
@@ -213,9 +201,7 @@ class AirportServiceImplTest {
                 .findByCodeFromAirports("SDJ");
 
         assertThatExceptionOfType(NoResourceException.class)
-                .isThrownBy(() -> {
-                    airportServiceImpl.updateAirport("SDJ", "仙台国際空港", "04");
-                });
+                .isThrownBy(() -> airportServiceImpl.updateAirport("SDJ", "仙台国際空港", "04"));
     }
 
     @Test
@@ -229,9 +215,7 @@ class AirportServiceImplTest {
                 .findByCodeFromPrefs("04");
 
         assertThatExceptionOfType(NoResourceException.class)
-                .isThrownBy(() -> {
-                    airportServiceImpl.updateAirport("SDJ", "仙台国際空港", "04");
-                });
+                .isThrownBy(() -> airportServiceImpl.updateAirport("SDJ", "仙台国際空港", "04"));
     }
 
     @Test
@@ -255,8 +239,6 @@ class AirportServiceImplTest {
                 .findByCodeFromAirports("NKM");
 
         assertThatExceptionOfType(NoResourceException.class)
-                .isThrownBy(() -> {
-                    airportServiceImpl.deleteAirport("NKM");
-                });
+                .isThrownBy(() -> airportServiceImpl.deleteAirport("NKM"));
     }
 }
