@@ -310,7 +310,7 @@ GET/PATCH/DELETEリクエスト、および空港データベースのPOSTリク
 
 + Response 404
             
-            {"message" : "not found"}
+            {"message" : "This code is not found"}
 
 
 ## Conflict
@@ -318,19 +318,19 @@ GET/PATCH/DELETEリクエスト、および空港データベースのPOSTリク
 POSTリクエストで指定プライマリーキーが既に存在している場合の処理
 + Response 409
             
-            {"message" : "code duplicated"}
+            {"message" : "This code will be duplicated"}
 
 
 ### Same As Current
 PATCHリクエストで更新前に対し変更が無い場合の処理
 + Response 409
             
-            {"message" : "nothing updated"}
+            {"message" : "Current name will be nothing updated"}
 
 
 ### Code In Use
 DELETEリクエストで指定プライマリーキーが外部キーとして使用中であり削除できない場合の処理
 + Response 409
             
-            {"message" : "code in use"}
+            {"message" : "This code is in use"}
 
