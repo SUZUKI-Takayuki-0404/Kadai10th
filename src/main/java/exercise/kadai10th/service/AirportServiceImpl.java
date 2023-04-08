@@ -1,25 +1,24 @@
 package exercise.kadai10th.service;
 
 import exercise.kadai10th.entity.AirportEntity;
+import exercise.kadai10th.exceptionhandler.DuplicateCodeException;
 import exercise.kadai10th.exceptionhandler.NoResourceException;
 import exercise.kadai10th.exceptionhandler.SameAsCurrentException;
 import exercise.kadai10th.mapper.AirportMapper;
 import exercise.kadai10th.mapper.PrefectureMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class AirportServiceImpl implements AirportService {
 
-    @Autowired
-    AirportMapper airportMapper;
+    private final AirportMapper airportMapper;
 
-    @Autowired
-    PrefectureMapper prefectureMapper;
+    private final PrefectureMapper prefectureMapper;
 
     @Override
     public AirportEntity getAirport(String airportCode) {
@@ -49,7 +48,7 @@ public class AirportServiceImpl implements AirportService {
         try {
             airportMapper.insertAirport(airportCode, airportName, prefCode);
         } catch (DuplicateKeyException e) {
-            throw new DuplicateKeyException(airportCode + " This code will be duplicated");
+            throw new DuplicateCodeException(airportCode + " : This code will be duplicated");
         }
         return new AirportEntity(airportCode, airportName, prefCode, prefName);
     }

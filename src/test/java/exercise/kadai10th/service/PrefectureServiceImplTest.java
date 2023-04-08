@@ -3,6 +3,7 @@ package exercise.kadai10th.service;
 import exercise.kadai10th.entity.AirportEntity;
 import exercise.kadai10th.entity.PrefectureEntity;
 import exercise.kadai10th.exceptionhandler.CodeInUseException;
+import exercise.kadai10th.exceptionhandler.DuplicateCodeException;
 import exercise.kadai10th.exceptionhandler.NoResourceException;
 import exercise.kadai10th.exceptionhandler.SameAsCurrentException;
 import exercise.kadai10th.mapper.AirportMapper;
@@ -133,11 +134,11 @@ class PrefectureServiceImplTest {
     }
 
     @Test
-    @DisplayName("指定の都道府県コードが既存のものと重複する場合は、CodeDuplicatedExceptionをスローすること")
+    @DisplayName("指定の都道府県コードが既存のものと重複する場合は、DuplicateCodeExceptionをスローすること")
     void createPrefTest2() {
         doThrow(new DuplicateKeyException("04")).when(prefectureMapper).insertPref("04", "宮城県");
 
-        assertThatExceptionOfType(DuplicateKeyException.class)
+        assertThatExceptionOfType(DuplicateCodeException.class)
                 .isThrownBy(() -> prefectureServiceImpl.createPref("04", "宮城県"));
     }
 

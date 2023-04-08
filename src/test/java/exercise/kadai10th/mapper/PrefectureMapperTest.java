@@ -5,6 +5,7 @@ import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -17,6 +18,7 @@ import static com.github.database.rider.core.api.configuration.Orthography.LOWER
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.AssertionsForClassTypes.tuple;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DBRider
 @DBUnit(caseInsensitiveStrategy = LOWERCASE, schema = "airport_database",
@@ -105,6 +107,18 @@ class PrefectureMapperTest {
     void insertPrefTest2() {
         assertThatExceptionOfType(DuplicateKeyException.class)
                 .isThrownBy(() -> prefectureMapper.insertPref("04", "宮城県"));
+    }
+
+    @Test
+    @Disabled
+    @DataSet(value = "datasets/prefectures.yml")
+    @Transactional
+    @DisplayName("DuplicateKeyExceptionのメッセージ検証")
+    void insertPrefTest3() {
+        Exception exception = assertThrows(
+                DuplicateKeyException.class, () -> prefectureMapper.insertPref("04", "宮城県")
+        );
+        assertThat(exception.getMessage()).isEqualTo("");
     }
 
     @Test

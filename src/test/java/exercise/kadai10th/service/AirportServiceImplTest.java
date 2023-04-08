@@ -2,6 +2,7 @@ package exercise.kadai10th.service;
 
 import exercise.kadai10th.entity.AirportEntity;
 import exercise.kadai10th.entity.PrefectureEntity;
+import exercise.kadai10th.exceptionhandler.DuplicateCodeException;
 import exercise.kadai10th.exceptionhandler.NoResourceException;
 import exercise.kadai10th.exceptionhandler.SameAsCurrentException;
 import exercise.kadai10th.mapper.AirportMapper;
@@ -20,6 +21,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.tuple;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
@@ -142,16 +144,16 @@ class AirportServiceImplTest {
     }
 
     @Test
-    @DisplayName("指定の空港コードが既存のものと重複する場合はDuplicateKeyExceptionをスローすること")
+    @DisplayName("指定の空港コードが既存のものと重複する場合はDuplicateCodeExceptionをスローすること")
     void createAirportTest2() {
         doReturn(Optional.of(new PrefectureEntity("03", "岩手県")))
                 .when(prefectureMapper)
                 .findByCodeFromPrefs("03");
-        doThrow(new DuplicateKeyException("HNA"))
+        doThrow(new DuplicateKeyException("HNA" + " : This code will be duplicated"))
                 .when(airportMapper)
                 .insertAirport("HNA", "花巻空港", "03");
 
-        assertThatExceptionOfType(DuplicateKeyException.class)
+        assertThatExceptionOfType(DuplicateCodeException.class)
                 .isThrownBy(() -> airportServiceImpl.createAirport("HNA", "花巻空港", "03"));
     }
 

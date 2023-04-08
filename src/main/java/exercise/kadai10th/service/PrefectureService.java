@@ -11,10 +11,10 @@ import java.util.List;
 public interface PrefectureService {
 
     /**
-     * 指定の都道府県コードに対応する都道府県データを返す<br>
+     * 指定の都道府県コードに対応する都道府県データを返す.<br>
      * 都道府県データは都道府県コード表から取得する<br>
-     * Returns {@code PrefectureEntity} corresponding to {@code prefCode}
-     * Entity of the prefecture is searched from the prefecture code table
+     * Returns {@code PrefectureEntity} corresponding to {@code prefCode}<br>
+     * Entity of the prefecture is searched from the prefecture code table<br>
      *
      * @param prefCode the code which is unique value assigned to each prefecture
      * @return PrefectureEntity the entity consisting of the code and the name of prefecture corresponding to the code
@@ -23,10 +23,10 @@ public interface PrefectureService {
     PrefectureEntity getPrefByCode(String prefCode);
 
     /**
-     * 指定の都道府県名に対応する都道府県データを返す<br>
+     * 指定の都道府県名に対応する都道府県データを返す.<br>
      * 都道府県データは都道府県コード表から取得する<br>
-     * Returns [@code PrefectureEntity] corresponding to [@code prefName]
-     * Entity of the prefecture is searched from the prefecture code table
+     * Returns [@code PrefectureEntity] corresponding to [@code prefName]<br>
+     * Entity of the prefecture is searched from the prefecture code table<br>
      *
      * @param prefName the name of prefecture
      * @return PrefectureEntity the entity consisting of the code and the name of prefecture corresponding to the name
@@ -35,18 +35,18 @@ public interface PrefectureService {
     PrefectureEntity getPrefByName(String prefName);
 
     /**
-     * 都道府県データ全てをListとして返す<br>
+     * 都道府県データ全てをListとして返す.<br>
      * 都道府県データは都道府県コード表から取得する<br>
-     * Returns {@code List} of all prefecture data in the prefecture table
-     * List of prefectures are got from the prefecture code table
+     * Returns {@code List} of all prefecture data in the prefecture table<br>
+     * List of prefectures are got from the prefecture code table<br>
      *
-     * @return List<PrefectureEntity> the list of PrefectureEntity
+     * @return List {@code <PrefectureEntity>} the list of PrefectureEntity
      */
     List<PrefectureEntity> getAllPrefs();
 
     /**
-     * 新規の都道府県コードで都道府県データを登録する<br>
-     * Registers a new prefecture with a new code into the prefecture code table
+     * 新規の都道府県コードで都道府県データを登録する.<br>
+     * Registers a new prefecture with a new code into the prefecture code table<br>
      *
      * @param prefCode new code which is unique value assigned to the prefecture
      * @param prefName new name of prefecture
@@ -56,8 +56,8 @@ public interface PrefectureService {
     PrefectureEntity createPref(String prefCode, String prefName);
 
     /**
-     * 指定の都道府県コードに対応する都道府県データを更新する<br>
-     * Updates a name of the prefecture corresponding to the code existing in the prefecture code table
+     * 指定の都道府県コードに対応する都道府県データを更新する.<br>
+     * Updates a name of the prefecture corresponding to the code existing in the prefecture code table<br>
      *
      * @param prefCode the code which is unique value assigned to each prefecture
      * @param prefName new name of prefecture
@@ -67,9 +67,9 @@ public interface PrefectureService {
     void updatePref(String prefCode, String prefName);
 
     /**
-     * 指定の都道府県コードに対応する都道府県データを削除する<br>
+     * 指定の都道府県コードに対応する都道府県データを削除する.<br>
      * Deletes the prefecture from the prefecture code table
-     * on condition that the code of the prefecture does not exist in the airport table
+     * on condition that the code of the prefecture does not exist in the airport table<br>
      *
      * @param prefCode the code which is unique value assigned to each prefecture
      * @throws NoResourceException when the prefecture corresponding to the code does not exist

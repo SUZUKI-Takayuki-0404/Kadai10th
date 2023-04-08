@@ -2,24 +2,24 @@ package exercise.kadai10th.service;
 
 import exercise.kadai10th.entity.PrefectureEntity;
 import exercise.kadai10th.exceptionhandler.CodeInUseException;
+import exercise.kadai10th.exceptionhandler.DuplicateCodeException;
 import exercise.kadai10th.exceptionhandler.NoResourceException;
 import exercise.kadai10th.exceptionhandler.SameAsCurrentException;
 import exercise.kadai10th.mapper.AirportMapper;
 import exercise.kadai10th.mapper.PrefectureMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class PrefectureServiceImpl implements PrefectureService {
 
-    @Autowired
-    PrefectureMapper prefectureMapper;
+    private final PrefectureMapper prefectureMapper;
 
-    @Autowired
-    AirportMapper airportMapper;
+    private final AirportMapper airportMapper;
 
     @Override
     public PrefectureEntity getPrefByCode(String prefCode) {
@@ -45,7 +45,7 @@ public class PrefectureServiceImpl implements PrefectureService {
         try {
             prefectureMapper.insertPref(prefCode, prefName);
         } catch (DuplicateKeyException e) {
-            throw new DuplicateKeyException(prefCode + " : This code will be duplicated");
+            throw new DuplicateCodeException(prefCode + " : This code will be duplicated");
         }
         return new PrefectureEntity(prefCode, prefName);
     }
