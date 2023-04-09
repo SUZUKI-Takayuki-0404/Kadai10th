@@ -1,10 +1,11 @@
-package kadai10th.mapper;
+package exercise.kadai10th.mapper;
 
+import exercise.kadai10th.entity.AirportEntity;
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
-import kadai10th.entity.AirportEntity;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -17,6 +18,7 @@ import static com.github.database.rider.core.api.configuration.Orthography.LOWER
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.tuple;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DBRider
 @DBUnit(caseInsensitiveStrategy = LOWERCASE, schema = "airport_database",
@@ -36,7 +38,6 @@ class AirportMapperTest {
     void findByCodeFromAirportsTest1() {
         assertThat(airportMapper.findByCodeFromAirports("CTS"))
                 .get()
-                .usingRecursiveComparison()
                 .isEqualTo(new AirportEntity("CTS", "新千歳空港", "01", "北海道"));
     }
 
@@ -118,9 +119,19 @@ class AirportMapperTest {
     @DisplayName("指定の空港コードが既存のものと重複する場合は、DuplicateKeyExceptionをスローすること")
     void insertAirportTest2() {
         assertThatExceptionOfType(DuplicateKeyException.class)
-                .isThrownBy(() -> {
-                    airportMapper.insertAirport("HNA", "花巻空港", "03");
-                });
+                .isThrownBy(() -> airportMapper.insertAirport("HNA", "花巻空港", "03"));
+    }
+
+    @Test
+    @Disabled
+    @DataSet(value = "datasets/airports.yml")
+    @Transactional
+    @DisplayName("DuplicateKeyExceptionのメッセージ検証")
+    void insertAirportTest3() {
+        Exception exception = assertThrows(
+                DuplicateKeyException.class, () -> airportMapper.insertAirport("HNA", "花巻空港", "03")
+        );
+        assertThat(exception.getMessage()).isEqualTo("");
     }
 
     @Test

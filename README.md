@@ -20,6 +20,10 @@
     
       <img src="https://user-images.githubusercontent.com/113277395/221409604-18519446-4944-4008-ac34-98e97241c05c.PNG" width="60%">
       
+       - reviewdog指摘事項の例：入力規則に違反していたパッケージ名を修正
+         - [Befrore](http://htmlpreview.github.io/?https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/Update/PackageName/main_before.html)
+         - [After](http://htmlpreview.github.io/?https://github.com/SUZUKI-Takayuki-0404/Kadai10th/blob/Update/PackageName/main_after.html)
+      
     - [Codecov](https://github.com/codecov/example-java-gradle)
 
       <img src="https://user-images.githubusercontent.com/113277395/221409023-6223a498-9fd1-44f7-bebd-691333c7dd00.PNG" width="35%">
@@ -31,9 +35,16 @@
       <img src="https://user-images.githubusercontent.com/113277395/221408488-3f628396-cd62-42b1-9fbd-924e23b02803.PNG" width="40%">
             
     - [SpotBugs](https://github.com/spotbugs/spotbugs-gradle-plugin)
+    
     - [Slack Integration](https://github.blog/changelog/2022-12-06-github-actions-workflow-notifications-in-slack-and-microsoft-teams/)
       
       <img src="https://user-images.githubusercontent.com/113277395/221877035-341a2a55-01dd-4940-aac3-e4cc0a773058.PNG" width="40%">
+
+    - [Actions Status Discord](https://github.com/sarisia/actions-status-discord)
+
+      SlackからDiscordへのチャットツール移行に伴い追加
+      
+      <img src="https://user-images.githubusercontent.com/113277395/229260923-ccdcb4c5-1ced-4d39-b874-0867d528655d.PNG" width="40%">
 
 
 - GitHub Actionsによる自動単体テスト
@@ -97,17 +108,19 @@ Prefecture ||--o{ Airport :"has 0 or more"
 
 ### Mapperクラス
 
+<details>
+<summary>実装済み</summary>
+
 #### Prefectures
 
 |Method<br>`type name(arguments)`|Function<br>`実行SQLコマンド`|Testメソッド確認事項|
 |--|--|--|
-|`Optional<PrefEntity>`<br>`findByCodeFromPrefs(String prefCode)`|指定した都道府県コードに対応する都道府県データを取得する<br>`SELECT * FROM prefectures`<br>`WHERE prefCode = #{prefCode}`|<ul><li>指定の都道府県コードが存在するときは、対応する都道府県EntityをOptionalとして返すこと</li><li>指定の都道府県コードが無いときは、空のOptionalを返すこと</li></ul>|
-|`Optional<PrefEntity>`<br>`findByNameFromPrefs(String prefName)`|指定した都道府県名に対応する都道府県データを取得する<br>`SELECT * FROM prefectures`<br>`WHERE prefName = #{prefName}`|<ul><li>指定の都道府県名が存在するときは、対応する都道府県EntityをOptionalとして返すこと</li><li>指定の都道府県名が無いときは、空のOptionalを返すこと</li></ul>|
-|`List<PrefEntity> findAllFromPrefs()`|全ての都道府県データを取得する<br>`SELECT * FROM prefectures`|<ul><li>存在する都道府県データ全てをListとして返すこと</li><li>都道府県データが存在しないときは空のListを返すこと</li></ul>|
+|`Optional<PrefectureEntity>`<br>`findByCodeFromPrefs(String prefCode)`|指定した都道府県コードに対応する都道府県データを取得する<br>`SELECT * FROM prefectures`<br>`WHERE prefCode = #{prefCode}`|<ul><li>指定の都道府県コードが存在するときは、対応する都道府県EntityをOptionalとして返すこと</li><li>指定の都道府県コードが無いときは、空のOptionalを返すこと</li></ul>|
+|`Optional<PrefectureEntity>`<br>`findByNameFromPrefs(String prefName)`|指定した都道府県名に対応する都道府県データを取得する<br>`SELECT * FROM prefectures`<br>`WHERE prefName = #{prefName}`|<ul><li>指定の都道府県名が存在するときは、対応する都道府県EntityをOptionalとして返すこと</li><li>指定の都道府県名が無いときは、空のOptionalを返すこと</li></ul>|
+|`List<PrefectureEntity> findAllFromPrefs()`|全ての都道府県データを取得する<br>`SELECT * FROM prefectures`|<ul><li>存在する都道府県データ全てをListとして返すこと</li><li>都道府県データが存在しないときは空のListを返すこと</li></ul>|
 |`void insertPref`<br>`(String prefCode, String prefName)`|既存と重複しない都道府県データを挿入する<br>`INSERT INTO prefectures (prefCode, prefName)`<br>`VALUES (#{prefCode}, #{prefName})`|<ul><li>指定の都道府県コードが既存のものと重複しない場合は、併せて指定した都道府県名と共にデータ登録すること</li><li>指定の都道府県コードが既存のものと重複する場合は、DuplicateKeyExceptionをスローすること</li></ul>|
 |`boolean updatePref`<br>`(String prefCode, String prefName)`|指定した都道府県コードに対応する都道府県データを更新する<br>`UPDATE prefectures `<br>`SET prefName = #{prefName}`<br>`WHERE prefCode = #{prefCode}`|<ul><li>指定の都道府県コードが存在するときは、併せて指定した都道府県名でデータ更新すること</li><li>指定の都道府県コードが存在しない場合は何も変更しないこと</li></ul>|
 |`boolean deletePref`<br>`(String prefCode)`|指定した都道府県コードに対応する都道府県のデータを削除する<br>`DELETE FROM prefectures`<br>`WHERE prefCode = #{prefCode}`|<ul><li>指定の都道府県コードが存在する場合は、対応する都道府県データを削除すること</li><li>指定の都道府県コードが存在しない場合は何も変更しないこと</li></ul>|
-
 
 #### Airports
 
@@ -120,9 +133,7 @@ Prefecture ||--o{ Airport :"has 0 or more"
 |`boolean updateAirport`<br>`(String airportCode, String airportName, String prefCode)`|指定した空港コードに対応する空港データを更新する<br>`UPDATE airports `<br>`SET airportName = #{airportName}, prefCode = #{prefCode} `<br>`WHERE airportCode = #{airportCode}`|<ul><li>指定の空港コードが存在する場合は、併せて指定した空港名および都道府県コードでデータ更新すること</li><li>指定の空港コードが存在しない場合は何も変更しないこと</li></ul>|
 |`boolean deleteAirport`<br>`(String airportCode)`|指定した空港コードに対応する空港データを削除する<br>`DELETE FROM airports `<br>`WHERE airportCode = #{airportCode}`|<ul><li>指定の空港コードが存在する場合は、対応する空港データを削除すること</li><li>指定の空港コードが存在しない場合は何も変更しないこと</li></ul>|
 
-
-<details>
-<summary>進捗にあわせ更新予定</summary>
+</details>
 
 ### Serviceクラス
 
@@ -130,23 +141,27 @@ Prefecture ||--o{ Airport :"has 0 or more"
 
 |Method<br>`type name(arguments)`|Function|Testメソッド確認事項|
 |--|--|--|
-|`PrefEntity getPrefByCode(String prefCode)`|指定の都道府県コードに対応する都道府県データを返す|<ul><li>指定の都道府県コードに対応する都道府県のEntityがある場合はそれを返すこと</li><li>指定の都道府県コードに対応する都道府県のEntityが存在しない場合はNoResourceExceptionをスローすること</li></ul>|
-|`PrefEntity getPrefByName(String prefName)`|指定の都道府県名に対応する都道府県データを返す|<ul><li>指定の都道府県名に対応する都道府県のEntityがある場合はそれを返すこと</li><li>指定の都道府県名に対応する都道府県のEntityが無い場合はNoResourceExceptionをスローすること</li></ul>|
-|`List<PrefEntity> getAllPrefs()`|都道府県データ全てをListとして返す|<ul><li>都道府県のEntityが存在する場合はその全てをListで返すこと</li><li>都道府県のEntityが無い場合は空のListを返すこと</li></ul>|
-|`PrefEntity createPref`<br>`(String prefCode, String prefName)`|新規の都道府県コードで都道府県データを登録する|<ul><li>指定の都道府県コードが既存のものと重複しない場合は併せて指定した都道府県名で新規の都道府県のEntityを追加すること</li><li>指定の都道府県コードが既存のものと重複する場合はCodeDuplicatedExceptionをスローすること</li></ul>|
-|`void updatePref`<br>`(String prefCode, String prefName)`|指定の都道府県コードに対応する都道府県データを更新する|<ul><li>指定の都道府県コードに対応する都道府県のEntityがあり併せて指定した都道府県名が従前とは異なる場合は、都道府県名を併せて指定したものに更新すること</li><li>指定の都道府県コードに対応する都道府県のEntityはあるが併せて指定した都道府県名が従前と同等の場合はSameAsCurrentExceptionをスローすること</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合はNoResourceExceptionをスローすること</li></ul>|
-|`void deletePref`<br>`(String prefCode)`|指定の都道府県コードに対応する都道府県データを削除する<br>※削除対象の都道府県コードを付与されている空港がある場合は削除不可|<ul><li>指定の都道府県コードに対応する都道府県のEntityがあり、かつその都道府県コードをもつ空港が存在しない場合は、都道府県を削除すること</li><li>指定の都道府県コードに対応する都道府県のEntityがあり、かつその都道府県コードをもつ空港が存在する場合は、CodeInUseExceptionをスローすること</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合はNoResourceExceptionをスローすること</li></ul>|
+|`PrefectureEntity getPrefByCode(String prefCode)`|指定の都道府県コードに対応する都道府県データを返す|<ul><li>指定の都道府県コードに対応する都道府県のEntityがある場合はそれを返すこと</li><li>指定の都道府県コードに対応する都道府県のEntityが存在しない場合はNoResourceExceptionをスローすること</li></ul>|
+|`PrefectureEntity getPrefByName(String prefName)`|指定の都道府県名に対応する都道府県データを返す|<ul><li>指定の都道府県名に対応する都道府県のEntityがある場合はそれを返すこと</li><li>指定の都道府県名に対応する都道府県のEntityが無い場合はNoResourceExceptionをスローすること</li></ul>|
+|`List<PrefectureEntity> getAllPrefs()`|都道府県データ全てをListとして返す|<ul><li>都道府県のEntityが存在する場合はその全てをListで返すこと</li><li>都道府県のEntityが無い場合は空のListを返すこと</li></ul>|
+|`PrefectureEntity createPref`<br>`(String prefCode, String prefName)`|新規の都道府県コードで都道府県データを登録する|<ul><li>指定の都道府県コードが既存のものと重複しない場合は併せて指定した都道府県名で新規の都道府県のEntityを追加すること</li><li>指定の都道府県コードが既存のものと重複する場合は、DuplicateCodeExceptionをスローすること</li></ul>|
+|`void updatePref`<br>`(String prefCode, String prefName)`|指定の都道府県コードに対応する都道府県データを更新する|<ul><li>指定の都道府県コードに対応する都道府県のEntityがあり、かつ併せて指定した都道府県名が従前と異なる場合は、都道府県名を更新すること</li><li>指定の都道府県コードに対応する都道府県のEntityはあるが、併せて指定した都道府県名が従前と同等の場合は、SameAsCurrentExceptionをスローすること</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合は、NoResourceExceptionをスローすること</li></ul>|
+|`void deletePref`<br>`(String prefCode)`|指定の都道府県コードに対応する都道府県データを削除する<br>※削除対象の都道府県コードを付与されている空港がある場合は削除不可|<ul><li>指定の都道府県コードに対応する都道府県のEntityがあり、かつその都道府県コードをもつ空港が存在しない場合は、都道府県を削除すること</li><li>指定の都道府県コードに対応する都道府県のEntityがあり、かつその都道府県に空港が存在する場合は、CodeInUseExceptionをスローすること</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合は、NoResourceExceptionをスローすること</li></ul>|
 
 #### Airports
 
 |Method<br>`type name(arguments)`|Function|Testメソッド確認事項|
 |--|--|--|
 |`AirportEntity`<br>`getAirport(String airportCode)`|指定の空港コードに対応する空港データを返す<br>※都道府県コードから都道府県名を取得する|<ul><li>指定の空港コードに対応する空港のEntityがある場合はそれを返すこと</li><li>指定の空港コードに対応する空港のEntityが存在しない場合はNoResourceExceptionをスローすること</li></ul>|
-|`List<AirportEntity>`<br>`getAirportsByPref(String prefCode)`|指定の都道府県名に対応する空港データ全てをListとして返す<br>※都道府県コードから都道府県名を取得する|<ul><li>指定の都道府県コードに対応する空港のEntityがある場合はその全てをListで返すこと</li><li>指定の都道府県コードに対応する空港のEntityが無い場合は空のListを返すこと</li><li>指定の都道府県コードに対応する都道府県データが存在しない場合はNoResourceExceptionをスローすること</li></ul>|
+|`List<AirportEntity>`<br>`getAirportsByPref(String prefName)`|指定の都道府県名に対応する空港データ全てをListとして返す|<ul><li>指定の都道府県名に対応する空港のEntityがある場合はその全てをListで返すこと</li><li>指定の都道府県コードに対応する空港のEntityが無い場合は空のListを返すこと</li></ul>|
 |`List<AirportEntity>`<br>`getAllAirports()`|空港データ全てをListとして返す<br>※都道府県コードから都道府県名を取得する|<ul><li>空港のEntityが存在する場合はその全てをListで返すこと</li><li>空港のEntityが無い場合は空のListを返すこと</li></ul>|
-|`AirportEntity createAirport`<br>`(String airportCode, String airportName, String prefCode)`|新規の空港データを登録する|<ul><li>指定の空港コードが既存のものと重複しない場合は、併せて指定した空港名と都道府県で新規の空港のEntityを追加すること</li><li>指定の空港コードが既存のものと重複する場合はCodeDuplicatedExceptionをスローすること</li><li>指定の都道府県コードに対応する都道府県のEntityが存在しない場合はNoResourceExceptionをスローすること</li></ul>|
-|`void updateAirport`<br>`(String airportCode, String airportName, String prefCode)`|指定の空港コードに対応する空港データを更新する|<ul><li>指定の空港コードに対応する空港のEntityがあり、かつ併せて指定した空港名が従前とは異なる場合は（都道府県コードは同等でも可）、空港名と都道府県コードを更新すること</li><li>指定の空港コードに対応する空港のEntityはあるが、併せて指定した空港名が従前と同等の場合は、SameAsCurrentExceptionをスローすること</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合はNoResourceExceptionをスローすること</li><li>指定の空港コードに対応する空港のEntityが存在しない場合はNoResourceExceptionをスローすること</li></ul>|
+|`AirportEntity createAirport`<br>`(String airportCode, String airportName, String prefCode)`|新規の空港データを登録する|<ul><li>指定の空港コードが既存のものと重複せず、かつ指定の都道府県が存在する場合は、新規の空港Entityを追加すること</li><li>指定の空港コードが既存のものと重複する場合はDuplicateCodeExceptionをスローすること</li><li>指定の都道府県コードに対応する都道府県のEntityが存在しない場合はNoResourceExceptionをスローすること</li></ul>|
+|`void updateAirport`<br>`(String airportCode, String airportName, String prefCode)`|指定の空港コードに対応する空港データを更新する|<ul><li>指定の空港コードに対応する空港のEntityがあり、かつ併せて指定した空港名が従前とは異なる（都道府県コードは同等でも可）場合は更新すること</li><li>指定の空港コードに対応する空港のEntityはあるが、併せて指定した空港名が従前と同等の場合は、SameAsCurrentExceptionをスローすること</li><li>指定の空港コードに対応する空港のEntityが存在しない場合はNoResourceExceptionをスローすること</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合はNoResourceExceptionをスローすること</li></ul>|
 |`void deleteAirport`<br>`(String airportCode)`|指定の空港コードに対応する空港データを削除する|<ul><li>指定の空港コードに対応する空港のEntityがある場合は削除すること</li><li>指定の空港コードに対応する空港のEntityが無い場合はNoResourceExceptionをスローすること</li></ul>|
+
+
+<details>
+<summary>進捗にあわせ更新予定</summary>
 
 ### Controllerクラス
 
