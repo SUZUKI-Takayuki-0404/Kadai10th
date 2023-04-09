@@ -137,6 +137,9 @@ Prefecture ||--o{ Airport :"has 0 or more"
 
 ### Serviceクラス
 
+<details>
+<summary>実装済み</summary>
+
 #### Prefectures
 
 |Method<br>`type name(arguments)`|Function|Testメソッド確認事項|
@@ -159,9 +162,7 @@ Prefecture ||--o{ Airport :"has 0 or more"
 |`void updateAirport`<br>`(String airportCode, String airportName, String prefCode)`|指定の空港コードに対応する空港データを更新する|<ul><li>指定の空港コードに対応する空港のEntityがあり、かつ併せて指定した空港名が従前とは異なる（都道府県コードは同等でも可）場合は更新すること</li><li>指定の空港コードに対応する空港のEntityはあるが、併せて指定した空港名が従前と同等の場合は、SameAsCurrentExceptionをスローすること</li><li>指定の空港コードに対応する空港のEntityが存在しない場合はNoResourceExceptionをスローすること</li><li>指定の都道府県コードに対応する都道府県のEntityが無い場合はNoResourceExceptionをスローすること</li></ul>|
 |`void deleteAirport`<br>`(String airportCode)`|指定の空港コードに対応する空港データを削除する|<ul><li>指定の空港コードに対応する空港のEntityがある場合は削除すること</li><li>指定の空港コードに対応する空港のEntityが無い場合はNoResourceExceptionをスローすること</li></ul>|
 
-
-<details>
-<summary>進捗にあわせ更新予定</summary>
+</details>
 
 ### Controllerクラス
 
@@ -187,7 +188,6 @@ Prefecture ||--o{ Airport :"has 0 or more"
 |`ResponseEntity<Void>`<br>`updateAirport(AirportfRequestForm airportRequestForm)`|指定の空港コードに対応する空港名、都道府県コードを更新する|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する空港データを更新できた場合 **204**</li><li>指定した空港コードに対応する空港データを更新できなかった場合 **409**</li><li>指定した都道府県コードに対応する都道府県データが存在しなかった場合 **404**</li><li>指定した空港コードに対応する空港データが存在しなかった場合 **404**</li></ul>|
 |`ResponseEntity<Void>`<br>`deleteAirport(String airportCode)`|指定の空港コードに対応する空港データを削除する|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する都道府県データを削除できた場合 **204**</li><li>指定した空港コードに対応する空港データが存在しなかった場合 **404**</li></ul>|
 
-</details>
 
 ## 4. API動作確認プロセス
 
