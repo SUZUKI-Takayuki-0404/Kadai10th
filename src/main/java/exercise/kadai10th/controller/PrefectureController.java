@@ -34,7 +34,7 @@ public class PrefectureController {
         return ResponseEntity.ok(new PrefectureResponse("Successfully found", prefectureService.getPrefByCode(prefCode)));
     }
 
-    @GetMapping("/prefectures")
+    @GetMapping("/prefectures/names")
     ResponseEntity<PrefectureResponse> getPrefByName(@RequestParam(value = "prefName") String prefName) {
         return ResponseEntity.ok(new PrefectureResponse("Successfully found", prefectureService.getPrefByName(prefName)));
     }

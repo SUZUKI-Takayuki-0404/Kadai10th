@@ -7,6 +7,7 @@ import exercise.kadai10th.response.AllAirportResponse;
 import exercise.kadai10th.service.AirportService;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,14 +28,14 @@ public class AirportController {
 
     private final AirportService airportService;
 
-    @GetMapping("/airports")
+    @GetMapping("/airports/codes")
     ResponseEntity<AirportResponse> getAirport(
             @PathVariable("airportCode") @Size(min = 3, max = 3, message = "Number of letters has to be 3")
             String airportCode) {
         return ResponseEntity.ok(new AirportResponse("Successfully found", airportService.getAirport(airportCode)));
     }
 
-    @GetMapping("/airports")
+    @GetMapping("/airports/prefectures/")
     ResponseEntity<AllAirportResponse> getAirportsInPref(@RequestParam(value = "prefName") String prefName) {
         return ResponseEntity.ok(new AllAirportResponse(
                 "All airports in " + prefName + " listed", airportService.getAirportsByPref(prefName)));

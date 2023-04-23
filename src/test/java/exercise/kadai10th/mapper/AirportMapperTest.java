@@ -123,7 +123,7 @@ class AirportMapperTest {
     }
 
     @Test
-    @Disabled
+//    @Disabled
     @DataSet(value = "datasets/airports.yml")
     @Transactional
     @DisplayName("DuplicateKeyExceptionのメッセージ検証")
@@ -131,7 +131,7 @@ class AirportMapperTest {
         Exception exception = assertThrows(
                 DuplicateKeyException.class, () -> airportMapper.insertAirport("HNA", "花巻空港", "03")
         );
-        assertThat(exception.getMessage()).isEqualTo("");
+        assertThat(exception.getMessage()).isNotEqualTo("");
     }
 
     @Test

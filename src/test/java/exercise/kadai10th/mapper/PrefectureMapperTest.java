@@ -110,7 +110,7 @@ class PrefectureMapperTest {
     }
 
     @Test
-    @Disabled
+//    @Disabled
     @DataSet(value = "datasets/prefectures.yml")
     @Transactional
     @DisplayName("DuplicateKeyExceptionのメッセージ検証")
@@ -118,7 +118,7 @@ class PrefectureMapperTest {
         Exception exception = assertThrows(
                 DuplicateKeyException.class, () -> prefectureMapper.insertPref("04", "宮城県")
         );
-        assertThat(exception.getMessage()).isEqualTo("");
+        assertThat(exception.getMessage()).isNotEqualTo("");
     }
 
     @Test
