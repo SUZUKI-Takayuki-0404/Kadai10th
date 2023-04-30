@@ -77,7 +77,6 @@ class PrefectureServiceImplTest {
         verify(prefectureMapper, times(1)).findByNameFromPrefs("青森県");
     }
 
-
     @Test
     @DisplayName("指定の都道府県名に対応する都道府県のEntityが無い場合はNoResourceExceptionをスローすること")
     void getPrefByNameTest2() {

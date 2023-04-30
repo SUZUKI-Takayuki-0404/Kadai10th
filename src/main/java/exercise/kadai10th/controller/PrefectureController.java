@@ -31,17 +31,20 @@ public class PrefectureController {
     ResponseEntity<PrefectureResponse> getPrefByCode(
             @PathVariable("prefCode") @Size(min = 2, max = 2, message = "Number of letters has to be 2")
             String prefCode) {
-        return ResponseEntity.ok(new PrefectureResponse("Successfully found", prefectureService.getPrefByCode(prefCode)));
+        return ResponseEntity
+                .ok(new PrefectureResponse("Successfully found", prefectureService.getPrefByCode(prefCode)));
     }
 
     @GetMapping("/prefectures/names")
     ResponseEntity<PrefectureResponse> getPrefByName(@RequestParam(value = "prefName") String prefName) {
-        return ResponseEntity.ok(new PrefectureResponse("Successfully found", prefectureService.getPrefByName(prefName)));
+        return ResponseEntity
+                .ok(new PrefectureResponse("Successfully found", prefectureService.getPrefByName(prefName)));
     }
 
     @GetMapping("/prefectures")
     ResponseEntity<AllPrefectureResponse> getAllPrefs() {
-        return ResponseEntity.ok(new AllPrefectureResponse("All prefectures listed", prefectureService.getAllPrefs()));
+        return ResponseEntity
+                .ok(new AllPrefectureResponse("All prefectures listed", prefectureService.getAllPrefs()));
     }
 
     @PostMapping("/prefectures")
@@ -50,15 +53,15 @@ public class PrefectureController {
         String prefCode = prefectureRequestForm.getPrefCode();
         PrefectureEntity prefectureEntity = prefectureService.createPref(prefCode, prefectureRequestForm.getPrefName());
         URI uri = uriBuilder
-                .path("/" + prefCode)
+                .path("/prefectures/" + prefCode)
                 .build()
                 .toUri();
-        return ResponseEntity.created(uri).body(new PrefectureResponse("Successfully created", prefectureEntity));
+        return ResponseEntity
+                .created(uri).body(new PrefectureResponse("Successfully created", prefectureEntity));
     }
 
     @PatchMapping("/prefectures/{prefCode}")
-    ResponseEntity<Void> updatePref(
-            @PathVariable("prefCode") @RequestBody @Validated PrefectureRequestForm prefectureRequestForm) {
+    ResponseEntity<Void> updatePref(@RequestBody @Validated PrefectureRequestForm prefectureRequestForm) {
         prefectureService.updatePref(prefectureRequestForm.getPrefCode(), prefectureRequestForm.getPrefName());
         return ResponseEntity.noContent().build();
     }

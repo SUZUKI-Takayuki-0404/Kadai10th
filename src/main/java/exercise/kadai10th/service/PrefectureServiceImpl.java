@@ -52,8 +52,7 @@ public class PrefectureServiceImpl implements PrefectureService {
 
     @Override
     public void updatePref(String prefCode, String prefName) {
-        PrefectureEntity prefectureEntity
-                = prefectureMapper
+        PrefectureEntity prefectureEntity = prefectureMapper
                 .findByCodeFromPrefs(prefCode)
                 .orElseThrow(() -> new NoResourceException(prefCode + " : This code is not found"));
 
@@ -66,8 +65,7 @@ public class PrefectureServiceImpl implements PrefectureService {
 
     @Override
     public void deletePref(String prefCode) {
-        String prefName
-                = prefectureMapper
+        String prefName = prefectureMapper
                 .findByCodeFromPrefs(prefCode)
                 .orElseThrow(() -> new NoResourceException(prefCode + " : This code is not found"))
                 .getPrefName();

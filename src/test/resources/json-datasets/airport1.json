@@ -1,0 +1,9 @@
+{
+  "message": "Successfully found",
+  "airportEntity": {
+    "airportCode": "CTS",
+    "airportName": "新千歳空港",
+    "prefCode": "01",
+    "prefName": "北海道"
+  }
+}

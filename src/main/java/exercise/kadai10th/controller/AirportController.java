@@ -28,22 +28,26 @@ public class AirportController {
 
     private final AirportService airportService;
 
-    @GetMapping("/airports/codes")
+    @GetMapping("/airports/codes/{airportCode}")
     ResponseEntity<AirportResponse> getAirport(
             @PathVariable("airportCode") @Size(min = 3, max = 3, message = "Number of letters has to be 3")
             String airportCode) {
-        return ResponseEntity.ok(new AirportResponse("Successfully found", airportService.getAirport(airportCode)));
+        return ResponseEntity
+                .ok(new AirportResponse("Successfully found", airportService.getAirport(airportCode)));
     }
 
-    @GetMapping("/airports/prefectures/")
+    @GetMapping("/airports/prefectures")
     ResponseEntity<AllAirportResponse> getAirportsInPref(@RequestParam(value = "prefName") String prefName) {
-        return ResponseEntity.ok(new AllAirportResponse(
-                "All airports in " + prefName + " listed", airportService.getAirportsByPref(prefName)));
+        return ResponseEntity
+                .ok(new AllAirportResponse(
+                        "All airports in " + prefName + " listed", airportService.getAirportsByPref(prefName)
+                ));
     }
 
     @GetMapping("/airports")
     ResponseEntity<AllAirportResponse> getAllAirports() {
-        return ResponseEntity.ok(new AllAirportResponse("All airports listed", airportService.getAllAirports()));
+        return ResponseEntity
+                .ok(new AllAirportResponse("All airports listed", airportService.getAllAirports()));
     }
 
     @PostMapping("/airports")
@@ -63,13 +67,11 @@ public class AirportController {
     }
 
     @PatchMapping("/airports/{airportCode}")
-    ResponseEntity<Void> updateAirport(
-            @PathVariable("airportCode") @RequestBody @Validated AirportRequestForm airportRequestForm) {
+    ResponseEntity<Void> updateAirport(@RequestBody @Validated AirportRequestForm airportRequestForm) {
         airportService.updateAirport(
                 airportRequestForm.getAirportCode(),
                 airportRequestForm.getAirportName(),
-                airportRequestForm.getPrefCode()
-        );
+                airportRequestForm.getPrefCode());
         return ResponseEntity.noContent().build();
     }
 
