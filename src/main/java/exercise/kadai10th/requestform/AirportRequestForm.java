@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-//@Getter
+@Getter
 @Setter
 public class AirportRequestForm {
 

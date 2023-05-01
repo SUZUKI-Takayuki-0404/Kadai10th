@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.List;
 
 @AllArgsConstructor
-//@Setter
+@Setter
 @Getter
 public class AllAirportResponse {
     private String message;
