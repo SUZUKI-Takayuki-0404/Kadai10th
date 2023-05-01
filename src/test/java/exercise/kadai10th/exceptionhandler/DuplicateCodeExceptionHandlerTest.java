@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.skyscreamer.jsonassert.Customization;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.comparator.CustomComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,7 +24,6 @@ import org.springframework.util.StreamUtils;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -72,9 +73,12 @@ class DuplicateCodeExceptionHandlerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        System.out.println(actualResult);
-        assertThat(actualResult).contains("04 : This code will be duplicated");
-//        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture-create.json")).toString();
-//        JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-duplicate-code.json")).toString();
+
+        //To exclude timestamp from scope of JSON comparison
+        JSONAssert.assertEquals(expectedResult, actualResult,
+                new CustomComparator(
+                        JSONCompareMode.STRICT,
+                        new Customization("timestamp", (o1, o2) -> true)));
     }
 }

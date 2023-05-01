@@ -2,15 +2,16 @@ package exercise.kadai10th.exceptionhandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import exercise.kadai10th.controller.AirportController;
-import exercise.kadai10th.controller.PrefectureController;
 import exercise.kadai10th.service.AirportService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.skyscreamer.jsonassert.Customization;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.comparator.CustomComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,7 +22,6 @@ import org.springframework.util.StreamUtils;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -68,9 +68,12 @@ class NoResourceExceptionHandlerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        System.out.println(actualResult);
-        assertThat(actualResult).contains("WKJ : This code is not found");
-//        String expectedResult = objectMapper.readTree(getJsonFileData("airport1.json")).toString();
-//        JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource.json")).toString();
+
+        //To exclude timestamp from scope of JSON comparison
+        JSONAssert.assertEquals(expectedResult, actualResult,
+                new CustomComparator(
+                        JSONCompareMode.STRICT,
+                        new Customization("timestamp", (o1, o2) -> true)));
     }
 }
