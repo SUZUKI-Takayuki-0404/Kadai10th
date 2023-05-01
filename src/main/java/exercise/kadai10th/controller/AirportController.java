@@ -57,10 +57,9 @@ public class AirportController {
         AirportEntity airportEntity = airportService.createAirport(
                 airportCode,
                 airportRequestForm.getAirportName(),
-                airportRequestForm.getPrefCode()
-        );
+                airportRequestForm.getPrefCode());
         URI uri = uriBuilder
-                .path("/" + airportCode)
+                .path("/airports/" + airportCode)
                 .build()
                 .toUri();
         return ResponseEntity.created(uri).body(new AirportResponse("Successfully created", airportEntity));

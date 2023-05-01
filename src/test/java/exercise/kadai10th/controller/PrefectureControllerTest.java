@@ -61,7 +61,7 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県コードに該当する都道府県データを取得した場合、レスポンスコード200および都道府県のjson形式データを返す")
+    @DisplayName("都道府県コードから都道府県データを取得した場合、レスポンスコード200および都道府県のjson形式データを返す")
     void getPrefByCodeTest1() throws Exception {
         doReturn(new PrefectureEntity("01", "北海道"))
                 .when(prefectureService)
@@ -75,16 +75,11 @@ class PrefectureControllerTest {
                 .getContentAsString(StandardCharsets.UTF_8);
 
         String expectedResult = objectMapper.readTree(getJsonFileData("prefecture1.json")).toString();
-
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
-    /*
-        指定した都道府県コードに対応する都道府県データを取得できた場合 200
-        指定した都道府県コードに対応する都道府県データが存在しなかった場合 404
-    */
     }
 
     @Test
-    @DisplayName("都道府県名に該当する都道府県データを取得した場合、レスポンスコード200および都道府県のjson形式データを返す")
+    @DisplayName("都道府県名から都道府県データを取得した場合、レスポンスコード200および都道府県のjson形式データを返す")
     void getPrefByNameTest1() throws Exception {
         doReturn(new PrefectureEntity("02", "青森県"))
                 .when(prefectureService)
@@ -98,16 +93,11 @@ class PrefectureControllerTest {
                 .getContentAsString(StandardCharsets.UTF_8);
 
         String expectedResult = objectMapper.readTree(getJsonFileData("prefecture2.json")).toString();
-
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
-    /*
-        指定した都道府県名に対応する都道府県データを取得できた場合 200
-        指定した都道府県名に対応する都道府県データが存在しなかった場合 404
-    */
     }
 
     @Test
-    @DisplayName("レスポンスコード200および登録されている全ての都道府県のjson形式データを返す")
+    @DisplayName("レスポンスコード200および登録済みの全ての都道府県のjson形式データを返す")
     void getAllPrefsTest1() throws Exception {
         doReturn(List.of(
                 new PrefectureEntity("01", "北海道"),
@@ -125,15 +115,11 @@ class PrefectureControllerTest {
                 .getContentAsString(StandardCharsets.UTF_8);
 
         String expectedResult = objectMapper.readTree(getJsonFileData("prefecture-all.json")).toString();
-
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
-    /*
-        ステータスコード 200
-    */
     }
 
     @Test
-    @DisplayName("都道府県コードに該当する都道府県データを追加した場合、レスポンスコード201および都道府県のjson形式データを返す")
+    @DisplayName("都道府県データを追加した場合、レスポンスコード201および都道府県のjson形式データを返す")
     void createPrefTest1() throws Exception {
         doReturn(new PrefectureEntity("05", "秋田県"))
                 .when(prefectureService)
@@ -152,59 +138,38 @@ class PrefectureControllerTest {
                 .getContentAsString(StandardCharsets.UTF_8);
 
         String expectedResult = objectMapper.readTree(getJsonFileData("prefecture-create.json")).toString();
-
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
-    /*
-        指定した都道府県コードに対応する新規の都道府県データを追加できた場合 201
-        指定した都道府県コードに対応する新規の都道府県データを追加できなかった場合 409
-    */
     }
 
     @Test
-    @DisplayName("都道府県コードに該当する都道府県データを更新した場合、レスポンスコード204を返す")
+    @DisplayName("都道府県データを更新した場合、レスポンスコード204を返す")
     void updatePrefTest1() throws Exception {
         doNothing().when(prefectureService).updatePref("02", "あおもりけん");
 
-        var actualResult = mockMvc
-                .perform(patch("/prefectures/02")
+        mockMvc.perform(patch("/prefectures/02")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(
-                                new PrefectureRequestForm("02", "あおもりけん")))
-                )
+                                new PrefectureRequestForm("02", "あおもりけん"))))
                 .andExpect(status().isNoContent())
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
         verify(prefectureService, times(1)).updatePref("02", "あおもりけん");
-
-
-    /*
-        指定した都道府県コードに対応する都道府県データを更新できた場合 204
-        指定した都道府県コードに対応する新規の都道府県データを更新できなかった場合 409
-        指定した都道府県コードに対応する都道府県データが存在しなかった場合 404
-    */
     }
 
     @Test
-    @DisplayName("都道府県コードに該当する都道府県データを削除した場合、レスポンスコード204を返す")
+    @DisplayName("都道府県データを削除した場合、レスポンスコード204を返す")
     void deletePrefTest1() throws Exception {
         doNothing().when(prefectureService).deletePref("11");
 
-        var actualResult = mockMvc
-                .perform(delete("/prefectures/11"))
+        mockMvc.perform(delete("/prefectures/11"))
                 .andExpect(status().isNoContent())
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
         verify(prefectureService, times(1)).deletePref("11");
-
-    /*
-        指定した都道府県コードに対応する都道府県データを削除できた場合 204
-        指定した都道府県コードに対応する都道府県データを削除できなかった場合 409
-        指定した都道府県コードに対応する都道府県データが存在しなかった場合 404
-    */
     }
 }

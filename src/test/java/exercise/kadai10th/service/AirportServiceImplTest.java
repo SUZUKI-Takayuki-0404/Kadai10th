@@ -136,7 +136,8 @@ class AirportServiceImplTest {
                 .when(prefectureMapper)
                 .findByCodeFromPrefs("47");
 
-        airportServiceImpl.createAirport("OKA", "那覇空港", "47");
+        assertThat(airportServiceImpl.createAirport("OKA", "那覇空港", "47"))
+                .isEqualTo(new AirportEntity("OKA", "那覇空港", "47", "沖縄県"));
 
         verify(prefectureMapper, times(1)).findByCodeFromPrefs("47");
         verify(airportMapper, times(1)).insertAirport("OKA", "那覇空港", "47");

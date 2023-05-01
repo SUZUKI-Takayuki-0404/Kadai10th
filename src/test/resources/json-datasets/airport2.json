@@ -1,0 +1,17 @@
+{
+  "message": "All airports in 北海道 listed",
+  "airportEntityList": [
+    {
+      "airportCode": "CTS",
+      "airportName": "新千歳空港",
+      "prefCode": "01",
+      "prefName": "北海道"
+    },
+    {
+      "airportCode": "HKD",
+      "airportName": "函館空港",
+      "prefCode": "01",
+      "prefName": "北海道"
+    }
+  ]
+}

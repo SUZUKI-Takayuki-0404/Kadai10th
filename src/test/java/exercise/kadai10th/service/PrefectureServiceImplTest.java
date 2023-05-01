@@ -127,7 +127,8 @@ class PrefectureServiceImplTest {
     void createPrefTest1() {
         doNothing().when(prefectureMapper).insertPref("05", "秋田県");
 
-        prefectureServiceImpl.createPref("05", "秋田県");
+        assertThat(prefectureServiceImpl.createPref("05", "秋田県"))
+                .isEqualTo(new PrefectureEntity("05", "秋田県"));
 
         verify(prefectureMapper).insertPref("05", "秋田県");
     }

@@ -39,8 +39,7 @@ public class AirportServiceImpl implements AirportService {
 
     @Override
     public AirportEntity createAirport(String airportCode, String airportName, String prefCode) {
-        String prefName
-                = prefectureMapper
+        String prefName = prefectureMapper
                 .findByCodeFromPrefs(prefCode)
                 .orElseThrow(() -> new NoResourceException(prefCode + " : This code is not found"))
                 .getPrefName();
@@ -55,8 +54,7 @@ public class AirportServiceImpl implements AirportService {
 
     @Override
     public void updateAirport(String airportCode, String airportName, String prefCode) {
-        String airportCurrentName
-                = airportMapper
+        String airportCurrentName = airportMapper
                 .findByCodeFromAirports(airportCode)
                 .orElseThrow(() -> new NoResourceException(airportCode + " : This code is not found"))
                 .getAirportName();
