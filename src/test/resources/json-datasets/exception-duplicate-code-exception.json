@@ -1,0 +1,7 @@
+{
+  "path": "/prefectures",
+  "error": "Conflict",
+  "message": "04 : This code will be duplicated",
+  "timestamp": "2023-05-01T15:02:42.539593700+09:00[Asia/Tokyo]",
+  "status": "409"
+}

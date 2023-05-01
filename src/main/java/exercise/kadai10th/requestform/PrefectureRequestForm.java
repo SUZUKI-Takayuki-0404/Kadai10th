@@ -3,10 +3,12 @@ package exercise.kadai10th.requestform;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor
-@Data
+@Setter
+@Getter
 public class PrefectureRequestForm {
 
     @Size(min = 2, max = 2, message = "Number of letters has to be 2")

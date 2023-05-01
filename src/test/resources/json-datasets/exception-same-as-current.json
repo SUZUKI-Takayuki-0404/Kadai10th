@@ -1,0 +1,7 @@
+{
+  "path": "/airports/SDJ",
+  "error": "Conflict",
+  "message": "SDJ : Current name will be nothing updated",
+  "timestamp": "2023-05-01T15:05:35.948187400+09:00[Asia/Tokyo]",
+  "status": "409"
+}
