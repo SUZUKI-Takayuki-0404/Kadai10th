@@ -170,23 +170,32 @@ Prefecture ||--o{ Airport :"has 0 or more"
 
 |Method<br>`type name(arguments)`|Function|Testメソッド確認事項|
 |--|--|--|
-|`ResponseEntity<PrefectureResponse>`<br>`getPrefByCode(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データを返す|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県コードに対応する都道府県データを取得できた場合 **200**</li><li>指定した都道府県コードに対応する都道府県データが存在しなかった場合 **404**</li></ul>|
-|`ResponseEntity<PrefectureResponse>`<br>`getPrefByName(String prefName)`|指定した都道府県名に対応する都道府県データを返す|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県名に対応する都道府県データを取得できた場合 **200**</li><li>指定した都道府県名に対応する都道府県データが存在しなかった場合 **404**</li></ul>|
-|`ResponseEntity<AllPrefectureResponse>`<br>`getAllPrefs()`|都道府県データを全て返す|以下ステータスコードを返すこと<ul><li>**200**</li></ul>|
-|`ResponseEntity<PrefectureResponse>`<br>`createPref(PrefectureRequestForm prefectureRequestForm,`<br>` UriComponentsBuilder uriBuilder)`|新規の都道府県コードとその都道府県名をデータとして追加する|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県コードに対応する新規の都道府県データを追加できた場合 **201**</li><li>指定した都道府県コードに対応する新規の都道府県データを追加できなかった場合 **409**</li></ul>|
-|`ResponseEntity<Void>`<br>`updatePref(PrefectureRequestForm prefectureRequestForm)`|指定した既存の都道府県コードに対応する都道府県名を更新する|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県コードに対応する都道府県データを更新できた場合 **204**</li><li>指定した都道府県コードに対応する新規の都道府県データを更新できなかった場合 **409**</li><li>指定した都道府県コードに対応する都道府県データが存在しなかった場合 **404**</li></ul>|
-|`ResponseEntity<Void>`<br>`deletePref(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データ削除する|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県コードに対応する都道府県データを削除できた場合 **204**</li><li>指定した都道府県コードに対応する都道府県データを削除できなかった場合 **409**</li><li>指定した都道府県コードに対応する都道府県データが存在しなかった場合 **404**</li></ul>|
+|`ResponseEntity<PrefectureResponse>`<br>`getPrefByCode(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データを返す|都道府県コードから都道府県データを取得した場合、レスポンスコード**200**および都道府県のjson形式データを返す|
+|`ResponseEntity<PrefectureResponse>`<br>`getPrefByName(String prefName)`|指定した都道府県名に対応する都道府県データを返す|都道府県名から都道府県データを取得した場合、レスポンスコード**200**および都道府県のjson形式データを返す|
+|`ResponseEntity<AllPrefectureResponse>`<br>`getAllPrefs()`|レスポンスコード**200**および登録済みの全ての都道府県のjson形式データを返す|
+|`ResponseEntity<PrefectureResponse>`<br>`createPref(PrefectureRequestForm prefectureRequestForm,`<br>` UriComponentsBuilder uriBuilder)`|新規の都道府県コードとその都道府県名をデータとして追加する|都道府県データを追加した場合、レスポンスコード**201**および都道府県のjson形式データを返す|
+|`ResponseEntity<Void>`<br>`updatePref(PrefectureRequestForm prefectureRequestForm)`|指定した既存の都道府県コードに対応する都道府県名を更新する|都道府県データを更新した場合、レスポンスコード**204**を返す|
+|`ResponseEntity<Void>`<br>`deletePref(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データ削除する|都道府県データを削除した場合、レスポンスコード**204**を返す|
 
 #### Airports
 
 |Method<br>`type name(arguments)`|Function|Testメソッド確認事項|
 |--|--|--|
-|`ResponseEntity<AirportResponse>`<br>`getAirport(String airportCode)`|指定した空港コードに対応する空港データを返す|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する空港データを取得できた場合 **200**</li><li>指定した空港コードに対応する空港データが存在しなかった場合 **404**</li></ul>|
-|`ResponseEntity<AllAirportResponse>`<br>`getAirportsInPref(String prefName)`|指定した都道府県に存在する空港データを全て返す|各場合に対応するステータスコードを返すこと<ul><li>指定した都道府県に対応する空港データを取得できた場合 **200**</li><li>指定した都道府県が存在しなかった場合 **404**</li></ul>|
-|`ResponseEntity<AllAirportResponse>`<br>`getAllAirports()`|空港データを全て返す|以下ステータスコードを返すこと<ul><li>**200**</li></ul>|
-|`ResponseEntity<AirportResponse>`<br>`createAirport(AirportfRequestForm airportRequestForm,`<br>` UriComponentsBuilder uriBuilder)`|新規の空港コードで空港データを新規追加する|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する新規の空港データを追加できた場合 **201**</li><li>指定した空港コードに対応する新規の都道府県データを追加できなかった場合 **409**</li><li>指定した都道府県コードに対応する都道府県データが存在しなかった場合 **404**</li></ul>|
-|`ResponseEntity<Void>`<br>`updateAirport(AirportRequestForm airportRequestForm)`|指定の空港コードに対応する空港名、都道府県コードを更新する|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する空港データを更新できた場合 **204**</li><li>指定した空港コードに対応する空港データを更新できなかった場合 **409**</li><li>指定した都道府県コードに対応する都道府県データが存在しなかった場合 **404**</li><li>指定した空港コードに対応する空港データが存在しなかった場合 **404**</li></ul>|
-|`ResponseEntity<Void>`<br>`deleteAirport(String airportCode)`|指定の空港コードに対応する空港データを削除する|各場合に対応するステータスコードを返すこと<ul><li>指定した空港コードに対応する都道府県データを削除できた場合 **204**</li><li>指定した空港コードに対応する空港データが存在しなかった場合 **404**</li></ul>|
+|`ResponseEntity<AirportResponse>`<br>`getAirport(String airportCode)`|指定した空港コードに対応する空港データを返す|空港コードから空港データを取得した場合、レスポンスコード**200**および空港のjson形式データを返す|
+|`ResponseEntity<AllAirportResponse>`<br>`getAirportsInPref(String prefName)`|指定した都道府県に存在する空港データを全て返す|都道府県名から空港データを取得した場合、レスポンスコード**200**および該当する全ての空港のjson形式データを返す|
+|`ResponseEntity<AllAirportResponse>`<br>`getAllAirports()`|空港データを全て返す|レスポンスコード**200**および全ての空港のjson形式データを返す|
+|`ResponseEntity<AirportResponse>`<br>`createAirport(AirportfRequestForm airportRequestForm,`<br>` UriComponentsBuilder uriBuilder)`|新規の空港コードで空港データを新規追加する|空港データを追加した場合、レスポンスコード**201**および空港のjson形式データを返す|
+|`ResponseEntity<Void>`<br>`updateAirport(AirportRequestForm airportRequestForm)`|指定の空港コードに対応する空港名、都道府県コードを更新する|空港データを更新した場合、レスポンスコード**204**を返す|
+|`ResponseEntity<Void>`<br>`deleteAirport(String airportCode)`|指定の空港コードに対応する空港データを削除する|空港データを削除した場合、レスポンスコード**204**を返す|
+
+### ExceptionHandlerクラス
+
+|Class|Method<br>`type name(arguments)`|Function|Testメソッド確認事項|
+|--|--|--|--|
+|`CodeInUse`<br>`ExceptionHandler`|`ResponseEntity<Map<String, String>>`<br>`handleCodeInUseException`<br>`(CodeInUseException e, `<br>`HttpServletRequest request)`|指定の都道府県データが空港データ内で使用中であり削除できない場合のレスポンスを返す|CodeInUseExceptionがスローされた場合、ステータスコード**409**および都道府県データが空港データ内で使用中であることを示すレスポンスを返す|
+|`DuplicateCode`<br>`ExceptionHandler`|`ResponseEntity<Map<String, String>>`<br>`handleDuplicateCodeException`<br>`(DuplicateCodeException e, `<br>`HttpServletRequest request)`|指定コード（プライマリーキー）が既存のものと重複し都道府県データ/空港データを追加できない場合のレスポンスを返す|DuplicateCodeExceptionがスローされた場合、ステータスコード**409**およびしてコードが重複してしまうことを示すレスポンスを返す|
+|`NoResource`<br>`ExceptionHandler`|`ResponseEntity<Map<String, String>>`<br>`handleNoResourceException`<br>`(NoResourceException e, `<br>`HttpServletRequest request)`|指定の都道府県データ/空港データが登録されていない場合のレスポンスを返す|NoResourceExceptionがスローされた場合、ステータスコード**404**および指定の都道府県データ/空港データが存在しないことを示すレスポンスを返す|
+|`SameAsCurrent`<br>`ExceptionHandler`|`ResponseEntity<Map<String, String>>`<br>`handleSameAsCurrentException`<br>`(SameAsCurrentException e, `<br>`HttpServletRequest request)`|指定の都道府県データ/空港データの更新時に、従前と同じデータ内容であり更新できていない場合のレスポンスを返す|SameAsCurrentExceptionがスローされた場合、ステータスコード**409**および データ内容を更新できていないことを示すレスポンスを返す|
 
 
 ## 4. API動作確認プロセス
