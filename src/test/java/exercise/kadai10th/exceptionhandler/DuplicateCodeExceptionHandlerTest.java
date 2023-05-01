@@ -10,5 +10,5 @@ class DuplicateCodeExceptionHandlerTest {
     @Test
     @Disabled
     void handleDuplicateCodeException() {
-    }
+    }//DuplicateCodeExceptionがスローされた場合、ステータスコード**409**およびしてコードが重複してしまうことを示すレスポンスを返す
 }

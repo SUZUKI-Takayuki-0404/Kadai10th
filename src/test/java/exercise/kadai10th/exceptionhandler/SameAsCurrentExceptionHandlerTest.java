@@ -10,5 +10,5 @@ class SameAsCurrentExceptionHandlerTest {
     @Test
     @Disabled
     void handleSameAsCurrentException() {
-    }
+    }//SameAsCurrentExceptionがスローされた場合、ステータスコード**409**および データ内容を更新できていないことを示すレスポンスを返す
 }

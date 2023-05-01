@@ -27,10 +27,4 @@ public class NoResourceExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
-
-    @ExceptionHandler(MethodArgumentConversionNotSupportedException.class)
-    public ResponseEntity<Object> handleMethodArgumentConversion(MethodArgumentConversionNotSupportedException ex) {
-        String errorMessage = "Failed to convert argument of method " + ex.getParameter().getMethod().getName();
-        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
-    }
 }
