@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-@Setter
+//@Setter
 @Getter
 public class PrefectureRequestForm {
 

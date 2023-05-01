@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-@Setter
+//@Setter
 @Getter
 public class AirportResponse {
     private String message;
