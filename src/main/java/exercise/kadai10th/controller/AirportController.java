@@ -7,7 +7,6 @@ import exercise.kadai10th.response.AllAirportResponse;
 import exercise.kadai10th.service.AirportService;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
