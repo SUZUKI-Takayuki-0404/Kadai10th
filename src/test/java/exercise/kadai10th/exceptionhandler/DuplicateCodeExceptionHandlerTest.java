@@ -56,7 +56,7 @@ class DuplicateCodeExceptionHandlerTest {
 
     @Test
     @DisplayName("DuplicateCodeExceptionがスローされた場合、" +
-            "ステータスコード409およびしてコードが重複してしまうことを示すレスポンスを返す")
+            "ステータスコード409およびしてコードが重複してしまうことを示すエラー情報のJSON形式データを返す")
     void handleDuplicateCodeException() throws Exception {
         doThrow(new DuplicateCodeException("04 : This code will be duplicated"))
                 .when(prefectureService)

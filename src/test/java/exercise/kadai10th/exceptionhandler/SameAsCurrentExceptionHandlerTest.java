@@ -57,7 +57,7 @@ class SameAsCurrentExceptionHandlerTest {
 
     @Test
     @DisplayName("SameAsCurrentExceptionがスローされた場合、" +
-            "ステータスコード409および データ内容を更新できていないことを示すレスポンスを返す")
+            "ステータスコード409および データ内容を更新できていないことを示すエラー情報のJSON形式データを返す")
     void handleSameAsCurrentException() throws Exception {
         doThrow(new SameAsCurrentException("SDJ : Current name will be nothing updated"))
                 .when(airportService)
