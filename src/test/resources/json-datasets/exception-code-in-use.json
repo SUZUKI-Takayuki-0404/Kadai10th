@@ -2,6 +2,6 @@
   "path": "/prefectures/11",
   "error": "Conflict",
   "message": "11 : This code is in use",
-  "timestamp": "2023-05-01T15:00:14.314020700+09:00[Asia/Tokyo]",
+  "timestamp": "",
   "status": "409"
 }

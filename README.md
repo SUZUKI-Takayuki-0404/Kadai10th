@@ -170,10 +170,10 @@ Prefecture ||--o{ Airport :"has 0 or more"
 
 |Method<br>`type name(arguments)`|Function|Testメソッド確認事項|
 |--|--|--|
-|`ResponseEntity<PrefectureResponse>`<br>`getPrefByCode(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データを返す|レスポンスコード**200**および都道府県のjson形式データを返す|
-|`ResponseEntity<PrefectureResponse>`<br>`getPrefByName(String prefName)`|指定した都道府県名に対応する都道府県データを返す|レスポンスコード**200**および都道府県のjson形式データを返す|
-|`ResponseEntity<AllPrefectureResponse>`<br>`getAllPrefs()`|既存の都道府県コードと対応する都道府県データを全て返す|レスポンスコード**200**および登録済みの全ての都道府県のjson形式データを返す|
-|`ResponseEntity<PrefectureResponse>`<br>`createPref(PrefectureRequestForm prefectureRequestForm,`<br>` UriComponentsBuilder uriBuilder)`|新規の都道府県コードとその都道府県名をデータとして追加する|レスポンスコード**201**および都道府県のjson形式データを返す|
+|`ResponseEntity<PrefectureResponse>`<br>`getPrefByCode(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データを返す|レスポンスコード**200**および都道府県のJSON形式データを返す|
+|`ResponseEntity<PrefectureResponse>`<br>`getPrefByName(String prefName)`|指定した都道府県名に対応する都道府県データを返す|レスポンスコード**200**および都道府県のJSON形式データを返す|
+|`ResponseEntity<AllPrefectureResponse>`<br>`getAllPrefs()`|既存の都道府県コードと対応する都道府県データを全て返す|レスポンスコード**200**および登録済みの全ての都道府県のJSON形式データを返す|
+|`ResponseEntity<PrefectureResponse>`<br>`createPref(PrefectureRequestForm prefectureRequestForm,`<br>` UriComponentsBuilder uriBuilder)`|新規の都道府県コードとその都道府県名をデータとして追加する|レスポンスコード**201**および都道府県のJSON形式データを返す|
 |`ResponseEntity<Void>`<br>`updatePref(PrefectureRequestForm prefectureRequestForm)`|指定した既存の都道府県コードに対応する都道府県名を更新する|レスポンスコード**204**を返す|
 |`ResponseEntity<Void>`<br>`deletePref(String prefCode)`|指定した既存の都道府県コードに対応する都道府県データ削除する|レスポンスコード**204**を返す|
 
@@ -181,10 +181,10 @@ Prefecture ||--o{ Airport :"has 0 or more"
 
 |Method<br>`type name(arguments)`|Function|Testメソッド確認事項|
 |--|--|--|
-|`ResponseEntity<AirportResponse>`<br>`getAirport(String airportCode)`|指定した空港コードに対応する空港データを返す|レスポンスコード**200**および空港のjson形式データを返す|
-|`ResponseEntity<AllAirportResponse>`<br>`getAirportsInPref(String prefName)`|指定した都道府県に存在する空港データを全て返す|レスポンスコード**200**および該当する全ての空港のjson形式データを返す|
-|`ResponseEntity<AllAirportResponse>`<br>`getAllAirports()`|空港データを全て返す|レスポンスコード**200**および全ての空港のjson形式データを返す|
-|`ResponseEntity<AirportResponse>`<br>`createAirport(AirportfRequestForm airportRequestForm,`<br>` UriComponentsBuilder uriBuilder)`|新規の空港コードで空港データを新規追加する|レスポンスコード**201**および空港のjson形式データを返す|
+|`ResponseEntity<AirportResponse>`<br>`getAirport(String airportCode)`|指定した空港コードに対応する空港データを返す|レスポンスコード**200**および空港のJSON形式データを返す|
+|`ResponseEntity<AllAirportResponse>`<br>`getAirportsInPref(String prefName)`|指定した都道府県に存在する空港データを全て返す|レスポンスコード**200**および該当する全ての空港のJSON形式データを返す|
+|`ResponseEntity<AllAirportResponse>`<br>`getAllAirports()`|空港データを全て返す|レスポンスコード**200**および全ての空港のJSON形式データを返す|
+|`ResponseEntity<AirportResponse>`<br>`createAirport(AirportfRequestForm airportRequestForm,`<br>` UriComponentsBuilder uriBuilder)`|新規の空港コードで空港データを新規追加する|レスポンスコード**201**および空港のJSON形式データを返す|
 |`ResponseEntity<Void>`<br>`updateAirport(AirportRequestForm airportRequestForm)`|指定の空港コードに対応する空港名、都道府県コードを更新する|レスポンスコード**204**を返す|
 |`ResponseEntity<Void>`<br>`deleteAirport(String airportCode)`|指定の空港コードに対応する空港データを削除する|レスポンスコード**204**を返す|
 
@@ -192,10 +192,10 @@ Prefecture ||--o{ Airport :"has 0 or more"
 
 |Class|Method<br>`type name(arguments)`|Function|Testメソッド確認事項|
 |--|--|--|--|
-|`CodeInUse`<br>`ExceptionHandler`|`ResponseEntity`<br>`<Map<String, String>>`<br>`handleCodeInUseException`<br>`(CodeInUseException e, `<br>`HttpServletRequest request)`|指定の都道府県データが空港データ内で使用中であり削除できない場合のレスポンスを返す|ステータスコード**409**および都道府県データが空港データ内で使用中であることを示すレスポンスを返す|
-|`DuplicateCode`<br>`ExceptionHandler`|`ResponseEntity`<br>`<Map<String, String>>`<br>`handleDuplicateCodeException`<br>`(DuplicateCodeException e, `<br>`HttpServletRequest request)`|指定コード（プライマリーキー）が既存のものと重複し都道府県データ/空港データを追加できない場合のレスポンスを返す|ステータスコード**409**およびしてコードが重複してしまうことを示すレスポンスを返す|
-|`NoResource`<br>`ExceptionHandler`|`ResponseEntity`<br>`<Map<String, String>>`<br>`handleNoResourceException`<br>`(NoResourceException e, `<br>`HttpServletRequest request)`|指定の都道府県データ/空港データが登録されていない場合のレスポンスを返す|ステータスコード**404**および指定の都道府県データ/空港データが存在しないことを示すレスポンスを返す|
-|`SameAsCurrent`<br>`ExceptionHandler`|`ResponseEntity`<br>`<Map<String, String>>`<br>`handleSameAsCurrentException`<br>`(SameAsCurrentException e, `<br>`HttpServletRequest request)`|指定の都道府県データ/空港データの更新時に、従前と同じデータ内容であり更新できていない場合のレスポンスを返す|ステータスコード**409**および データ内容を更新できていないことを示すレスポンスを返す|
+|`CodeInUse`<br>`ExceptionHandler`|`ResponseEntity`<br>`<Map<String, String>>`<br>`handleCodeInUseException`<br>`(CodeInUseException e, `<br>`HttpServletRequest request)`|指定の都道府県データが空港データ内で使用中であり削除できない場合のレスポンスを返す|ステータスコード**409**および都道府県データが空港データ内で使用中であることを示すエラー情報のJSON形式データを返す|
+|`DuplicateCode`<br>`ExceptionHandler`|`ResponseEntity`<br>`<Map<String, String>>`<br>`handleDuplicateCodeException`<br>`(DuplicateCodeException e, `<br>`HttpServletRequest request)`|指定コード（プライマリーキー）が既存のものと重複し都道府県データ/空港データを追加できない場合のレスポンスを返す|ステータスコード**409**およびしてコードが重複してしまうことを示すエラー情報のJSON形式データを返す|
+|`NoResource`<br>`ExceptionHandler`|`ResponseEntity`<br>`<Map<String, String>>`<br>`handleNoResourceException`<br>`(NoResourceException e, `<br>`HttpServletRequest request)`|指定の都道府県データ/空港データが登録されていない場合のレスポンスを返す|ステータスコード**404**および指定の都道府県データ/空港データが存在しないことを示すエラー情報のJSON形式データを返す|
+|`SameAsCurrent`<br>`ExceptionHandler`|`ResponseEntity`<br>`<Map<String, String>>`<br>`handleSameAsCurrentException`<br>`(SameAsCurrentException e, `<br>`HttpServletRequest request)`|指定の都道府県データ/空港データの更新時に、従前と同じデータ内容であり更新できていない場合のレスポンスを返す|ステータスコード**409**および データ内容を更新できていないことを示すエラー情報のJSON形式データを返す|
 
 
 ## 4. API動作確認プロセス
@@ -251,10 +251,10 @@ git clone https://github.com/SUZUKI-Takayuki-0404/Kadai10th.git
 
 **＜補足＞**  WindowsパソコンでPoweshell（含：IntelliJのターミナル）またはコマンドプロンプト使用時の注意事項
 
-* json形式データ入力時に`"`の前に`\`が必要<br>
+* JSON形式データ入力時に`"`の前に`\`が必要<br>
   `-d '{ "airportCode": "MYE", "airportName": "Miyakejima", "airportCode": "13" }`<br>
   ⇒ `-d '{ \"airportCode\": \"MYE\", \"airportName\": \"Miyakejima\", \"airportCode\": \"13\" }`
 
-* json形式データ内に日本語入力は不可<br>
+* JSON形式データ内に日本語入力は不可<br>
   Ubuntu(Linux)を代用すれば入力可能だが、WSLとWindowsではlocalhostが異なるため、localhostから書き換えが必要<br>
   ⇒ `'http://172.18.16.x:8080/prefectures/?prefCode=01'` (IPアドレスは`ipconfig`で確認)
