@@ -45,7 +45,7 @@ public class PrefectureServiceImpl implements PrefectureService {
         try {
             prefectureMapper.insertPref(prefCode, prefName);
         } catch (DuplicateKeyException e) {
-            throw new DuplicateCodeException(prefCode + " : This code will be duplicated");
+            throw new DuplicateCodeException(prefCode + " : This code will be duplicated", e);
         }
         return new PrefectureEntity(prefCode, prefName);
     }

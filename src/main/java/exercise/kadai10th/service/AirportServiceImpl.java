@@ -47,7 +47,7 @@ public class AirportServiceImpl implements AirportService {
         try {
             airportMapper.insertAirport(airportCode, airportName, prefCode);
         } catch (DuplicateKeyException e) {
-            throw new DuplicateCodeException(airportCode + " : This code will be duplicated");
+            throw new DuplicateCodeException(airportCode + " : This code will be duplicated", e);
         }
         return new AirportEntity(airportCode, airportName, prefCode, prefName);
     }
