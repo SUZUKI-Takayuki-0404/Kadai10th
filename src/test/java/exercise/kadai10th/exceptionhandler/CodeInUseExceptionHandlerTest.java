@@ -53,8 +53,7 @@ class CodeInUseExceptionHandlerTest {
     }
 
     @Test
-    @DisplayName("CodeInUseExceptionがスローされた場合、" +
-            "ステータスコード409および都道府県データが空港データ内で使用中であることを示すエラー情報のJSON形式データを返す")
+    @DisplayName("都道府県データが空港データ内で使用中である事をエラー情報として返す")
     void handleCodeInUseExceptionTest1() throws Exception {
         doThrow(new CodeInUseException("11 : This code is in use"))
                 .when(prefectureService)

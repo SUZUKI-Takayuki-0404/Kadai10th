@@ -61,7 +61,7 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県コードから都道府県データを取得した場合、レスポンスコード200および都道府県のjson形式データを返す")
+    @DisplayName("都道府県コードから都道府県データを取得できること")
     void getPrefByCodeTest1() throws Exception {
         doReturn(new PrefectureEntity("01", "北海道"))
                 .when(prefectureService)
@@ -79,7 +79,7 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県名から都道府県データを取得した場合、レスポンスコード200および都道府県のjson形式データを返す")
+    @DisplayName("都道府県名から都道府県データを取得できること")
     void getPrefByNameTest1() throws Exception {
         doReturn(new PrefectureEntity("02", "青森県"))
                 .when(prefectureService)
@@ -97,7 +97,7 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("レスポンスコード200および登録済みの全ての都道府県のjson形式データを返す")
+    @DisplayName("登録済みの全ての都道府県データを取得できること")
     void getAllPrefsTest1() throws Exception {
         doReturn(List.of(
                 new PrefectureEntity("01", "北海道"),
@@ -119,7 +119,7 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県データを追加した場合、レスポンスコード201および都道府県のjson形式データを返す")
+    @DisplayName("都道府県データを追加できること")
     void createPrefTest1() throws Exception {
         doReturn(new PrefectureEntity("05", "秋田県"))
                 .when(prefectureService)
@@ -142,7 +142,7 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県データを更新した場合、レスポンスコード204を返す")
+    @DisplayName("都道府県データを更新できること")
     void updatePrefTest1() throws Exception {
         doNothing().when(prefectureService).updatePref("02", "あおもりけん");
 
@@ -160,7 +160,7 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県データを削除した場合、レスポンスコード204を返す")
+    @DisplayName("都道府県データを削除できること")
     void deletePrefTest1() throws Exception {
         doNothing().when(prefectureService).deletePref("11");
 

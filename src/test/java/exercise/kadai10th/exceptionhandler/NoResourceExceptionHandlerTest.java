@@ -54,8 +54,7 @@ class NoResourceExceptionHandlerTest {
     }
 
     @Test
-    @DisplayName("NoResourceExceptionがスローされた場合、" +
-            "ステータスコード404および指定の都道府県データ/空港データが存在しないことを示すエラー情報のJSON形式データを返す")
+    @DisplayName("指定の都道府県データまたは空港データが存在しない事をエラー情報として返す")
     void handleNoResourceException() throws Exception {
         doThrow(new NoResourceException("WKJ : This code is not found"))
                 .when(airportService)
