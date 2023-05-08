@@ -1,6 +1,8 @@
 package exercise.kadai10th.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.database.rider.core.api.configuration.DBUnit;
+import com.github.database.rider.spring.api.DBRider;
 import exercise.kadai10th.controller.PrefectureController;
 import exercise.kadai10th.entity.PrefectureEntity;
 import exercise.kadai10th.requestform.PrefectureRequestForm;
@@ -8,9 +10,11 @@ import exercise.kadai10th.service.PrefectureService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -23,6 +27,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import static com.github.database.rider.core.api.configuration.Orthography.LOWERCASE;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
@@ -36,6 +41,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
+@DBRider
+@DBUnit(caseInsensitiveStrategy = LOWERCASE, schema = "airport_database",
+        url = "jdbc:mysql://localhost:3307/airport_database",
+        user = "user", password = "password")
+@MybatisTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class PrefectureIntegrationTest {
 /*
     @InjectMocks
@@ -61,117 +72,87 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @DisplayName("都道府県コードから都道府県データを取得した場合、レスポンスコード200および都道府県のjson形式データを返す")
+    @DisplayName("都道府県コードに対応する都道府県がある場合、都道府県コードから都道府県データを取得できること")
     void getPrefByCodeTest1() throws Exception {
-        doReturn(new PrefectureEntity("01", "北海道"))
-                .when(prefectureService)
-                .getPrefByCode("01");
 
-        String actualResult = mockMvc
-                .perform(get("/prefectures/01"))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(StandardCharsets.UTF_8);
-
-        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture1.json")).toString();
-        JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @DisplayName("都道府県名から都道府県データを取得した場合、レスポンスコード200および都道府県のjson形式データを返す")
+    @DisplayName("都道府県コードに対応する都道府県が存在しない場合、都道府県データが存在しないことをエラー情報として返すこと")
+    void getPrefByCodeTest2() throws Exception {
+
+    }
+
+    @Test
+    @DisplayName("都道府県名に対応する都道府県がある場合、都道府県名から都道府県データを取得できること")
     void getPrefByNameTest1() throws Exception {
-        doReturn(new PrefectureEntity("02", "青森県"))
-                .when(prefectureService)
-                .getPrefByName("青森県");
 
-        String actualResult = mockMvc
-                .perform(get("/prefectures/names?prefName=青森県"))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(StandardCharsets.UTF_8);
-
-        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture2.json")).toString();
-        JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @DisplayName("レスポンスコード200および登録済みの全ての都道府県のjson形式データを返す")
+    @DisplayName("都道府県名に対応する都道府県が存在しない場合、都道府県データが存在しないことをエラー情報として返すこと")
+    void getPrefByNameTest2() throws Exception {
+
+    }
+
+    @Test
+    @DisplayName("登録済みの都道府県がある場合、登録済みの全ての都道府県データを取得できること")
     void getAllPrefsTest1() throws Exception {
-        doReturn(List.of(
-                new PrefectureEntity("01", "北海道"),
-                new PrefectureEntity("02", "青森県"),
-                new PrefectureEntity("03", "岩手県"),
-                new PrefectureEntity("04", "宮城県")))
-                .when(prefectureService)
-                .getAllPrefs();
 
-        String actualResult = mockMvc
-                .perform(get("/prefectures"))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(StandardCharsets.UTF_8);
-
-        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture-all.json")).toString();
-        JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @DisplayName("都道府県データを追加した場合、レスポンスコード201および都道府県のjson形式データを返す")
+    @DisplayName("登録済みの都道府県が存在しない場合、空のデータを返すこと")
+    void getAllPrefsTest2() throws Exception {
+
+    }
+
+    @Test
+    @DisplayName("都道府県コードが既存のものと重複しない場合、都道府県データを追加できること")
     void createPrefTest1() throws Exception {
-        doReturn(new PrefectureEntity("05", "秋田県"))
-                .when(prefectureService)
-                .createPref("05", "秋田県");
 
-        String actualResult = mockMvc
-                .perform(post("/prefectures")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(
-                                new PrefectureRequestForm("05", "秋田県"))))
-                .andExpect(status().isCreated())
-                .andExpect(redirectedUrl("http://localhost/prefectures/05"))
-                .andReturn()
-                .getResponse()
-                .getContentAsString(StandardCharsets.UTF_8);
-
-        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture-create.json")).toString();
-        JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @DisplayName("都道府県データを更新した場合、レスポンスコード204を返す")
+    @DisplayName("都道府県コードが既存のものと重複する場合、コードが重複してしまうことをエラー情報として返すこと")
+    void createPrefTest2() throws Exception {
+
+    }
+
+    @Test
+    @DisplayName("都道府県コードに対応する都道府県があり、かつ都道府県名が従前と異なる場合、都道府県データを更新できること")
     void updatePrefTest1() throws Exception {
-        doNothing().when(prefectureService).updatePref("02", "あおもりけん");
 
-        mockMvc.perform(patch("/prefectures/02")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(
-                                new PrefectureRequestForm("02", "あおもりけん"))))
-                .andExpect(status().isNoContent())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(StandardCharsets.UTF_8);
-
-        verify(prefectureService, times(1)).updatePref("02", "あおもりけん");
     }
 
     @Test
-    @DisplayName("都道府県データを削除した場合、レスポンスコード204を返す")
-    void deletePrefTest1() throws Exception {
-        doNothing().when(prefectureService).deletePref("11");
+    @DisplayName("都道府県コードに対応する都道府県はあるが、都道府県名が従前と同等の場合、データの内容が従前から更新されていないことをエラー情報として返すこと")
+    void updatePrefTest2() throws Exception {
 
-        mockMvc.perform(delete("/prefectures/11"))
-                .andExpect(status().isNoContent())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(StandardCharsets.UTF_8);
-
-        verify(prefectureService, times(1)).deletePref("11");
     }
 
+    @Test
+    @DisplayName("都道府県コードに対応する都道府県が存在しない場合、都道府県データが存在しないことをエラー情報として返すこと")
+    void updatePrefTest3() throws Exception {
+
+    }
+
+    @Test
+    @DisplayName("都道府県コードに対応する都道府県があり、かつその都道府県に空港が存在しない場合、都道府県データを削除できること")
+    void deletePrefTest1() throws Exception {
+
+    }
+
+    @Test
+    @DisplayName("都道府県コードに対応する都道府県があり、かつその都道府県に空港がある場合、都道府県データが空港データ内で使用中であることをエラー情報として返すこと")
+    void deletePrefTest2() throws Exception {
+
+    }
+
+    @Test
+    @DisplayName("都道府県コードに対応する都道府県が存在しない場合、都道府県データが存在しないことをエラー情報として返すこと")
+    void deletePrefTest3() throws Exception {
+
+    }
 */
 }
