@@ -33,8 +33,8 @@ class AirportMapperTest {
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
     @DisplayName("指定の空港コードが存在するときは、対応する空港EntityをOptionalとして返すこと")
-    void findByCodeFromAirportsTest1() {
-        assertThat(airportMapper.findByCodeFromAirports("CTS"))
+    void selectAirportByCode() {
+        assertThat(airportMapper.selectAirportByCode("CTS"))
                 .get()
                 .isEqualTo(new AirportEntity("CTS", "新千歳空港", "01", "北海道"));
     }
@@ -43,16 +43,16 @@ class AirportMapperTest {
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
     @DisplayName("指定の空港コードが無いときは、空のOptionalを返すこと")
-    void findByCodeFromAirportsTest2() {
-        assertThat(airportMapper.findByCodeFromAirports("WKJ")).isEmpty();
+    void selectAirportByCodeToReturnEmpty() {
+        assertThat(airportMapper.selectAirportByCode("WKJ")).isEmpty();
     }
 
     @Test
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
     @DisplayName("指定の都道府県に空港が存在するときは、対応する空港Entity全てをListとして返すこと")
-    void findByPrefFromAirportsTest1() {
-        assertThat(airportMapper.findByPrefFromAirports("北海道"))
+    void selectAirportsByPrefName() {
+        assertThat(airportMapper.selectAirportsByPrefName("北海道"))
                 .hasSize(2)
                 .extracting("airportCode", "airportName", "prefCode", "prefName")
                 .contains(
@@ -65,24 +65,24 @@ class AirportMapperTest {
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
     @DisplayName("指定の都道府県に空港が無いときは、空のListを返すこと")
-    void findByPrefFromAirportsTest2() {
-        assertThat(airportMapper.findByPrefFromAirports("埼玉県")).isEmpty();
+    void selectAirportsByPrefNameToReturnEmptyIfNotExists() {
+        assertThat(airportMapper.selectAirportsByPrefName("埼玉県")).isEmpty();
     }
 
     @Test
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
     @DisplayName("誤った都道府県名を指定したときは、空のListを返すこと")
-    void findByPrefFromAirportsTest3() {
-        assertThat(airportMapper.findByPrefFromAirports("北海道県")).isEmpty();
+    void selectAirportsByPrefNameToReturnEmptyIfIncorrect() {
+        assertThat(airportMapper.selectAirportsByPrefName("北海道県")).isEmpty();
     }
 
     @Test
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
     @DisplayName("存在する全ての空港EntityをListとして返すこと")
-    void findAllFromAirportsTest1() {
-        assertThat(airportMapper.findAllFromAirports())
+    void selectAllAirports() {
+        assertThat(airportMapper.selectAllAirports())
                 .hasSize(5)
                 .extracting("airportCode", "airportName", "prefCode", "prefName")
                 .contains(
@@ -98,8 +98,8 @@ class AirportMapperTest {
     @DataSet(value = "datasets/airport-empty.yml, datasets/prefectures.yml")
     @Transactional
     @DisplayName("空港が存在しないときは空のListを返すこと")
-    void findAllFromAirportsTest2() {
-        assertThat(airportMapper.findAllFromAirports()).isEmpty();
+    void selectAllAirportsToReturnEmpty() {
+        assertThat(airportMapper.selectAllAirports()).isEmpty();
     }
 
     @Test
@@ -107,7 +107,7 @@ class AirportMapperTest {
     @ExpectedDataSet(value = "datasets/airport-insert.yml", orderBy = "airportCode")
     @Transactional
     @DisplayName("指定の空港コードが既存のものと重複しない場合は、併せて指定した空港名および都道府県コードと共にデータ登録すること")
-    void insertAirportTest1() {
+    void insertAirport() {
         airportMapper.insertAirport("OKA", "那覇空港", "47");
     }
 
@@ -115,7 +115,7 @@ class AirportMapperTest {
     @DataSet(value = "datasets/airports.yml")
     @Transactional
     @DisplayName("指定の空港コードが既存のものと重複する場合は、DuplicateKeyExceptionをスローすること")
-    void insertAirportTest2() {
+    void insertAirportToThrowException() {
         assertThatExceptionOfType(DuplicateKeyException.class)
                 .isThrownBy(() -> airportMapper.insertAirport("HNA", "花巻空港", "03"));
     }
@@ -125,7 +125,7 @@ class AirportMapperTest {
     @ExpectedDataSet(value = "datasets/airport-update.yml", orderBy = "airportCode")
     @Transactional
     @DisplayName("指定の空港コードが存在する場合は、併せて指定した空港名および都道府県コードでデータ更新すること")
-    void updateAirportTest1() {
+    void updateAirport() {
         airportMapper.updateAirport("SDJ", "仙台国際空港", "04");
     }
 
@@ -134,7 +134,7 @@ class AirportMapperTest {
     @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
     @Transactional
     @DisplayName("指定の空港コードが存在しない場合は何も変更しないこと")
-    void updateAirportTest2() {
+    void updateAirportToDoNothing() {
         airportMapper.updateAirport("NRT", "新東京国際空港", "13");
     }
 
@@ -143,7 +143,7 @@ class AirportMapperTest {
     @ExpectedDataSet(value = "datasets/airport-delete.yml", orderBy = "airportCode")
     @Transactional
     @DisplayName("指定の空港コードが存在する場合は、対応する空港データを削除すること")
-    void deleteAirportTest1() {
+    void deleteAirport() {
         airportMapper.deleteAirport("SDJ");
     }
 
@@ -152,7 +152,7 @@ class AirportMapperTest {
     @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
     @Transactional
     @DisplayName("指定の空港コードが存在しない場合は何も変更しないこと")
-    void deleteAirportTest2() {
+    void deleteAirportToDoNothing() {
         airportMapper.deleteAirport("NKM");
     }
 }

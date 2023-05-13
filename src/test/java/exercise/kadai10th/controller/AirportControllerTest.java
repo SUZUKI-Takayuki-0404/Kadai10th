@@ -62,10 +62,10 @@ class AirportControllerTest {
 
     @Test
     @DisplayName("空港コードから空港データを取得できること")
-    void getAirportTest1() throws Exception {
+    void getAirportByCode() throws Exception {
         doReturn(new AirportEntity("CTS", "新千歳空港", "01", "北海道"))
                 .when(airportService)
-                .getAirport("CTS");
+                .getAirportByCode("CTS");
 
         String actualResult = mockMvc
                 .perform(get("/airports/codes/CTS"))
@@ -80,12 +80,12 @@ class AirportControllerTest {
 
     @Test
     @DisplayName("都道府県名から該当する空港データを取得できること")
-    void getAirportsInPrefTest1() throws Exception {
+    void getAirportsByPrefName() throws Exception {
         doReturn(List.of(
                 new AirportEntity("CTS", "新千歳空港", "01", "北海道"),
                 new AirportEntity("HKD", "函館空港", "01", "北海道")))
                 .when(airportService)
-                .getAirportsByPref("北海道");
+                .getAirportsByPrefName("北海道");
 
         String actualResult = mockMvc
                 .perform(get("/airports/prefectures?prefName=北海道"))
@@ -100,7 +100,7 @@ class AirportControllerTest {
 
     @Test
     @DisplayName("登録済みの全ての空港データを取得できること")
-    void getAllAirportsTest1() throws Exception {
+    void getAllAirports() throws Exception {
         doReturn(List.of(
                 new AirportEntity("CTS", "新千歳空港", "01", "北海道"),
                 new AirportEntity("HKD", "函館空港", "01", "北海道"),
@@ -123,7 +123,7 @@ class AirportControllerTest {
 
     @Test
     @DisplayName("空港データを追加できること")
-    void createAirportTest1() throws Exception {
+    void createAirport() throws Exception {
         doReturn(new AirportEntity("OKA", "那覇空港", "47", "沖縄県"))
                 .when(airportService)
                 .createAirport("OKA", "那覇空港", "47");
@@ -146,7 +146,7 @@ class AirportControllerTest {
 
     @Test
     @DisplayName("空港データを更新できること")
-    void updateAirportTest1() throws Exception {
+    void updateAirport() throws Exception {
         doNothing().when(airportService).updateAirport("SDJ", "仙台国際空港", "04");
 
         mockMvc.perform(patch("/airports/SDJ")
@@ -164,7 +164,7 @@ class AirportControllerTest {
 
     @Test
     @DisplayName("空港データを削除できること")
-    void deleteAirportTest1() throws Exception {
+    void deleteAirport() throws Exception {
         doNothing().when(airportService).deleteAirport("SDJ");
 
         mockMvc.perform(delete("/airports/SDJ"))

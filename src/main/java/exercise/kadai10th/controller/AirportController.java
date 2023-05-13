@@ -28,18 +28,18 @@ public class AirportController {
     private final AirportService airportService;
 
     @GetMapping("/airports/codes/{airportCode}")
-    ResponseEntity<AirportResponse> getAirport(
+    ResponseEntity<AirportResponse> getAirportByCode(
             @PathVariable("airportCode") @Size(min = 3, max = 3, message = "Number of letters has to be 3")
             String airportCode) {
         return ResponseEntity
-                .ok(new AirportResponse("Successfully found", airportService.getAirport(airportCode)));
+                .ok(new AirportResponse("Successfully found", airportService.getAirportByCode(airportCode)));
     }
 
     @GetMapping("/airports/prefectures")
-    ResponseEntity<AllAirportResponse> getAirportsInPref(@RequestParam(value = "prefName") String prefName) {
+    ResponseEntity<AllAirportResponse> getAirportsByPrefName(@RequestParam(value = "prefName") String prefName) {
         return ResponseEntity
                 .ok(new AllAirportResponse(
-                        "All airports in " + prefName + " listed", airportService.getAirportsByPref(prefName)
+                        "All airports in " + prefName + " listed", airportService.getAirportsByPrefName(prefName)
                 ));
     }
 

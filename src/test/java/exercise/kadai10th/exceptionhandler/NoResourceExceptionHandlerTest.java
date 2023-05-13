@@ -58,7 +58,7 @@ class NoResourceExceptionHandlerTest {
     void handleNoResourceException() throws Exception {
         doThrow(new NoResourceException("WKJ : This code is not found"))
                 .when(airportService)
-                .getAirport("WKJ");
+                .getAirportByCode("WKJ");
 
         String actualResult = mockMvc
                 .perform(get("/airports/codes/WKJ"))

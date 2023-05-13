@@ -15,13 +15,13 @@ import java.util.Optional;
 public interface AirportMapper {
 
     @SelectProvider(type = SqlProvider.class, method = "findByCodeFromAirports")
-    Optional<AirportEntity> findByCodeFromAirports(String airportCode);
+    Optional<AirportEntity> selectAirportByCode(String airportCode);
 
     @SelectProvider(type = SqlProvider.class, method = "findByPrefFromAirports")
-    List<AirportEntity> findByPrefFromAirports(String prefName);
+    List<AirportEntity> selectAirportsByPrefName(String prefName);
 
     @SelectProvider(type = SqlProvider.class, method = "findAllFromAirports")
-    List<AirportEntity> findAllFromAirports();
+    List<AirportEntity> selectAllAirports();
 
     @Insert("INSERT INTO airports (airportCode, airportName, prefCode) "
             + "VALUES (#{airportCode}, #{airportName}, #{prefCode})")
