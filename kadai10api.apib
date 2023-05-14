@@ -82,6 +82,7 @@ HOST: http://localhost:8080
 
     + Attributes
         + prefCode: 01 (string) - 都道府県コード
+        + prefName: 北海道 (string) - 都道府県名
 
     + Body
 
@@ -215,14 +216,14 @@ HOST: http://localhost:8080
             }
 
 
-## Resource [/airports/prefectures/{prefCode}]
+## Resource [/airports/prefectures{?prefName}]
 ### getAirportsByPrefName [GET]
-指定した都道府県コードをもつ空港データを全て返す
+指定した指定した都道府県名に対応する空港データを全て返す
 
 + Parameters
-    + prefCode: 27 (string, required) - 都道府県コード
-         - 01～47までの2桁の数字
-
+    + prefName: 大阪府 (string) - 所在都道府県
+        - 8文字以内の文字列
+        
 + Response 200 (application/json)
 
     + Attributes
