@@ -16,6 +16,10 @@
     {
       "prefCode": "04",
       "prefName": "宮城県"
+    },
+    {
+      "prefCode": "05",
+      "prefName": "秋田県"
     }
   ]
 }

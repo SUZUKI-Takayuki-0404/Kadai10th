@@ -15,6 +15,7 @@ public class PrefectureRequestForm {
     @NotBlank(message = "Prefecture Code is required field")
     private String prefCode;
 
+    @Size(max = 8, message = "Number of letters has to be 8 or less")
     @NotBlank(message = "Prefecture Name is required field")
     private String prefName;
 
