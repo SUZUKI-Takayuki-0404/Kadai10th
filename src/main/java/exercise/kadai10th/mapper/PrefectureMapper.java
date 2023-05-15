@@ -14,13 +14,13 @@ import java.util.Optional;
 public interface PrefectureMapper {
 
     @Select("SELECT * FROM prefectures WHERE prefCode = #{prefCode}")
-    Optional<PrefectureEntity> findByCodeFromPrefs(String prefCode);
+    Optional<PrefectureEntity> selectPrefByCode(String prefCode);
 
     @Select("SELECT * FROM prefectures WHERE prefName = #{prefName}")
-    Optional<PrefectureEntity> findByNameFromPrefs(String prefName);
+    Optional<PrefectureEntity> selectPrefByName(String prefName);
 
     @Select("SELECT * FROM prefectures")
-    List<PrefectureEntity> findAllFromPrefs();
+    List<PrefectureEntity> selectAllPrefs();
 
     @Insert("INSERT INTO prefectures (prefCode, prefName) VALUES (#{prefCode}, #{prefName})")
     void insertPref(String prefCode, String prefName);

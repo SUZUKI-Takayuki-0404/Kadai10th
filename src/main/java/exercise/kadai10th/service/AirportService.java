@@ -20,7 +20,7 @@ public interface AirportService {
      * @return AirportEntity the entity consisting of the code, the name located prefecture code, and prefecture name
      * @throws NoResourceException when the airport corresponding to the code does not exist
      */
-    AirportEntity getAirport(String airportCode);
+    AirportEntity getAirportByCode(String airportCode);
 
     /**
      * 指定の都道府県名に対応する空港データ全てをListとして返す.<br>
@@ -32,7 +32,7 @@ public interface AirportService {
      * @param prefName the name of prefecture listed in the prefecture table
      * @return List {@code <AirportEntity>} the list of AirportEntity
      */
-    List<AirportEntity> getAirportsByPref(String prefName);
+    List<AirportEntity> getAirportsByPrefName(String prefName);
 
     /**
      * 空港データ全てをListとして返す<br>
