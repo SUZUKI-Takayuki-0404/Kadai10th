@@ -21,33 +21,33 @@ public class AirportServiceImpl implements AirportService {
     private final PrefectureMapper prefectureMapper;
 
     @Override
-    public AirportEntity getAirport(String airportCode) {
+    public AirportEntity getAirportByCode(String airportCode) {
         return airportMapper
-                .findByCodeFromAirports(airportCode)
+                .selectAirportByCode(airportCode)
                 .orElseThrow(() -> new NoResourceException(airportCode + " : This code is not found"));
     }
 
     @Override
-    public List<AirportEntity> getAirportsByPref(String prefName) {
-        return airportMapper.findByPrefFromAirports(prefName);
+    public List<AirportEntity> getAirportsByPrefName(String prefName) {
+        return airportMapper.selectAirportsByPrefName(prefName);
     }
 
     @Override
     public List<AirportEntity> getAllAirports() {
-        return airportMapper.findAllFromAirports();
+        return airportMapper.selectAllAirports();
     }
 
     @Override
     public AirportEntity createAirport(String airportCode, String airportName, String prefCode) {
         String prefName = prefectureMapper
-                .findByCodeFromPrefs(prefCode)
+                .selectPrefByCode(prefCode)
                 .orElseThrow(() -> new NoResourceException(prefCode + " : This code is not found"))
                 .getPrefName();
 
         try {
             airportMapper.insertAirport(airportCode, airportName, prefCode);
         } catch (DuplicateKeyException e) {
-            throw new DuplicateCodeException(airportCode + " : This code will be duplicated");
+            throw new DuplicateCodeException(airportCode + " : This code will be duplicated", e);
         }
         return new AirportEntity(airportCode, airportName, prefCode, prefName);
     }
@@ -55,7 +55,7 @@ public class AirportServiceImpl implements AirportService {
     @Override
     public void updateAirport(String airportCode, String airportName, String prefCode) {
         String airportCurrentName = airportMapper
-                .findByCodeFromAirports(airportCode)
+                .selectAirportByCode(airportCode)
                 .orElseThrow(() -> new NoResourceException(airportCode + " : This code is not found"))
                 .getAirportName();
 
@@ -63,7 +63,7 @@ public class AirportServiceImpl implements AirportService {
             throw new SameAsCurrentException(airportName + " : Current name will be nothing updated");
         }
 
-        if (prefectureMapper.findByCodeFromPrefs(prefCode).isEmpty()) {
+        if (prefectureMapper.selectPrefByCode(prefCode).isEmpty()) {
             throw new NoResourceException(prefCode + " : This code is not found");
         }
 
@@ -72,7 +72,7 @@ public class AirportServiceImpl implements AirportService {
 
     @Override
     public void deleteAirport(String airportCode) {
-        if (airportMapper.findByCodeFromAirports(airportCode).isPresent()) {
+        if (airportMapper.selectAirportByCode(airportCode).isPresent()) {
             airportMapper.deleteAirport(airportCode);
         } else {
             throw new NoResourceException(airportCode + " : This code is not found");

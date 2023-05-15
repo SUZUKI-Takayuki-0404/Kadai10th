@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 @RestControllerAdvice
 public class DuplicateCodeExceptionHandler {
 
-    private final static Logger logger = Logger.getLogger(DuplicateCodeException.class.getName());
+    private final static Logger logger = Logger.getLogger(DuplicateCodeExceptionHandler.class.getName());
 
     @ExceptionHandler(DuplicateCodeException.class)
     public ResponseEntity<Map<String, String>> handleDuplicateCodeException(

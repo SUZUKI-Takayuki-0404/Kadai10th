@@ -55,10 +55,9 @@ class DuplicateCodeExceptionHandlerTest {
     }
 
     @Test
-    @DisplayName("DuplicateCodeExceptionがスローされた場合、" +
-            "ステータスコード409およびしてコードが重複してしまうことを示すエラー情報のJSON形式データを返す")
+    @DisplayName("コードが重複してしまう事をエラー情報として返す")
     void handleDuplicateCodeException() throws Exception {
-        doThrow(new DuplicateCodeException("04 : This code will be duplicated"))
+        doThrow(new DuplicateCodeException("04 : This code will be duplicated", new Throwable()))
                 .when(prefectureService)
                 .createPref("04", "宮城県");
 
