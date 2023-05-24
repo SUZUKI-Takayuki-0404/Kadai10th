@@ -178,6 +178,7 @@ public class AirportIntegrationTest {
     @Test
     @DataSet(value = "datasets/airports.yml")
     @ExpectedDataSet(value = "datasets/airport-insert.yml", orderBy = "airportCode")
+    @Transactional
     @DisplayName("空港コードが既存のものと重複せず、かつ都道府県がある場合、空港データを追加できること")
     void createAirport() throws Exception {
         String actualResult = mockMvc
