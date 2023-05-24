@@ -58,16 +58,16 @@ class SameAsCurrentExceptionHandlerTest {
     @Test
     @DisplayName("データの内容が従前から更新されていない事をエラー情報として返す")
     void handleSameAsCurrentException() throws Exception {
-        doThrow(new SameAsCurrentException("SDJ : Current name will be nothing updated"))
+        doThrow(new SameAsCurrentException("仙台空港 : Current name will be nothing updated"))
                 .when(airportService)
-                .updateAirport("SDJ", "仙台国際空港", "04");
+                .updateAirport("SDJ", "仙台空港", "04");
 
         String actualResult = mockMvc
                 .perform(patch("/airports/SDJ")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(
-                                new AirportRequestForm("SDJ", "仙台国際空港", "04"))))
+                                new AirportRequestForm("SDJ", "仙台空港", "04"))))
                 .andExpect(status().isConflict())
                 .andReturn()
                 .getResponse()

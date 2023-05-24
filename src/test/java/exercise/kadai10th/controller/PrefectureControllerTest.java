@@ -104,7 +104,6 @@ class PrefectureControllerTest {
                 new PrefectureEntity("02", "青森県"),
                 new PrefectureEntity("03", "岩手県"),
                 new PrefectureEntity("04", "宮城県"),
-                new PrefectureEntity("05", "秋田県"),
                 new PrefectureEntity("47", "沖縄県")))
                 .when(prefectureService)
                 .getAllPrefs();
@@ -123,18 +122,18 @@ class PrefectureControllerTest {
     @Test
     @DisplayName("都道府県データを追加できること")
     void createPref() throws Exception {
-        doReturn(new PrefectureEntity("06", "山形県"))
+        doReturn(new PrefectureEntity("05", "秋田県"))
                 .when(prefectureService)
-                .createPref("06", "山形県");
+                .createPref("05", "秋田県");
 
         String actualResult = mockMvc
                 .perform(post("/prefectures")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(
-                                new PrefectureRequestForm("06", "山形県"))))
+                                new PrefectureRequestForm("05", "秋田県"))))
                 .andExpect(status().isCreated())
-                .andExpect(redirectedUrl("http://localhost/prefectures/06"))
+                .andExpect(redirectedUrl("http://localhost/prefectures/05"))
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);

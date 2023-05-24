@@ -1,7 +1,7 @@
 {
   "path": "/prefectures/02",
   "error": "Conflict",
-  "message": "02 : Current name will be nothing updated",
+  "message": "青森県 : Current name will be nothing updated",
   "timestamp": "",
   "status": "409"
 }
