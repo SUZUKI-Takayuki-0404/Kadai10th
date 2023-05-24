@@ -74,7 +74,7 @@ class PrefectureControllerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture1.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture-01.json")).toString();
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
@@ -92,7 +92,7 @@ class PrefectureControllerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture2.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture-aomori.json")).toString();
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
@@ -103,7 +103,9 @@ class PrefectureControllerTest {
                 new PrefectureEntity("01", "北海道"),
                 new PrefectureEntity("02", "青森県"),
                 new PrefectureEntity("03", "岩手県"),
-                new PrefectureEntity("04", "宮城県")))
+                new PrefectureEntity("04", "宮城県"),
+                new PrefectureEntity("05", "秋田県"),
+                new PrefectureEntity("47", "沖縄県")))
                 .when(prefectureService)
                 .getAllPrefs();
 
@@ -121,18 +123,18 @@ class PrefectureControllerTest {
     @Test
     @DisplayName("都道府県データを追加できること")
     void createPref() throws Exception {
-        doReturn(new PrefectureEntity("05", "秋田県"))
+        doReturn(new PrefectureEntity("06", "山形県"))
                 .when(prefectureService)
-                .createPref("05", "秋田県");
+                .createPref("06", "山形県");
 
         String actualResult = mockMvc
                 .perform(post("/prefectures")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(
-                                new PrefectureRequestForm("05", "秋田県"))))
+                                new PrefectureRequestForm("06", "山形県"))))
                 .andExpect(status().isCreated())
-                .andExpect(redirectedUrl("http://localhost/prefectures/05"))
+                .andExpect(redirectedUrl("http://localhost/prefectures/06"))
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
@@ -162,14 +164,14 @@ class PrefectureControllerTest {
     @Test
     @DisplayName("都道府県データを削除できること")
     void deletePref() throws Exception {
-        doNothing().when(prefectureService).deletePref("11");
+        doNothing().when(prefectureService).deletePref("05");
 
-        mockMvc.perform(delete("/prefectures/11"))
+        mockMvc.perform(delete("/prefectures/05"))
                 .andExpect(status().isNoContent())
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        verify(prefectureService, times(1)).deletePref("11");
+        verify(prefectureService, times(1)).deletePref("05");
     }
 }

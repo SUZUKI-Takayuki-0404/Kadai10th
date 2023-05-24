@@ -73,12 +73,12 @@ class SameAsCurrentExceptionHandlerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-same-as-current.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-same-as-current-sdj.json")).toString();
 
         //To exclude timestamp from scope of JSON comparison
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
                         JSONCompareMode.STRICT,
-                        new Customization("timestamp", (o1, o2) -> true)));
+                        new Customization("timestamp", (expected, actual) -> true)));
     }
 }

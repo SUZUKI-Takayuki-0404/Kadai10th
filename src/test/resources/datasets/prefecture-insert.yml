@@ -9,5 +9,5 @@ prefectures:
     prefName: "宮城県"
   - prefCode: "05"
     prefName: "秋田県"
-  - prefCode: "06"
-    prefName: "山形県"
+  - prefCode: "47"
+    prefName: "沖縄県"

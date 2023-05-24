@@ -71,13 +71,14 @@ class PrefectureMapperTest {
     @DisplayName("存在する都道府県データ全てをListとして返すこと")
     void selectAllPrefs() {
         assertThat(prefectureMapper.selectAllPrefs())
-                .hasSize(4)
+                .hasSize(5)
                 .extracting("prefCode", "prefName")
                 .contains(
                         tuple("01", "北海道"),
                         tuple("02", "青森県"),
                         tuple("03", "岩手県"),
-                        tuple("04", "宮城県")
+                        tuple("04", "宮城県"),
+                        tuple("47", "沖縄県")
                 );
     }
 
@@ -122,7 +123,7 @@ class PrefectureMapperTest {
     @Transactional
     @DisplayName("指定の都道府県コードが存在しない場合は何も変更しないこと")
     void updatePrefToDoNothing() {
-        prefectureMapper.updatePref("05", "あきたけん");
+        prefectureMapper.updatePref("06", "やまがたけん");
     }
 
     @Test
@@ -131,7 +132,7 @@ class PrefectureMapperTest {
     @Transactional
     @DisplayName("指定の都道府県コードが存在する場合は、対応する都道府県データを削除すること")
     void deletePref() {
-        prefectureMapper.deletePref("03");
+        prefectureMapper.deletePref("47");
     }
 
     @Test
@@ -140,7 +141,7 @@ class PrefectureMapperTest {
     @Transactional
     @DisplayName("指定の都道府県コードが存在しない場合は何も変更しないこと")
     void deletePrefToDoNothing() {
-        prefectureMapper.deletePref("05");
+        prefectureMapper.deletePref("06");
     }
 
 }

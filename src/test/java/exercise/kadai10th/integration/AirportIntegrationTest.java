@@ -28,6 +28,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StreamUtils;
 
@@ -53,18 +54,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DBUnit(caseInsensitiveStrategy = LOWERCASE, schema = "airport_database",
         url = "jdbc:mysql://localhost:3307/airport_database",
         user = "user", password = "password")
-@MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class AirportIntegrationTest {
-
-    @InjectMocks
-    private AirportController airportController;
-
-    @MockBean
-    private AirportMapper airportMapper;
-
-    @MockBean
-    private AirportService airportService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -83,24 +74,22 @@ public class AirportIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
     @DisplayName("空港コードに対応する空港がある場合、空港コードから空港データを取得できること")
     void getAirport() throws Exception {
         String actualResult = mockMvc
-                .perform(get("/airports/codes/CTS"))
+                .perform(MockMvcRequestBuilders.get("/airports/codes/CTS"))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("airport1.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("airport-cts.json")).toString();
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
     @DisplayName("空港コードに対応する空港が存在しない場合、空港データが存在しないことをエラー情報として返すこと")
@@ -112,7 +101,7 @@ public class AirportIntegrationTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-airport1.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-wkj.json")).toString();
 
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
@@ -123,7 +112,6 @@ public class AirportIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
     @DisplayName("都道府県に空港がある場合、都道府県名から該当する空港データを取得できること")
@@ -135,12 +123,11 @@ public class AirportIntegrationTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("airport2.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("airport-hokkaido.json")).toString();
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
     @DisplayName("都道府県に空港が存在しない場合、空のデータを返すこと")
@@ -157,7 +144,6 @@ public class AirportIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @Transactional
     @DisplayName("登録済みの空港がある場合、登録済みの全ての空港データを取得できること")
@@ -174,7 +160,6 @@ public class AirportIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airport-empty.yml, datasets/prefectures.yml")
     @Transactional
     @DisplayName("登録済みの空港が存在しない場合、空のデータを返すこと")
@@ -191,7 +176,6 @@ public class AirportIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml")
     @ExpectedDataSet(value = "datasets/airport-insert.yml", orderBy = "airportCode")
     @DisplayName("空港コードが既存のものと重複せず、かつ都道府県がある場合、空港データを追加できること")
@@ -213,7 +197,6 @@ public class AirportIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml")
     @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
     @Transactional
@@ -230,18 +213,16 @@ public class AirportIntegrationTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-duplicate-code.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-duplicate-code-hna.json")).toString();
 
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
                         JSONCompareMode.STRICT,
-                        new Customization("path", (expected, actual) -> true),
                         new Customization("timestamp", (expected, actual) -> true)
                 ));
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml")
     @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
     @Transactional
@@ -258,7 +239,7 @@ public class AirportIntegrationTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-pref13.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-13.json")).toString();
 
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
@@ -269,7 +250,6 @@ public class AirportIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml")
     @ExpectedDataSet(value = "datasets/airport-update.yml", orderBy = "airportCode")
     @Transactional
@@ -284,12 +264,9 @@ public class AirportIntegrationTest {
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
-
-        verify(airportService, times(1)).updateAirport("SDJ", "仙台国際空港", "04");
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml")
     @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
     @Transactional
@@ -306,18 +283,16 @@ public class AirportIntegrationTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-same-as-current.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-same-as-current-sdj.json")).toString();
 
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
                         JSONCompareMode.STRICT,
-                        new Customization("path", (expected, actual) -> true),
                         new Customization("timestamp", (expected, actual) -> true)
                 ));
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml")
     @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
     @Transactional
@@ -334,7 +309,7 @@ public class AirportIntegrationTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-airport1.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-wkj.json")).toString();
 
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
@@ -345,7 +320,6 @@ public class AirportIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
     @ExpectedDataSet(value = "datasets/airports.yml, datasets/prefectures.yml", orderBy = "airportCode")
     @Transactional
@@ -356,13 +330,13 @@ public class AirportIntegrationTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(
-                                new AirportRequestForm("SDJ", "仙台国際空港", "11"))))
+                                new AirportRequestForm("SDJ", "仙台国際空港", "13"))))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-pref11.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-13.json")).toString();
 
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
@@ -373,7 +347,6 @@ public class AirportIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml")
     @ExpectedDataSet(value = "datasets/airport-delete.yml", orderBy = "airportCode")
     @Transactional
@@ -384,12 +357,9 @@ public class AirportIntegrationTest {
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
-
-        verify(airportService, times(1)).deleteAirport("SDJ");
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/airports.yml")
     @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
     @Transactional
@@ -402,7 +372,7 @@ public class AirportIntegrationTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-airport1.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-airport-cts.json")).toString();
 
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(

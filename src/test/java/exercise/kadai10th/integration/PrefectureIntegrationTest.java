@@ -28,6 +28,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StreamUtils;
 
@@ -53,18 +54,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DBUnit(caseInsensitiveStrategy = LOWERCASE, schema = "airport_database",
         url = "jdbc:mysql://localhost:3307/airport_database",
         user = "user", password = "password")
-@MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class PrefectureIntegrationTest {
-
-    @InjectMocks
-    private PrefectureController prefectureController;
-
-    @MockBean
-    PrefectureMapper prefectureMapper;
-
-    @MockBean
-    PrefectureService prefectureService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -83,7 +74,6 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefectures.yml")
     @Transactional
     @DisplayName("都道府県コードに対応する都道府県がある場合、都道府県コードから都道府県データを取得できること")
@@ -95,24 +85,23 @@ public class PrefectureIntegrationTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture1.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture-01.json")).toString();
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefectures.yml")
     @Transactional
     @DisplayName("都道府県コードに対応する都道府県が存在しない場合、都道府県データが存在しないことをエラー情報として返すこと")
     void getPrefByCodeTest2() throws Exception {
         String actualResult = mockMvc
-                .perform(get("/prefectures/11"))
+                .perform(get("/prefectures/13"))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-prefcode11.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-13.json")).toString();
 
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
@@ -120,11 +109,9 @@ public class PrefectureIntegrationTest {
                         new Customization("path", (expected, actual) -> true),
                         new Customization("timestamp", (expected, actual) -> true)
                 ));
-
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefectures.yml")
     @Transactional
     @DisplayName("都道府県名に対応する都道府県がある場合、都道府県名から都道府県データを取得できること")
@@ -136,24 +123,23 @@ public class PrefectureIntegrationTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture2.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture-aomori.json")).toString();
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefectures.yml")
     @Transactional
     @DisplayName("都道府県名に対応する都道府県が存在しない場合、都道府県データが存在しないことをエラー情報として返すこと")
     void getPrefByNameTest2() throws Exception {
         String actualResult = mockMvc
-                .perform(get("/prefectures/names?prefName=埼玉県"))
+                .perform(get("/prefectures/names?prefName=東京都"))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-prefcode11.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-13.json")).toString();
 
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
@@ -161,11 +147,9 @@ public class PrefectureIntegrationTest {
                         new Customization("path", (expected, actual) -> true),
                         new Customization("timestamp", (expected, actual) -> true)
                 ));
-
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefectures.yml")
     @Transactional
     @DisplayName("登録済みの都道府県がある場合、登録済みの全ての都道府県データを取得できること")
@@ -182,7 +166,6 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefecture-empty.yml")
     @Transactional
     @DisplayName("登録済みの都道府県が存在しない場合、空のデータを返すこと")
@@ -199,7 +182,6 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefectures.yml")
     @ExpectedDataSet(value = "datasets/prefecture-insert.yml", orderBy = "prefCode")
     @Transactional
@@ -222,7 +204,6 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefectures.yml")
     @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
     @Transactional
@@ -239,17 +220,16 @@ public class PrefectureIntegrationTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-duplicate-code.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-duplicate-code-04.json")).toString();
 
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
                         JSONCompareMode.STRICT,
-                        new Customization("path", (expected, actual) -> true),
-                        new Customization("timestamp", (expected, actual) -> true)));
+                        new Customization("timestamp", (expected, actual) -> true)
+                ));
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefectures.yml")
     @ExpectedDataSet(value = "datasets/prefecture-update.yml", orderBy = "prefCode")
     @Transactional
@@ -264,12 +244,9 @@ public class PrefectureIntegrationTest {
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
-
-        verify(prefectureService, times(1)).updatePref("02", "あおもりけん");
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefectures.yml")
     @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
     @Transactional
@@ -286,34 +263,33 @@ public class PrefectureIntegrationTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-same-as-current.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-same-as-current-02.json")).toString();
 
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
                         JSONCompareMode.STRICT,
-                        new Customization("path", (expected, actual) -> true),
-                        new Customization("timestamp", (expected, actual) -> true)));
+                        new Customization("timestamp", (expected, actual) -> true)
+                ));
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefectures.yml")
     @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
     @Transactional
     @DisplayName("都道府県コードに対応する都道府県が存在しない場合、都道府県データが存在しないことをエラー情報として返すこと")
     void updatePrefTest3() throws Exception {
         String actualResult = mockMvc
-                .perform(patch("/prefectures/02")
+                .perform(patch("/prefectures/13")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(
-                                new PrefectureRequestForm("11", "さいたまけん"))))
+                                new PrefectureRequestForm("13", "とうきょうと"))))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-prefcode11.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-13.json")).toString();
 
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
@@ -324,7 +300,6 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefectures.yml, datasets/airports.yml")
     @ExpectedDataSet(value = "datasets/prefecture-delete.yml, datasets/airports.yml", orderBy = "prefCode")
     @Transactional
@@ -335,12 +310,9 @@ public class PrefectureIntegrationTest {
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
-
-        verify(prefectureService, times(1)).deletePref("05");
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefectures.yml, datasets/airport-empty.yml")
     @ExpectedDataSet(value = "datasets/prefectures.yml, datasets/airport-empty.yml", orderBy = "prefCode")
     @Transactional
@@ -358,25 +330,24 @@ public class PrefectureIntegrationTest {
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
                         JSONCompareMode.STRICT,
-                        new Customization("path", (expected, actual) -> true),
-                        new Customization("timestamp", (expected, actual) -> true)));
+                        new Customization("timestamp", (expected, actual) -> true)
+                ));
     }
 
     @Test
-    @Disabled
     @DataSet(value = "datasets/prefectures.yml")
     @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
     @Transactional
     @DisplayName("都道府県コードに対応する都道府県が存在しない場合、都道府県データが存在しないことをエラー情報として返すこと")
     void deletePrefTest3() throws Exception {
         String actualResult = mockMvc
-                .perform(delete("/prefectures/11"))
+                .perform(delete("/prefectures/13"))
                 .andExpect(status().isNotFound())
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-prefcode11.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-13.json")).toString();
 
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(

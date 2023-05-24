@@ -74,7 +74,7 @@ class AirportControllerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("airport1.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("airport-cts.json")).toString();
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
@@ -94,7 +94,7 @@ class AirportControllerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("airport2.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("airport-hokkaido.json")).toString();
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
