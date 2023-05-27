@@ -5,17 +5,9 @@ import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
-import exercise.kadai10th.controller.PrefectureController;
-import exercise.kadai10th.entity.PrefectureEntity;
-import exercise.kadai10th.mapper.PrefectureMapper;
-import exercise.kadai10th.requestform.AirportRequestForm;
 import exercise.kadai10th.requestform.PrefectureRequestForm;
-import exercise.kadai10th.service.PrefectureService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.skyscreamer.jsonassert.Customization;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
@@ -24,23 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StreamUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import static com.github.database.rider.core.api.configuration.Orthography.LOWERCASE;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -55,6 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         url = "jdbc:mysql://localhost:3307/airport_database",
         user = "user", password = "password")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+//@Transactional
 public class PrefectureIntegrationTest {
 
     @Autowired
@@ -74,8 +59,7 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
-    @Transactional
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @DisplayName("都道府県コードに対応する都道府県がある場合、都道府県コードから都道府県データを取得できること")
     void getPrefByCode() throws Exception {
         String actualResult = mockMvc
@@ -90,8 +74,7 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
-    @Transactional
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @DisplayName("都道府県コードに対応する都道府県が存在しない場合、都道府県データが存在しないことをエラー情報として返すこと")
     void getPrefByCodeTest2() throws Exception {
         String actualResult = mockMvc
@@ -112,8 +95,7 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
-    @Transactional
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @DisplayName("都道府県名に対応する都道府県がある場合、都道府県名から都道府県データを取得できること")
     void getPrefByName() throws Exception {
         String actualResult = mockMvc
@@ -128,8 +110,7 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
-    @Transactional
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @DisplayName("都道府県名に対応する都道府県が存在しない場合、都道府県データが存在しないことをエラー情報として返すこと")
     void getPrefByNameTest2() throws Exception {
         String actualResult = mockMvc
@@ -149,8 +130,7 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
-    @Transactional
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @DisplayName("登録済みの都道府県がある場合、登録済みの全ての都道府県データを取得できること")
     void getAllPrefs() throws Exception {
         String actualResult = mockMvc
@@ -161,12 +141,11 @@ public class PrefectureIntegrationTest {
                 .getContentAsString(StandardCharsets.UTF_8);
 
         String expectedResult = objectMapper.readTree(getJsonFileData("prefecture-all.json")).toString();
-        JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.LENIENT); //並び順は要検討
+        JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @DataSet(value = "datasets/prefecture-empty.yml")
-    @Transactional
+    @DataSet(value = "datasets/prefecture-empty.yml", transactional = true)
     @DisplayName("登録済みの都道府県が存在しない場合、空のデータを返すこと")
     void getAllPrefsTest2() throws Exception {
         String actualResult = mockMvc
@@ -181,9 +160,8 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @ExpectedDataSet(value = "datasets/prefecture-insert.yml", orderBy = "prefCode")
-    @Transactional
     @DisplayName("都道府県コードが既存のものと重複しない場合、都道府県データを追加できること")
     void createPref() throws Exception {
         String actualResult = mockMvc
@@ -199,13 +177,14 @@ public class PrefectureIntegrationTest {
                 .getContentAsString(StandardCharsets.UTF_8);
 
         String expectedResult = objectMapper.readTree(getJsonFileData("prefecture-create.json")).toString();
+        System.out.println("actual:  " + actualResult);
+        System.out.println("expected:" + expectedResult);
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
-    @Transactional
     @DisplayName("都道府県コードが既存のものと重複する場合、コードが重複してしまうことをエラー情報として返すこと")
     void createPrefTest2() throws Exception {
         String actualResult = mockMvc
@@ -229,9 +208,8 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @ExpectedDataSet(value = "datasets/prefecture-update.yml", orderBy = "prefCode")
-    @Transactional
     @DisplayName("都道府県コードに対応する都道府県があり、かつ都道府県名が従前と異なる場合、都道府県データを更新できること")
     void updatePref() throws Exception {
         mockMvc.perform(patch("/prefectures/02")
@@ -246,9 +224,8 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
-    @Transactional
     @DisplayName("都道府県コードに対応する都道府県はあるが、都道府県名が従前と同等の場合、データの内容が従前から更新されていないことをエラー情報として返すこと")
     void updatePrefTest2() throws Exception {
         String actualResult = mockMvc
@@ -272,9 +249,8 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
-    @Transactional
     @DisplayName("都道府県コードに対応する都道府県が存在しない場合、都道府県データが存在しないことをエラー情報として返すこと")
     void updatePrefTest3() throws Exception {
         String actualResult = mockMvc
@@ -299,9 +275,8 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml, datasets/airports.yml")
+    @DataSet(value = "datasets/prefectures.yml, datasets/airports.yml", transactional = true)
     @ExpectedDataSet(value = "datasets/prefecture-delete.yml, datasets/airports.yml", orderBy = "prefCode")
-    @Transactional
     @DisplayName("都道府県コードに対応する都道府県があり、かつその都道府県に空港が存在しない場合、都道府県データを削除できること")
     void deletePref() throws Exception {
         mockMvc.perform(delete("/prefectures/47"))
@@ -312,9 +287,8 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml, datasets/airports.yml")
+    @DataSet(value = "datasets/prefectures.yml, datasets/airports.yml", transactional = true)
     @ExpectedDataSet(value = "datasets/prefectures.yml, datasets/airports.yml", orderBy = "prefCode")
-    @Transactional
     @DisplayName("都道府県コードに対応する都道府県があり、かつその都道府県に空港がある場合、都道府県データが空港データ内で使用中であることをエラー情報として返すこと")
     void deletePrefTest2() throws Exception {
         String actualResult = mockMvc
@@ -334,9 +308,8 @@ public class PrefectureIntegrationTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
-    @Transactional
     @DisplayName("都道府県コードに対応する都道府県が存在しない場合、都道府県データが存在しないことをエラー情報として返すこと")
     void deletePrefTest3() throws Exception {
         String actualResult = mockMvc

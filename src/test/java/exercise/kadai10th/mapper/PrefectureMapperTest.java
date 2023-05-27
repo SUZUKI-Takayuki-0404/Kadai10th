@@ -11,7 +11,6 @@ import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.transaction.annotation.Transactional;
 
 import static com.github.database.rider.core.api.configuration.Orthography.LOWERCASE;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,8 +29,7 @@ class PrefectureMapperTest {
     PrefectureMapper prefectureMapper;
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
-    @Transactional
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @DisplayName("指定の都道府県コードが存在するときは、対応する都道府県Entityを返すこと")
     void selectPrefByCode() {
         assertThat(prefectureMapper.selectPrefByCode("01"))
@@ -40,16 +38,14 @@ class PrefectureMapperTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
-    @Transactional
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @DisplayName("指定の都道府県コードが無いときは、空のOptionalを返すこと")
     void selectPrefByCodeToReturnEmpty() {
         assertThat(prefectureMapper.selectPrefByCode("11")).isEmpty();
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
-    @Transactional
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @DisplayName("指定の都道府県名が存在するときは、対応する都道府県Entityを返すこと")
     void selectPrefByName() {
         assertThat(prefectureMapper.selectPrefByName("青森県"))
@@ -58,16 +54,14 @@ class PrefectureMapperTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
-    @Transactional
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @DisplayName("指定の都道府県名が無いときは、空のOptionalを返すこと")
     void selectPrefByNameToReturnEmpty() {
         assertThat(prefectureMapper.selectPrefByName("埼玉県")).isEmpty();
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
-    @Transactional
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @DisplayName("存在する都道府県データ全てをListとして返すこと")
     void selectAllPrefs() {
         assertThat(prefectureMapper.selectAllPrefs())
@@ -83,25 +77,22 @@ class PrefectureMapperTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefecture-empty.yml")
-    @Transactional
+    @DataSet(value = "datasets/prefecture-empty.yml", transactional = true)
     @DisplayName("都道府県データが存在しないときは空のListを返すこと")
     void selectAllPrefsToReturnEmpty() {
         assertThat(prefectureMapper.selectAllPrefs()).isEmpty();
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @ExpectedDataSet(value = "datasets/prefecture-insert.yml", orderBy = "prefCode")
-    @Transactional
     @DisplayName("指定の都道府県コードが既存のものと重複しない場合は、併せて指定した都道府県名と共にデータ登録すること")
     void insertPref() {
         prefectureMapper.insertPref("05", "秋田県");
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
-    @Transactional
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @DisplayName("指定の都道府県コードが既存のものと重複する場合は、DuplicateKeyExceptionをスローすること")
     void insertPrefToThrowException() {
         assertThatExceptionOfType(DuplicateKeyException.class)
@@ -109,36 +100,32 @@ class PrefectureMapperTest {
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @ExpectedDataSet(value = "datasets/prefecture-update.yml", orderBy = "prefCode")
-    @Transactional
     @DisplayName("指定の都道府県コードが存在するときは、併せて指定した都道府県名でデータ更新すること")
     void updatePref() {
         prefectureMapper.updatePref("02", "あおもりけん");
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
-    @Transactional
     @DisplayName("指定の都道府県コードが存在しない場合は何も変更しないこと")
     void updatePrefToDoNothing() {
         prefectureMapper.updatePref("06", "やまがたけん");
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @ExpectedDataSet(value = "datasets/prefecture-delete.yml", orderBy = "prefCode")
-    @Transactional
     @DisplayName("指定の都道府県コードが存在する場合は、対応する都道府県データを削除すること")
     void deletePref() {
         prefectureMapper.deletePref("47");
     }
 
     @Test
-    @DataSet(value = "datasets/prefectures.yml")
+    @DataSet(value = "datasets/prefectures.yml", transactional = true)
     @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
-    @Transactional
     @DisplayName("指定の都道府県コードが存在しない場合は何も変更しないこと")
     void deletePrefToDoNothing() {
         prefectureMapper.deletePref("06");

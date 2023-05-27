@@ -102,9 +102,9 @@ class AirportControllerTest {
     @DisplayName("登録済みの全ての空港データを取得できること")
     void getAllAirports() throws Exception {
         doReturn(List.of(
+                new AirportEntity("AOJ", "青森空港", "02", "青森県"),
                 new AirportEntity("CTS", "新千歳空港", "01", "北海道"),
                 new AirportEntity("HKD", "函館空港", "01", "北海道"),
-                new AirportEntity("AOJ", "青森空港", "02", "青森県"),
                 new AirportEntity("HNA", "花巻空港", "03", "岩手県"),
                 new AirportEntity("SDJ", "仙台空港", "04", "宮城県")))
                 .when(airportService)
