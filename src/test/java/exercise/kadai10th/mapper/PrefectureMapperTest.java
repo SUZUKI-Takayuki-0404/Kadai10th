@@ -19,8 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 
-@TestClassOrder(ClassOrderer.OrderAnnotation.class)
-@Order(1)
+//@TestClassOrder(ClassOrderer.OrderAnnotation.class)
+//@Order(11)
 @DBRider
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

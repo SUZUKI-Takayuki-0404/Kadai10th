@@ -34,8 +34,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@TestClassOrder(ClassOrderer.OrderAnnotation.class)
-@Order(11)
+//@TestClassOrder(ClassOrderer.OrderAnnotation.class)
+//@Order(1)
 @AutoConfigureMockMvc
 @SpringBootTest
 @DBRider
