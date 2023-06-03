@@ -55,7 +55,8 @@ class DuplicateCodeExceptionHandlerTest {
     }
 
     @Test
-    @DisplayName("コードが重複してしまう事をエラー情報として返す")
+    @DisplayName("Should return error information; the code(primary key) is already used \n"
+            + "コードが重複してしまう事をエラー情報として返す")
     void handleDuplicateCodeException() throws Exception {
         doThrow(new DuplicateCodeException("04 : This code will be duplicated", new Throwable()))
                 .when(prefectureService)

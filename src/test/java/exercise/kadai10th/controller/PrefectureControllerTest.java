@@ -61,8 +61,9 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県コードから都道府県データを取得できること")
-    void getPrefByCode() throws Exception {
+    @DisplayName("Should get a corresponding prefecture by code \n"
+            + "都道府県コードから都道府県データを取得できること")
+    void getPrefByCodeTest() throws Exception {
         doReturn(new PrefectureEntity("01", "北海道"))
                 .when(prefectureService)
                 .getPrefByCode("01");
@@ -79,8 +80,9 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県名から都道府県データを取得できること")
-    void getPrefByName() throws Exception {
+    @DisplayName("Should get a corresponding prefecture by name \n"
+            + "都道府県名から都道府県データを取得できること")
+    void getPrefByNameTest() throws Exception {
         doReturn(new PrefectureEntity("02", "青森県"))
                 .when(prefectureService)
                 .getPrefByName("青森県");
@@ -97,8 +99,9 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("登録済みの全ての都道府県データを取得できること")
-    void getAllPrefs() throws Exception {
+    @DisplayName("Should get a list of all prefectures \n"
+            + "登録済みの全ての都道府県データを取得できること")
+    void getAllPrefsTest() throws Exception {
         doReturn(List.of(
                 new PrefectureEntity("01", "北海道"),
                 new PrefectureEntity("02", "青森県"),
@@ -120,8 +123,9 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県データを追加できること")
-    void createPref() throws Exception {
+    @DisplayName("Should add a prefecture \n"
+            + "都道府県データを追加できること")
+    void createPrefTest() throws Exception {
         doReturn(new PrefectureEntity("05", "秋田県"))
                 .when(prefectureService)
                 .createPref("05", "秋田県");
@@ -143,8 +147,9 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県データを更新できること")
-    void updatePref() throws Exception {
+    @DisplayName("Should rename a prefecture \n"
+            + "都道府県データを更新できること")
+    void updatePrefTest() throws Exception {
         doNothing().when(prefectureService).updatePref("02", "あおもりけん");
 
         mockMvc.perform(patch("/prefectures/02")
@@ -161,8 +166,9 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県データを削除できること")
-    void deletePref() throws Exception {
+    @DisplayName("Should delete a corresponding prefecture \n"
+            + "都道府県データを削除できること")
+    void deletePrefTest() throws Exception {
         doNothing().when(prefectureService).deletePref("05");
 
         mockMvc.perform(delete("/prefectures/05"))

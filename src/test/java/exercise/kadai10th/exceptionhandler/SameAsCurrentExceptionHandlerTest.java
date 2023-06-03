@@ -56,7 +56,8 @@ class SameAsCurrentExceptionHandlerTest {
     }
 
     @Test
-    @DisplayName("データの内容が従前から更新されていない事をエラー情報として返す")
+    @DisplayName("Should return error information; there is no change of the data(prefecture or airport) \n"
+            + "データの内容が従前から更新されていない事をエラー情報として返す")
     void handleSameAsCurrentException() throws Exception {
         doThrow(new SameAsCurrentException("仙台空港 : Current name will be nothing updated"))
                 .when(airportService)

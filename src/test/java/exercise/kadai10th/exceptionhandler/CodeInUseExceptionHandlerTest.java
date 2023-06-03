@@ -53,7 +53,8 @@ class CodeInUseExceptionHandlerTest {
     }
 
     @Test
-    @DisplayName("都道府県データが空港データ内で使用中である事をエラー情報として返す")
+    @DisplayName("Should return error information; the data of the prefecture is in use \n"
+            + "都道府県データが空港データ内で使用中である事をエラー情報として返すこと")
     void handleCodeInUseException() throws Exception {
         doThrow(new CodeInUseException("01 : This code is in use"))
                 .when(prefectureService)

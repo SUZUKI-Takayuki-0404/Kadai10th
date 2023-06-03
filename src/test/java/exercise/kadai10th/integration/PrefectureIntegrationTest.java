@@ -5,12 +5,9 @@ import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import exercise.kadai10th.requestform.PrefectureRequestForm;
-import org.junit.jupiter.api.ClassOrderer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestClassOrder;
 import org.skyscreamer.jsonassert.Customization;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
@@ -22,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StreamUtils;
 
 import java.io.IOException;
@@ -34,12 +32,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@TestClassOrder(ClassOrderer.OrderAnnotation.class)
-//@Order(1)
 @AutoConfigureMockMvc
 @SpringBootTest
 @DBRider
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Transactional
 public class PrefectureIntegrationTest {
 
     @Autowired
@@ -62,10 +59,10 @@ public class PrefectureIntegrationTest {
     @DisplayName("Method: getPrefByCode")
     class GetPrefByCodeTest {
         @Test
-        @DataSet(value = "datasets/prefectures.yml", transactional = true)
+        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
         @DisplayName("Should get a corresponding prefecture by code when exists \n"
-                + "都道府県コードに対応する都道府県がある場合はデータ取得できること")
-        void getPrefByCodeNormally() throws Exception {
+                + "都道府県コードに対応する都道府県がある場合は取得できること")
+        void workNormally() throws Exception {
             String actualResult = mockMvc
                     .perform(get("/prefectures/01"))
                     .andExpect(status().isOk())
@@ -78,10 +75,10 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DisplayName("Should throw NoResourceException when no corresponding prefecture exists \n"
-                + "都道府県コードに対応する都道府県が存在しない場合はエラー情報を返すこと")
-        @DataSet(value = "datasets/prefectures.yml", transactional = true)
-        void throwWhenNoPref() throws Exception {
+        @DisplayName("Should return error information when no corresponding prefecture exists \n"
+                + "都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと")
+        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        void returnWhenNoPref() throws Exception {
             String actualResult = mockMvc
                     .perform(get("/prefectures/13"))
                     .andExpect(status().isNotFound())
@@ -104,10 +101,10 @@ public class PrefectureIntegrationTest {
     @DisplayName("Method: getPrefByName")
     class GetPrefByNameTest {
         @Test
-        @DataSet(value = "datasets/prefectures.yml", transactional = true)
+        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
         @DisplayName("Should get a corresponding prefecture by name when exists \n"
                 + "都道府県名に対応する都道府県があればデータ取得できること")
-        void getPrefByNameNormally() throws Exception {
+        void workNormally() throws Exception {
             String actualResult = mockMvc
                     .perform(get("/prefectures/names?prefName=青森県"))
                     .andExpect(status().isOk())
@@ -120,10 +117,10 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefectures.yml", transactional = true)
-        @DisplayName("Should throw NoResourceException when no corresponding prefecture exists \n"
-                + "都道府県名に対応する都道府県が存在しない場合はエラー情報を返すこと")
-        void throwWhenNoPref() throws Exception {
+        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        @DisplayName("Should return error information when no corresponding prefecture exists \n"
+                + "都道府県名に対応する都道府県が無い場合はエラー情報を返すこと")
+        void returnWhenNoPref() throws Exception {
             String actualResult = mockMvc
                     .perform(get("/prefectures/names?prefName=東京都"))
                     .andExpect(status().isNotFound())
@@ -145,10 +142,10 @@ public class PrefectureIntegrationTest {
     @DisplayName("Method: getAllPrefs")
     class GetAllPrefsTest {
         @Test
-        @DataSet(value = "datasets/prefectures.yml", transactional = true)
-        @DisplayName("Should get a list of all prefectures when exists \n"
+        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        @DisplayName("Should get a list of all prefectures when exist \n"
                 + "登録済みの都道府県がある場合全て取得できること")
-        void getAllPrefsNormally() throws Exception {
+        void workNormally() throws Exception {
             String actualResult = mockMvc
                     .perform(get("/prefectures"))
                     .andExpect(status().isOk())
@@ -161,10 +158,10 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefecture-empty.yml", transactional = true)
+        @DataSet(value = "datasets/prefecture-empty.yml"/*, transactional = true*/)
         @DisplayName("Should get a empty list when no prefecture exists \n"
-                + "登録済みの都道府県が存在しない場合は空のリストを返すこと")
-        void getEmptyListWhenNoPref() throws Exception {
+                + "登録済みの都道府県が無い場合は空のリストを返すこと")
+        void returnEmptyWhenNoPref() throws Exception {
             String actualResult = mockMvc
                     .perform(get("/prefectures"))
                     .andExpect(status().isOk())
@@ -181,11 +178,11 @@ public class PrefectureIntegrationTest {
     @DisplayName("Method: createPref")
     class CreatePrefTest {
         @Test
-        @DataSet(value = "datasets/prefectures.yml", transactional = true)
+        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
         @ExpectedDataSet(value = "datasets/prefecture-insert.yml", orderBy = "prefCode")
         @DisplayName("Should add a prefecture when its code is unique \n"
                 + "都道府県コードが既存のものと重複しない場合、都道府県を追加できること")
-        void createPrefNormally() throws Exception {
+        void workNormally() throws Exception {
             String actualResult = mockMvc
                     .perform(post("/prefectures")
                             .accept(MediaType.APPLICATION_JSON)
@@ -205,11 +202,11 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefectures.yml", transactional = true)
+        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
         @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
-        @DisplayName("Should throw DuplicateCodeException when a code already exists \n"
+        @DisplayName("Should return error information when a code already exists \n"
                 + "都道府県コードが既存のものと重複する場合はエラー情報を返すこと")
-        void throwWhenCodeDuplicates() throws Exception {
+        void returnWhenCodeDuplicates() throws Exception {
             String actualResult = mockMvc
                     .perform(post("/prefectures")
                             .accept(MediaType.APPLICATION_JSON)
@@ -235,11 +232,11 @@ public class PrefectureIntegrationTest {
     @DisplayName("Method: updatePref")
     class UpdatePrefTest {
         @Test
-        @DataSet(value = "datasets/prefectures.yml", transactional = true)
+        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
         @ExpectedDataSet(value = "datasets/prefecture-update.yml", orderBy = "prefCode")
         @DisplayName("Should rename a prefecture when its code exists and new name differs from current one \n"
-                + "都道府県コードに対応する都道府県があり、かつ従前と異なれば、都道府県名を更新できること")
-        void updatePrefNormally() throws Exception {
+                + "都道府県コードに対応する都道府県があり、かつ従前と異なる場合は都道府県名を更新できること")
+        void workNormally() throws Exception {
             mockMvc.perform(patch("/prefectures/02")
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -252,11 +249,11 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefectures.yml", transactional = true)
+        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
         @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
-        @DisplayName("Should throw SameAsCurrentException when no change of the name of existing prefecture \n"
-                + "都道府県コードに対応する都道府県はあるが、都道府県名が従前と同等の場合、エラー情報を返すこと")
-        void throwWhenNoChange() throws Exception {
+        @DisplayName("Should return error information when no change of the name of existing prefecture \n"
+                + "都道府県コードに対応する都道府県はあるが、都道府県名が従前と同等の場合はエラー情報を返すこと")
+        void returnWhenNoChange() throws Exception {
             String actualResult = mockMvc
                     .perform(patch("/prefectures/02")
                             .accept(MediaType.APPLICATION_JSON)
@@ -278,11 +275,11 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefectures.yml", transactional = true)
+        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
         @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
-        @DisplayName("Should throw NoResourceException when no corresponding prefecture exists \n"
-                + "都道府県コードに対応する都道府県が存在しない場合はエラー情報を返すこと")
-        void throwWhenNoPref() throws Exception {
+        @DisplayName("Should return error information when no corresponding prefecture exists \n"
+                + "都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと")
+        void returnWhenNoPref() throws Exception {
             String actualResult = mockMvc
                     .perform(patch("/prefectures/13")
                             .accept(MediaType.APPLICATION_JSON)
@@ -309,11 +306,11 @@ public class PrefectureIntegrationTest {
     @DisplayName("Method: deletePref")
     class DeletePrefTest {
         @Test
-        @DataSet(value = "datasets/prefectures.yml, datasets/airports.yml", transactional = true)
+        @DataSet(value = "datasets/prefectures.yml, datasets/airports.yml"/*, transactional = true*/)
         @ExpectedDataSet(value = "datasets/prefecture-delete.yml, datasets/airports.yml", orderBy = "prefCode")
         @DisplayName("Should delete a corresponding prefecture when it exists and no airport is registered \n"
-                + "都道府県コードに対応する都道府県があり、かつその都道府県に空港が存在しない場合、都道府県データを削除できること")
-        void deletePrefNormally() throws Exception {
+                + "都道府県コードに対応する都道府県があり、かつその都道府県に空港が存在しない場合は都道府県データを削除できること")
+        void workNormally() throws Exception {
             mockMvc.perform(delete("/prefectures/47"))
                     .andExpect(status().isNoContent())
                     .andReturn()
@@ -322,11 +319,11 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefectures.yml, datasets/airports.yml", transactional = true)
+        @DataSet(value = "datasets/prefectures.yml, datasets/airports.yml"/*, transactional = true*/)
         @ExpectedDataSet(value = "datasets/prefectures.yml, datasets/airports.yml", orderBy = "prefCode")
-        @DisplayName("Should throw CodeInUseException when the prefecture has one or more airports \n"
+        @DisplayName("Should return error information when the prefecture has one or more airports \n"
                 + "都道府県コードに対応する都道府県があり、かつその都道府県に空港がある場合、エラー情報を返すこと")
-        void throwWhenCodeUsed() throws Exception {
+        void returnWhenCodeUsed() throws Exception {
             String actualResult = mockMvc
                     .perform(delete("/prefectures/01"))
                     .andExpect(status().isConflict())
@@ -344,11 +341,11 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefectures.yml", transactional = true)
+        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
         @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
-        @DisplayName("Should throw NoResourceException when no corresponding prefecture exists \n"
-                + "都道府県コードに対応する都道府県が存在しない場合はエラー情報を返すこと")
-        void throwWhenNoPref() throws Exception {
+        @DisplayName("Should return error information when no corresponding prefecture exists \n"
+                + "都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと")
+        void returnWhenNoPref() throws Exception {
             String actualResult = mockMvc
                     .perform(delete("/prefectures/13"))
                     .andExpect(status().isNotFound())
