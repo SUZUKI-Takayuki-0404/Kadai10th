@@ -243,7 +243,7 @@ git clone https://github.com/SUZUKI-Takayuki-0404/Kadai10th.git
 |GET|`curl 'http://localhost:8080/prefectures'` |<ul><li>登録済みの都道府県がある場合全て取得できること|</li><li>登録済みの都道府県が無い場合は空のリストを返すこと</li></ul>|
 |POST|`curl -XPOST -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "埼玉県"}' 'http://localhost:8080/prefectures'` |<ul>都道府県コードが既存のものと重複しない場合、都道府県を追加できること</li><li>都道府県コードが既存のものと重複する場合はエラー情報を返すこと</li></ul>|
 |PATCH|`curl -XPATCH -H "Content-type: application/json" -d '{"prefCode": "02","prefName": "あおもりけん"}' 'http://localhost:8080/prefectures/02'` |<ul><li>都道府県コードに対応する都道府県があり、かつ従前と異なる場合は都道府県名を更新できること</li><li>都道府県コードに対応する都道府県はあるが、都道府県名が従前と同等の場合はエラー情報を返すこと</li><li>都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと</li></ul>|
-|DELETE|`curl -XDELETE 'http://localhost:8080/prefectures/12'` |<ul><li>都道府県コードに対応する都道府県があり、かつその都道府県に空港が存在しない場合は都道府県データを削除できること</li><li>都道府県コードに対応する都道府県があり、かつその都道府県に空港がある場合、エラー情報を返すこと</li><li>都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと</li></ul>|
+|DELETE|`curl -XDELETE 'http://localhost:8080/prefectures/11'` |<ul><li>都道府県コードに対応する都道府県があり、かつその都道府県に空港が存在しない場合は都道府県データを削除できること</li><li>都道府県コードに対応する都道府県があり、かつその都道府県に空港がある場合、エラー情報を返すこと</li><li>都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと</li></ul>|
 
 #### Airports
 
@@ -252,16 +252,14 @@ git clone https://github.com/SUZUKI-Takayuki-0404/Kadai10th.git
 | GET | `curl 'http://localhost:8080/airports/CTS'` |<ul><li>空港コードに対応する空港がある場合は取得できること</li><li>空港コードに対応する空港が無い場合はエラー情報を返すこと</li></ul>|
 | GET | `curl -G 'http://localhost:8080/airports/prefectures' --data-urlencode 'prefName=北海道'` |<ul><li>その都道府県に空港がある場合は全て取得できること</li><li>都道府県に空港が無い場合は空のリストを返すこと</li></ul>|
 | GET | `curl 'http://localhost:8080/airports'` |<ul><li>登録済みの空港がある場合は全て取得できること</li><li>登録済みの空港が無い場合は空のリストを返すこと</li></ul>|
-| POST | `curl -XPOST -H "Content-type: application/json" -d '{ "airportCode" : "MYE", "airportName": "三宅島", "prefCode": "13" }' 'http://localhost:8080/airports/'` |<ul><li>空港コードが既存のものと重複せず、かつ所在の都道府県がある場合、空港データを追加できること</li><li>空港コードが既存のものと重複する場合はエラー情報を返すこと</li><li>都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと</li></ul>|
+| POST | `curl -XPOST -H "Content-type: application/json" -d '{ "airportCode" : "MYE", "airportName": "三宅島空港", "prefCode": "13" }' 'http://localhost:8080/airports/'` |<ul><li>空港コードが既存のものと重複せず、かつ所在の都道府県がある場合、空港データを追加できること</li><li>空港コードが既存のものと重複する場合はエラー情報を返すこと</li><li>都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと</li></ul>|
 | PATCH | `curl -XPATCH -H "Content-type: application/json" -d '{"airportCode": "SDJ", "airportName": "仙台国際空港", "prefCode": "04"}' 'http://localhost:8080/airports/SDJ'` |<ul><li>空港コードに対応する空港があり、かつ空港名が従前とは異なる場合は空港データを更新できること</li><li>空港コードに対応する空港はあるが、空港名が従前と同等の場合はエラー情報を返すこと</li><li>空港コードに対応する空港が無い場合はエラー情報を返すこと</li><li>都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと</li></ul>|
 | DELETE | `curl -XDELETE 'http://localhost:8080/airports/MYE'` |<ul><li>空港コードに対応する空港がある場合、空港データを削除できること</li><li>空港コードに対応する空港が無い場合はエラー情報を返すこと</li></ul>|
 
-**＜補足＞**  WindowsパソコンでPoweshell（含：IntelliJのターミナル）またはコマンドプロンプト使用時の注意事項
+**＜補足＞**  WindowsパソコンでPoweshell（含：IntelliJのターミナル）使用時の注意事項
 
 * JSON形式データ入力時に`"`の前に`\`が必要<br>
-  `-d '{ "airportCode": "MYE", "airportName": "Miyakejima", "airportCode": "13" }`<br>
-  ⇒ `-d '{ \"airportCode\": \"MYE\", \"airportName\": \"Miyakejima\", \"airportCode\": \"13\" }`
-
-* JSON形式データ内に日本語入力は不可<br>
-  Ubuntu(Linux)を代用すれば入力可能だが、WSLとWindowsではlocalhostが異なるため、localhostから書き換えが必要<br>
-  ⇒ `'http://172.18.16.x:8080/prefectures/?prefCode=01'` (IPアドレスは`ipconfig`で確認)
+  * `-d '{ "airportCode": "MYE", "airportName": "Miyakejima", "airportCode": "13" }`<br>
+    ⇒ `-d '{ \"airportCode\": \"MYE\", \"airportName\": \"Miyakejima\", \"airportCode\": \"13\" }`
+  * Ubuntu(Linux)を代用すれば`\`は不要だが、WSLとWindowsではlocalhostが異なるため、localhostから書き換えが必要<br>
+    ⇒ `'http://172.18.16.x:8080/prefectures/?prefCode=01'` (IPアドレスは`ipconfig`で確認)
