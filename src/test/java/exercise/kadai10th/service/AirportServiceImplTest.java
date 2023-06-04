@@ -168,7 +168,7 @@ class AirportServiceImplTest {
 
         @Test
         @DisplayName("Should throw DuplicateCodeException when a code already exists \n"
-                + "指定の空港コードが既存のものと重複する場合はDuplicateCodeExceptionをスローすること")
+                + "空港コードが既存のものと重複する場合はDuplicateCodeExceptionをスローすること")
         void throwWhenCodeDuplicates() {
             doReturn(Optional.of(new PrefectureEntity("03", "岩手県")))
                     .when(prefectureMapper)
@@ -260,7 +260,7 @@ class AirportServiceImplTest {
 
         @Test
         @DisplayName("Should delete a corresponding airport when exists \n"
-                + "指定の空港コードに対応する空港のEntityがある場合は削除すること")
+                + "空港コードに対応する空港がある場合は削除できること")
         void workNormally() {
             doReturn(Optional.of(new AirportEntity("SDJ", "仙台空港", "04", "宮城県")))
                     .when(airportMapper)

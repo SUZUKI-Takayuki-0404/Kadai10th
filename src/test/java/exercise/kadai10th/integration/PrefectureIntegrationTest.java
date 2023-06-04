@@ -59,7 +59,7 @@ public class PrefectureIntegrationTest {
     @DisplayName("Method: getPrefByCode")
     class GetPrefByCodeTest {
         @Test
-        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefectures.yml")
         @DisplayName("Should get a corresponding prefecture by code when exists \n"
                 + "都道府県コードに対応する都道府県がある場合は取得できること")
         void workNormally() throws Exception {
@@ -77,7 +77,7 @@ public class PrefectureIntegrationTest {
         @Test
         @DisplayName("Should return error information when no corresponding prefecture exists \n"
                 + "都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと")
-        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefectures.yml")
         void returnWhenNoPref() throws Exception {
             String actualResult = mockMvc
                     .perform(get("/prefectures/13"))
@@ -101,7 +101,7 @@ public class PrefectureIntegrationTest {
     @DisplayName("Method: getPrefByName")
     class GetPrefByNameTest {
         @Test
-        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefectures.yml")
         @DisplayName("Should get a corresponding prefecture by name when exists \n"
                 + "都道府県名に対応する都道府県があればデータ取得できること")
         void workNormally() throws Exception {
@@ -117,7 +117,7 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefectures.yml")
         @DisplayName("Should return error information when no corresponding prefecture exists \n"
                 + "都道府県名に対応する都道府県が無い場合はエラー情報を返すこと")
         void returnWhenNoPref() throws Exception {
@@ -142,7 +142,7 @@ public class PrefectureIntegrationTest {
     @DisplayName("Method: getAllPrefs")
     class GetAllPrefsTest {
         @Test
-        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefectures.yml")
         @DisplayName("Should get a list of all prefectures when exist \n"
                 + "登録済みの都道府県がある場合全て取得できること")
         void workNormally() throws Exception {
@@ -158,7 +158,7 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefecture-empty.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefecture-empty.yml")
         @DisplayName("Should get a empty list when no prefecture exists \n"
                 + "登録済みの都道府県が無い場合は空のリストを返すこと")
         void returnEmptyWhenNoPref() throws Exception {
@@ -178,7 +178,7 @@ public class PrefectureIntegrationTest {
     @DisplayName("Method: createPref")
     class CreatePrefTest {
         @Test
-        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/prefecture-insert.yml", orderBy = "prefCode")
         @DisplayName("Should add a prefecture when its code is unique \n"
                 + "都道府県コードが既存のものと重複しない場合、都道府県を追加できること")
@@ -202,7 +202,7 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
         @DisplayName("Should return error information when a code already exists \n"
                 + "都道府県コードが既存のものと重複する場合はエラー情報を返すこと")
@@ -232,7 +232,7 @@ public class PrefectureIntegrationTest {
     @DisplayName("Method: updatePref")
     class UpdatePrefTest {
         @Test
-        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/prefecture-update.yml", orderBy = "prefCode")
         @DisplayName("Should rename a prefecture when its code exists and new name differs from current one \n"
                 + "都道府県コードに対応する都道府県があり、かつ従前と異なる場合は都道府県名を更新できること")
@@ -249,7 +249,7 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
         @DisplayName("Should return error information when no change of the name of existing prefecture \n"
                 + "都道府県コードに対応する都道府県はあるが、都道府県名が従前と同等の場合はエラー情報を返すこと")
@@ -275,7 +275,7 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
         @DisplayName("Should return error information when no corresponding prefecture exists \n"
                 + "都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと")
@@ -306,7 +306,7 @@ public class PrefectureIntegrationTest {
     @DisplayName("Method: deletePref")
     class DeletePrefTest {
         @Test
-        @DataSet(value = "datasets/prefectures.yml, datasets/airports.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefectures.yml, datasets/airports.yml")
         @ExpectedDataSet(value = "datasets/prefecture-delete.yml, datasets/airports.yml", orderBy = "prefCode")
         @DisplayName("Should delete a corresponding prefecture when it exists and no airport is registered \n"
                 + "都道府県コードに対応する都道府県があり、かつその都道府県に空港が存在しない場合は都道府県データを削除できること")
@@ -319,7 +319,7 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefectures.yml, datasets/airports.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefectures.yml, datasets/airports.yml")
         @ExpectedDataSet(value = "datasets/prefectures.yml, datasets/airports.yml", orderBy = "prefCode")
         @DisplayName("Should return error information when the prefecture has one or more airports \n"
                 + "都道府県コードに対応する都道府県があり、かつその都道府県に空港がある場合、エラー情報を返すこと")
@@ -341,7 +341,7 @@ public class PrefectureIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/prefectures.yml", orderBy = "prefCode")
         @DisplayName("Should return error information when no corresponding prefecture exists \n"
                 + "都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと")

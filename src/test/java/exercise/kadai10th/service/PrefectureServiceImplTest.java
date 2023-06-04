@@ -170,7 +170,6 @@ class PrefectureServiceImplTest {
     @Nested
     @DisplayName("Method: updatePref")
     class UpdatePrefTest {
-
         @Test
         @DisplayName("Should rename a prefecture when its code exists and new name differs from current one \n"
                 + "都道府県コードに対応する都道府県があり、かつ従前と異なる場合は都道府県名を更新できること")
@@ -217,7 +216,7 @@ class PrefectureServiceImplTest {
 
         @Test
         @DisplayName("Should delete a corresponding prefecture when it exists and no airport is registered \n"
-                + "都道府県コードに対応する都道府県があり、かつその都道府県に空港が存在しない場合、都道府県を削除すること")
+                + "都道府県コードに対応する都道府県があり、かつその都道府県に空港が存在しない場合、都道府県を削除できること")
         void workNormally() {
             doReturn(Optional.of(new PrefectureEntity("11", "埼玉県")))
                     .when(prefectureMapper)

@@ -55,7 +55,7 @@ class NoResourceExceptionHandlerTest {
 
     @Test
     @DisplayName("Should return error information; a corresponding data(prefecture or airport) does not exist \n"
-            + "指定の都道府県データまたは空港データが存在しない事をエラー情報として返す")
+            + "指定の都道府県データまたは空港データが存在しない事をエラー情報として返すこと")
     void handleNoResourceException() throws Exception {
         doThrow(new NoResourceException("WKJ : This code is not found"))
                 .when(airportService)

@@ -60,7 +60,7 @@ public class AirportIntegrationTest {
     @DisplayName("Method: getAirport")
     class GetAirportTest {
         @Test
-        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @DisplayName("Should get a corresponding airport by code when exists \n"
                 + "空港コードに対応する空港がある場合は取得できること")
         void workNormally() throws Exception {
@@ -76,7 +76,7 @@ public class AirportIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @DisplayName("Should return error information when no corresponding airport exists \n"
                 + "空港コードに対応する空港が無い場合はエラー情報を返すこと")
         void returnWhenNoAirport() throws Exception {
@@ -102,7 +102,7 @@ public class AirportIntegrationTest {
     @DisplayName("Method: getAirportsInPref")
     class GetAirportsInPrefTest {
         @Test
-        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @DisplayName("Should get a list of airports in a prefecture when exist \n"
                 + "その都道府県に空港がある場合は全て取得できること")
         void workNormally() throws Exception {
@@ -118,7 +118,7 @@ public class AirportIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @DisplayName("Should get a empty list when no airport exists \n"
                 + "都道府県に空港が無い場合は空のリストを返すこと")
         void returnEmptyWhenNoAirport() throws Exception {
@@ -138,7 +138,7 @@ public class AirportIntegrationTest {
     @DisplayName("Method: getAllAirports")
     class GetAllAirportsTest {
         @Test
-        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @DisplayName("Should get a list of all airports when exist \n"
                 + "登録済みの空港がある場合は全て取得できること")
         void workNormally() throws Exception {
@@ -154,7 +154,7 @@ public class AirportIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/airport-empty.yml, datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airport-empty.yml, datasets/prefectures.yml")
         @DisplayName("Should get a empty list when no airport exists \n"
                 + "登録済みの空港が無い場合は空のリストを返すこと")
         void getEmptyWhenNoAirport() throws Exception {
@@ -174,7 +174,7 @@ public class AirportIntegrationTest {
     @DisplayName("Method: createAirport")
     class CreateAirportTest {
         @Test
-        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/airport-insert.yml", orderBy = "airportCode")
         @DisplayName("Should add an airport when its code is unique and located prefecture exists \n"
                 + "空港コードが既存のものと重複せず、かつ所在の都道府県がある場合、空港データを追加できること")
@@ -198,7 +198,7 @@ public class AirportIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
         @DisplayName("Should return error information when a code already exists \n"
                 + "空港コードが既存のものと重複する場合はエラー情報を返すこと")
@@ -224,7 +224,7 @@ public class AirportIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
         @DisplayName("Should return error information when no corresponding prefecture exists \n"
                 + "都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと")
@@ -255,7 +255,7 @@ public class AirportIntegrationTest {
     @DisplayName("Method: updateAirport")
     class UpdateAirportTest {
         @Test
-        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/airport-update.yml", orderBy = "airportCode")
         @DisplayName("Should rename an airport when its code exists and new name differs from current one \n"
                 + "空港コードに対応する空港があり、かつ空港名が従前とは異なる場合は空港データを更新できること")
@@ -272,7 +272,7 @@ public class AirportIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/airports.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml")
         @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
         @DisplayName("Should return error information when no change of the name of existing airport \n"
                 + "空港コードに対応する空港はあるが、空港名が従前と同等の場合はエラー情報を返すこと")
@@ -298,7 +298,7 @@ public class AirportIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/airports.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml")
         @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
         @DisplayName("Should return error information when no corresponding airport exists \n"
                 + "空港コードに対応する空港が無い場合はエラー情報を返すこと")
@@ -325,7 +325,7 @@ public class AirportIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/airports.yml, datasets/prefectures.yml", orderBy = "airportCode")
         @DisplayName("Should return error information when no corresponding prefecture exists \n"
                 + "都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと")
@@ -356,7 +356,7 @@ public class AirportIntegrationTest {
     @DisplayName("Method: deleteAirport")
     class DeleteAirportETest {
         @Test
-        @DataSet(value = "datasets/airports.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml")
         @ExpectedDataSet(value = "datasets/airport-delete.yml", orderBy = "airportCode")
         @DisplayName("Should delete a corresponding airport when exists \n"
                 + "空港コードに対応する空港がある場合、空港データを削除できること")
@@ -369,7 +369,7 @@ public class AirportIntegrationTest {
         }
 
         @Test
-        @DataSet(value = "datasets/airports.yml"/*, transactional = true*/)
+        @DataSet(value = "datasets/airports.yml")
         @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
         @DisplayName("Should return error information when no corresponding airport exists \n"
                 + "空港コードに対応する空港が無い場合はエラー情報を返すこと")
