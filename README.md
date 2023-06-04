@@ -232,11 +232,9 @@ git clone https://github.com/SUZUKI-Takayuki-0404/Kadai10th.git
 - GitHub上のhtmlファイル表示には[GitHub & BitBucket HTML Preview](https://htmlpreview.github.io/)を使用
   <br>
 
-### curlコマンド一覧/統合テストメソッド確認事項
+### curlコマンド一覧/統合テスト確認事項
 
 #### Prefectures
-
-※2023/1/30時点では未実装
 
 |Request|curlコマンド例|Testメソッド確認事項|
 |--|--|--|
