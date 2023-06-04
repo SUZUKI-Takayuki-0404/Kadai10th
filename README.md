@@ -104,7 +104,7 @@ Prefecture ||--o{ Airport :"has 0 or more"
   <img src="https://user-images.githubusercontent.com/113277395/221407938-f1ca6a79-7164-49bd-a4a3-3f80fb8f5f13.PNG" width="40%">
 
 
-## 3. 各クラスの実装メソッド/単体Testメソッド確認事項一覧
+## 3. 各クラスの実装メソッド/単体テスト確認事項
 
 ### Mapperクラス
 
