@@ -61,8 +61,10 @@ class AirportControllerTest {
     }
 
     @Test
-    @DisplayName("Should get a corresponding airport by code \n"
-            + "空港コードから空港データを取得できること")
+    @DisplayName("""
+            Should get a corresponding airport by code
+            空港コードから空港データを取得できること
+            """)
     void getAirportByCodeTest() throws Exception {
         doReturn(new AirportEntity("CTS", "新千歳空港", "01", "北海道"))
                 .when(airportService)
@@ -80,8 +82,10 @@ class AirportControllerTest {
     }
 
     @Test
-    @DisplayName("Should get a list of airports in a prefecture \n"
-            + "都道府県名から該当する空港データを取得できること")
+    @DisplayName("""
+            Should get a list of airports in a prefecture
+            都道府県名から該当する空港データを取得できること
+            """)
     void getAirportsByPrefNameTest() throws Exception {
         doReturn(List.of(
                 new AirportEntity("CTS", "新千歳空港", "01", "北海道"),
@@ -101,8 +105,10 @@ class AirportControllerTest {
     }
 
     @Test
-    @DisplayName("Should get a list of all airports \n"
-            + "登録済みの全ての空港データを取得できること")
+    @DisplayName("""
+            Should get a list of all airports
+            登録済みの全ての空港データを取得できること
+            """)
     void getAllAirportsTest() throws Exception {
         doReturn(List.of(
                 new AirportEntity("AOJ", "青森空港", "02", "青森県"),
@@ -125,8 +131,10 @@ class AirportControllerTest {
     }
 
     @Test
-    @DisplayName("Should add an airport \n"
-            + "空港データを追加できること")
+    @DisplayName("""
+            Should add an airport
+            空港データを追加できること
+            """)
     void createAirportTest() throws Exception {
         doReturn(new AirportEntity("OKA", "那覇空港", "47", "沖縄県"))
                 .when(airportService)
@@ -149,8 +157,10 @@ class AirportControllerTest {
     }
 
     @Test
-    @DisplayName("Should rename an airport \n"
-            + "空港データを更新できること")
+    @DisplayName("""
+            Should rename an airport
+            空港データを更新できること
+            """)
     void updateAirportTest() throws Exception {
         doNothing().when(airportService).updateAirport("SDJ", "仙台国際空港", "04");
 
@@ -168,8 +178,10 @@ class AirportControllerTest {
     }
 
     @Test
-    @DisplayName("Should delete a corresponding airport \n"
-            + "空港データを削除できること")
+    @DisplayName("""
+            Should delete a corresponding airport
+            空港データを削除できること
+            """)
     void deleteAirportTest() throws Exception {
         doNothing().when(airportService).deleteAirport("SDJ");
 

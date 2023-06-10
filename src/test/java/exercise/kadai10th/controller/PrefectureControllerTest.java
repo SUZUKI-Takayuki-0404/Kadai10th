@@ -61,8 +61,10 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("Should get a corresponding prefecture by code \n"
-            + "都道府県コードから都道府県データを取得できること")
+    @DisplayName("""
+            Should get a corresponding prefecture by code
+            都道府県コードから都道府県データを取得できること
+            """)
     void getPrefByCodeTest() throws Exception {
         doReturn(new PrefectureEntity("01", "北海道"))
                 .when(prefectureService)
@@ -80,8 +82,10 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("Should get a corresponding prefecture by name \n"
-            + "都道府県名から都道府県データを取得できること")
+    @DisplayName("""
+            Should get a corresponding prefecture by name
+            都道府県名から都道府県データを取得できること
+            """)
     void getPrefByNameTest() throws Exception {
         doReturn(new PrefectureEntity("02", "青森県"))
                 .when(prefectureService)
@@ -99,8 +103,10 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("Should get a list of all prefectures \n"
-            + "登録済みの全ての都道府県データを取得できること")
+    @DisplayName("""
+            Should get a list of all prefectures
+            登録済みの全ての都道府県データを取得できること
+            """)
     void getAllPrefsTest() throws Exception {
         doReturn(List.of(
                 new PrefectureEntity("01", "北海道"),
@@ -123,8 +129,10 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("Should add a prefecture \n"
-            + "都道府県データを追加できること")
+    @DisplayName("""
+            Should add a prefecture
+            都道府県データを追加できること
+            """)
     void createPrefTest() throws Exception {
         doReturn(new PrefectureEntity("05", "秋田県"))
                 .when(prefectureService)
@@ -147,8 +155,10 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("Should rename a prefecture \n"
-            + "都道府県データを更新できること")
+    @DisplayName("""
+            Should rename a prefecture
+            都道府県データを更新できること
+            """)
     void updatePrefTest() throws Exception {
         doNothing().when(prefectureService).updatePref("02", "あおもりけん");
 
@@ -166,8 +176,10 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("Should delete a corresponding prefecture \n"
-            + "都道府県データを削除できること")
+    @DisplayName("""
+            Should delete a corresponding prefecture
+            都道府県データを削除できること
+            """)
     void deletePrefTest() throws Exception {
         doNothing().when(prefectureService).deletePref("05");
 

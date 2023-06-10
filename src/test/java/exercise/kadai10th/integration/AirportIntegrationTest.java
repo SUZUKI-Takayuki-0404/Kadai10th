@@ -57,12 +57,13 @@ public class AirportIntegrationTest {
     }
 
     @Nested
-    @DisplayName("Method: getAirport")
     class GetAirportTest {
         @Test
         @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
-        @DisplayName("Should get a corresponding airport by code when exists \n"
-                + "空港コードに対応する空港がある場合は取得できること")
+        @DisplayName("""
+                Should get a corresponding airport by code when exists
+                空港コードに対応する空港がある場合は取得できること
+                """)
         void workNormally() throws Exception {
             String actualResult = mockMvc
                     .perform(MockMvcRequestBuilders.get("/airports/codes/CTS"))
@@ -77,8 +78,10 @@ public class AirportIntegrationTest {
 
         @Test
         @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
-        @DisplayName("Should return error information when no corresponding airport exists \n"
-                + "空港コードに対応する空港が無い場合はエラー情報を返すこと")
+        @DisplayName("""
+                Should return error information when no corresponding airport exists
+                空港コードに対応する空港が無い場合はエラー情報を返すこと
+                """)
         void returnWhenNoAirport() throws Exception {
             String actualResult = mockMvc
                     .perform(get("/airports/codes/WKJ"))
@@ -99,12 +102,13 @@ public class AirportIntegrationTest {
     }
 
     @Nested
-    @DisplayName("Method: getAirportsInPref")
     class GetAirportsInPrefTest {
         @Test
         @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
-        @DisplayName("Should get a list of airports in a prefecture when exist \n"
-                + "その都道府県に空港がある場合は全て取得できること")
+        @DisplayName("""
+                Should get a list of airports in a prefecture when exist
+                その都道府県に空港がある場合は全て取得できること
+                """)
         void workNormally() throws Exception {
             String actualResult = mockMvc
                     .perform(get("/airports/prefectures?prefName=北海道"))
@@ -119,8 +123,10 @@ public class AirportIntegrationTest {
 
         @Test
         @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
-        @DisplayName("Should get a empty list when no airport exists \n"
-                + "都道府県に空港が無い場合は空のリストを返すこと")
+        @DisplayName("""
+                Should get a empty list when no airport exists
+                都道府県に空港が無い場合は空のリストを返すこと
+                """)
         void returnEmptyWhenNoAirport() throws Exception {
             String actualResult = mockMvc
                     .perform(get("/airports/prefectures?prefName=埼玉県"))
@@ -135,12 +141,13 @@ public class AirportIntegrationTest {
     }
 
     @Nested
-    @DisplayName("Method: getAllAirports")
     class GetAllAirportsTest {
         @Test
         @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
-        @DisplayName("Should get a list of all airports when exist \n"
-                + "登録済みの空港がある場合は全て取得できること")
+        @DisplayName("""
+                Should get a list of all airports when exist
+                登録済みの空港がある場合は全て取得できること
+                """)
         void workNormally() throws Exception {
             String actualResult = mockMvc
                     .perform(get("/airports"))
@@ -155,8 +162,10 @@ public class AirportIntegrationTest {
 
         @Test
         @DataSet(value = "datasets/airport-empty.yml, datasets/prefectures.yml")
-        @DisplayName("Should get a empty list when no airport exists \n"
-                + "登録済みの空港が無い場合は空のリストを返すこと")
+        @DisplayName("""
+                Should get a empty list when no airport exists
+                登録済みの空港が無い場合は空のリストを返すこと
+                """)
         void getEmptyWhenNoAirport() throws Exception {
             String actualResult = mockMvc
                     .perform(get("/airports"))
@@ -171,13 +180,14 @@ public class AirportIntegrationTest {
     }
 
     @Nested
-    @DisplayName("Method: createAirport")
     class CreateAirportTest {
         @Test
         @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/airport-insert.yml", orderBy = "airportCode")
-        @DisplayName("Should add an airport when its code is unique and located prefecture exists \n"
-                + "空港コードが既存のものと重複せず、かつ所在の都道府県がある場合、空港データを追加できること")
+        @DisplayName("""
+                Should add an airport when its code is unique and located prefecture exists
+                空港コードが既存のものと重複せず、かつ所在の都道府県がある場合、空港データを追加できること
+                """)
         void workNormally() throws Exception {
             String actualResult = mockMvc
                     .perform(post("/airports")
@@ -200,8 +210,10 @@ public class AirportIntegrationTest {
         @Test
         @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
-        @DisplayName("Should return error information when a code already exists \n"
-                + "空港コードが既存のものと重複する場合はエラー情報を返すこと")
+        @DisplayName("""
+                Should return error information when a code already exists
+                空港コードが既存のものと重複する場合はエラー情報を返すこと
+                """)
         void returnWhenCodeDuplicates() throws Exception {
             String actualResult = mockMvc
                     .perform(post("/airports")
@@ -226,8 +238,10 @@ public class AirportIntegrationTest {
         @Test
         @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
-        @DisplayName("Should return error information when no corresponding prefecture exists \n"
-                + "都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと")
+        @DisplayName("""
+                Should return error information when no corresponding prefecture exists
+                都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと
+                """)
         void returnWhenNoPref() throws Exception {
             String actualResult = mockMvc
                     .perform(post("/airports")
@@ -252,13 +266,14 @@ public class AirportIntegrationTest {
     }
 
     @Nested
-    @DisplayName("Method: updateAirport")
     class UpdateAirportTest {
         @Test
         @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/airport-update.yml", orderBy = "airportCode")
-        @DisplayName("Should rename an airport when its code exists and new name differs from current one \n"
-                + "空港コードに対応する空港があり、かつ空港名が従前とは異なる場合は空港データを更新できること")
+        @DisplayName("""
+                Should rename an airport when its code exists and new name differs from current one
+                空港コードに対応する空港があり、かつ空港名が従前とは異なる場合は空港データを更新できること
+                """)
         void workNormally() throws Exception {
             mockMvc.perform(patch("/airports/SDJ")
                             .accept(MediaType.APPLICATION_JSON)
@@ -274,8 +289,10 @@ public class AirportIntegrationTest {
         @Test
         @DataSet(value = "datasets/airports.yml")
         @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
-        @DisplayName("Should return error information when no change of the name of existing airport \n"
-                + "空港コードに対応する空港はあるが、空港名が従前と同等の場合はエラー情報を返すこと")
+        @DisplayName("""
+                Should return error information when no change of the name of existing airport
+                空港コードに対応する空港はあるが、空港名が従前と同等の場合はエラー情報を返すこと
+                """)
         void returnWhenNoChange() throws Exception {
             String actualResult = mockMvc
                     .perform(patch("/airports/SDJ")
@@ -300,8 +317,10 @@ public class AirportIntegrationTest {
         @Test
         @DataSet(value = "datasets/airports.yml")
         @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
-        @DisplayName("Should return error information when no corresponding airport exists \n"
-                + "空港コードに対応する空港が無い場合はエラー情報を返すこと")
+        @DisplayName("""
+                Should return error information when no corresponding airport exists
+                空港コードに対応する空港が無い場合はエラー情報を返すこと
+                """)
         void returnWhenNoAirport() throws Exception {
             String actualResult = mockMvc
                     .perform(patch("/airports/WKJ")
@@ -327,8 +346,10 @@ public class AirportIntegrationTest {
         @Test
         @DataSet(value = "datasets/airports.yml, datasets/prefectures.yml")
         @ExpectedDataSet(value = "datasets/airports.yml, datasets/prefectures.yml", orderBy = "airportCode")
-        @DisplayName("Should return error information when no corresponding prefecture exists \n"
-                + "都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと")
+        @DisplayName("""
+                Should return error information when no corresponding prefecture exists
+                都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと
+                """)
         void returnWhenNoPref() throws Exception {
             String actualResult = mockMvc
                     .perform(patch("/airports/SDJ")
@@ -353,13 +374,14 @@ public class AirportIntegrationTest {
     }
 
     @Nested
-    @DisplayName("Method: deleteAirport")
-    class DeleteAirportETest {
+    class DeleteAirportTest {
         @Test
         @DataSet(value = "datasets/airports.yml")
         @ExpectedDataSet(value = "datasets/airport-delete.yml", orderBy = "airportCode")
-        @DisplayName("Should delete a corresponding airport when exists \n"
-                + "空港コードに対応する空港がある場合、空港データを削除できること")
+        @DisplayName("""
+                Should delete a corresponding airport when exists
+                空港コードに対応する空港がある場合、空港データを削除できること
+                """)
         void workNormally() throws Exception {
             mockMvc.perform(delete("/airports/SDJ"))
                     .andExpect(status().isNoContent())
@@ -371,8 +393,10 @@ public class AirportIntegrationTest {
         @Test
         @DataSet(value = "datasets/airports.yml")
         @ExpectedDataSet(value = "datasets/airports.yml", orderBy = "airportCode")
-        @DisplayName("Should return error information when no corresponding airport exists \n"
-                + "空港コードに対応する空港が無い場合はエラー情報を返すこと")
+        @DisplayName("""
+                Should return error information when no corresponding airport exists
+                空港コードに対応する空港が無い場合はエラー情報を返すこと
+                """)
         void returnWhenNoAirport() throws Exception {
             String actualResult = mockMvc
                     .perform(delete("/airports/WKJ"))

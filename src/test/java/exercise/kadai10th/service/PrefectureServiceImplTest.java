@@ -42,11 +42,12 @@ class PrefectureServiceImplTest {
     AirportMapper airportMapper;
 
     @Nested
-    @DisplayName("Method: getPrefByCode")
     class GetPrefByCodeTest {
         @Test
-        @DisplayName("Should get a corresponding prefecture by code when exists \n"
-                + "都道府県コードに対応する都道府県がある場合は取得できること")
+        @DisplayName("""
+                Should get a corresponding prefecture by code when exists
+                都道府県コードに対応する都道府県がある場合は取得できること
+                """)
         void workNormally() {
             doReturn(Optional.of(new PrefectureEntity("01", "北海道")))
                     .when(prefectureMapper)
@@ -59,8 +60,10 @@ class PrefectureServiceImplTest {
         }
 
         @Test
-        @DisplayName("Should throw NoResourceException when no corresponding prefecture exists \n"
-                + "都道府県が無い場合はNoResourceExceptionをスローすること")
+        @DisplayName("""
+                Should throw NoResourceException when no corresponding prefecture exists
+                都道府県が無い場合はNoResourceExceptionをスローすること
+                """)
         void throwWhenNoPref() {
             doReturn(Optional.empty())
                     .when(prefectureMapper)
@@ -72,11 +75,12 @@ class PrefectureServiceImplTest {
     }
 
     @Nested
-    @DisplayName("Method: getPrefByName")
     class GetPrefByNameTest {
         @Test
-        @DisplayName("Should get a corresponding prefecture by name when exists \n"
-                + "都道府県名に対応する都道府県がある場合は取得できること")
+        @DisplayName("""
+                Should get a corresponding prefecture by name when exists
+                都道府県名に対応する都道府県がある場合は取得できること
+                """)
         void workNormally() {
             doReturn(Optional.of(new PrefectureEntity("02", "青森県")))
                     .when(prefectureMapper)
@@ -89,8 +93,10 @@ class PrefectureServiceImplTest {
         }
 
         @Test
-        @DisplayName("Should throw NoResourceException when no corresponding prefecture exists \n"
-                + "都道府県が無い場合はNoResourceExceptionをスローすること")
+        @DisplayName("""
+                Should throw NoResourceException when no corresponding prefecture exists
+                都道府県が無い場合はNoResourceExceptionをスローすること
+                """)
         void throwWhenNoPref() {
             doReturn(Optional.empty())
                     .when(prefectureMapper)
@@ -102,11 +108,12 @@ class PrefectureServiceImplTest {
     }
 
     @Nested
-    @DisplayName("Method: getAllPrefs")
     class GetAllPrefsTest {
         @Test
-        @DisplayName("Should get a list of all prefectures when exist \n"
-                + "登録済みの都道府県がある場合はその全てをListで取得できること")
+        @DisplayName("""
+                Should get a list of all prefectures when exist
+                登録済みの都道府県がある場合はその全てをListで取得できること
+                """)
         void workNormally() {
             doReturn(List.of(
                     new PrefectureEntity("01", "北海道"),
@@ -130,8 +137,10 @@ class PrefectureServiceImplTest {
         }
 
         @Test
-        @DisplayName("Should get a empty list when no prefecture exists \n"
-                + "都道府県が無い場合は空のListを返すこと")
+        @DisplayName("""
+                Should get a empty list when no prefecture exists
+                都道府県が無い場合は空のListを返すこと
+                """)
         void returnEmptyWhenNoPref() {
             doReturn(List.of())
                     .when(prefectureMapper)
@@ -142,11 +151,12 @@ class PrefectureServiceImplTest {
     }
 
     @Nested
-    @DisplayName("Method: createPref")
     class CreatePrefTest {
         @Test
-        @DisplayName("Should add a prefecture when its code is unique \n"
-                + "都道府県コードが既存のものと重複しない場合、都道府県を追加できること")
+        @DisplayName("""
+                Should add a prefecture when its code is unique
+                都道府県コードが既存のものと重複しない場合、都道府県を追加できること
+                """)
         void workNormally() {
             doNothing().when(prefectureMapper).insertPref("05", "秋田県");
 
@@ -157,8 +167,10 @@ class PrefectureServiceImplTest {
         }
 
         @Test
-        @DisplayName("Should Should throw DuplicateCodeException when a code already exists \n"
-                + "都道府県コードが既存のものと重複する場合はDuplicateCodeExceptionをスローすること")
+        @DisplayName("""
+                Should Should throw DuplicateCodeException when a code already exists
+                都道府県コードが既存のものと重複する場合はDuplicateCodeExceptionをスローすること
+                """)
         void throwWhenCodeDuplicates() {
             doThrow(new DuplicateKeyException("04")).when(prefectureMapper).insertPref("04", "宮城県");
 
@@ -168,11 +180,12 @@ class PrefectureServiceImplTest {
     }
 
     @Nested
-    @DisplayName("Method: updatePref")
     class UpdatePrefTest {
         @Test
-        @DisplayName("Should rename a prefecture when its code exists and new name differs from current one \n"
-                + "都道府県コードに対応する都道府県があり、かつ従前と異なる場合は都道府県名を更新できること")
+        @DisplayName("""
+                Should rename a prefecture when its code exists and new name differs from current one
+                都道府県コードに対応する都道府県があり、かつ従前と異なる場合は都道府県名を更新できること
+                """)
         void workNormally() {
             doReturn(Optional.of(new PrefectureEntity("02", "青森県")))
                     .when(prefectureMapper)
@@ -186,8 +199,10 @@ class PrefectureServiceImplTest {
         }
 
         @Test
-        @DisplayName("Should throw SameAsCurrentException when no change of the name of existing prefecture \n"
-                + "都道府県コードに対応する都道府県はあるが、都道府県名が従前と同等の場合はSameAsCurrentExceptionをスローすること")
+        @DisplayName("""
+                Should throw SameAsCurrentException when no change of the name of existing prefecture
+                都道府県コードに対応する都道府県はあるが、都道府県名が従前と同等の場合はSameAsCurrentExceptionをスローすること
+                """)
         void throwWhenNoChange() {
             doReturn(Optional.of(new PrefectureEntity("02", "青森県")))
                     .when(prefectureMapper)
@@ -198,8 +213,10 @@ class PrefectureServiceImplTest {
         }
 
         @Test
-        @DisplayName("Should throw NoResourceException when no corresponding prefecture exists \n"
-                + "都道府県コードに対応する都道府県が無い場合はNoResourceExceptionをスローすること")
+        @DisplayName("""
+                Should throw NoResourceException when no corresponding prefecture exists
+                都道府県コードに対応する都道府県が無い場合はNoResourceExceptionをスローすること
+                """)
         void throwWhenNoPref() {
             doReturn(Optional.empty())
                     .when(prefectureMapper)
@@ -211,12 +228,12 @@ class PrefectureServiceImplTest {
     }
 
     @Nested
-    @DisplayName("Method: deletePref")
-    class DeletePrefTest {//"Should \n"
-
+    class DeletePrefTest {
         @Test
-        @DisplayName("Should delete a corresponding prefecture when it exists and no airport is registered \n"
-                + "都道府県コードに対応する都道府県があり、かつその都道府県に空港が存在しない場合、都道府県を削除できること")
+        @DisplayName("""
+                Should delete a corresponding prefecture when it exists and no airport is registered
+                都道府県コードに対応する都道府県があり、かつその都道府県に空港が存在しない場合、都道府県を削除できること
+                """)
         void workNormally() {
             doReturn(Optional.of(new PrefectureEntity("11", "埼玉県")))
                     .when(prefectureMapper)
@@ -232,8 +249,10 @@ class PrefectureServiceImplTest {
         }
 
         @Test
-        @DisplayName("Should throw CodeInUseException when the prefecture has one or more airports \n"
-                + "都道府県コードに対応する都道府県があり、かつその都道府県に空港がある場合、CodeInUseExceptionをスローすること")
+        @DisplayName("""
+                Should throw CodeInUseException when the prefecture has one or more airports
+                都道府県コードに対応する都道府県があり、かつその都道府県に空港がある場合、CodeInUseExceptionをスローすること
+                """)
         void throwWhenCodeUsed() {
             doReturn(Optional.of(new PrefectureEntity("01", "北海道")))
                     .when(prefectureMapper)
@@ -249,8 +268,10 @@ class PrefectureServiceImplTest {
         }
 
         @Test
-        @DisplayName("Should throw NoResourceException when no corresponding prefecture exists \n"
-                + "都道府県コードに対応する都道府県が無い場合はNoResourceExceptionをスローすること")
+        @DisplayName("""
+                Should throw NoResourceException when no corresponding prefecture exists
+                都道府県コードに対応する都道府県が無い場合はNoResourceExceptionをスローすること
+                """)
         void throwWhenNoPref() {
             doReturn(Optional.empty())
                     .when(prefectureMapper)
