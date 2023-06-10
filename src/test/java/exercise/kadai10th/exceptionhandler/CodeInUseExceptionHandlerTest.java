@@ -53,14 +53,17 @@ class CodeInUseExceptionHandlerTest {
     }
 
     @Test
-    @DisplayName("都道府県データが空港データ内で使用中である事をエラー情報として返す")
+    @DisplayName("""
+            Should return error information; the data of the prefecture is in use
+            都道府県データが空港データ内で使用中である事をエラー情報として返すこと
+            """)
     void handleCodeInUseException() throws Exception {
-        doThrow(new CodeInUseException("11 : This code is in use"))
+        doThrow(new CodeInUseException("01 : This code is in use"))
                 .when(prefectureService)
-                .deletePref("11");
+                .deletePref("01");
 
         String actualResult = mockMvc
-                .perform(delete("/prefectures/11"))
+                .perform(delete("/prefectures/01"))
                 .andExpect(status().isConflict())
                 .andReturn()
                 .getResponse()
@@ -72,6 +75,6 @@ class CodeInUseExceptionHandlerTest {
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
                         JSONCompareMode.STRICT,
-                        new Customization("timestamp", (o1, o2) -> true)));
+                        new Customization("timestamp", (expected, actual) -> true)));
     }
 }

@@ -1,0 +1,7 @@
+{
+  "path": "/airports",
+  "error": "Conflict",
+  "message": "HNA : This code will be duplicated",
+  "timestamp": "",
+  "status": "409"
+}

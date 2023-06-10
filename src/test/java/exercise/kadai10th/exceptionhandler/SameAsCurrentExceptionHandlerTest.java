@@ -56,29 +56,32 @@ class SameAsCurrentExceptionHandlerTest {
     }
 
     @Test
-    @DisplayName("データの内容が従前から更新されていない事をエラー情報として返す")
+    @DisplayName("""
+            Should return error information; there is no change of the data(prefecture or airport
+            データの内容が従前から更新されていない事をエラー情報として返すこと
+            """)
     void handleSameAsCurrentException() throws Exception {
-        doThrow(new SameAsCurrentException("SDJ : Current name will be nothing updated"))
+        doThrow(new SameAsCurrentException("仙台空港 : Current name will be nothing updated"))
                 .when(airportService)
-                .updateAirport("SDJ", "仙台国際空港", "04");
+                .updateAirport("SDJ", "仙台空港", "04");
 
         String actualResult = mockMvc
                 .perform(patch("/airports/SDJ")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(
-                                new AirportRequestForm("SDJ", "仙台国際空港", "04"))))
+                                new AirportRequestForm("SDJ", "仙台空港", "04"))))
                 .andExpect(status().isConflict())
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-same-as-current.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-same-as-current-sdj.json")).toString();
 
         //To exclude timestamp from scope of JSON comparison
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
                         JSONCompareMode.STRICT,
-                        new Customization("timestamp", (o1, o2) -> true)));
+                        new Customization("timestamp", (expected, actual) -> true)));
     }
 }

@@ -2,6 +2,12 @@
   "message": "All airports listed",
   "airportEntityList": [
     {
+      "airportCode": "AOJ",
+      "airportName": "青森空港",
+      "prefCode": "02",
+      "prefName": "青森県"
+    },
+    {
       "airportCode": "CTS",
       "airportName": "新千歳空港",
       "prefCode": "01",
@@ -12,12 +18,6 @@
       "airportName": "函館空港",
       "prefCode": "01",
       "prefName": "北海道"
-    },
-    {
-      "airportCode": "AOJ",
-      "airportName": "青森空港",
-      "prefCode": "02",
-      "prefName": "青森県"
     },
     {
       "airportCode": "HNA",

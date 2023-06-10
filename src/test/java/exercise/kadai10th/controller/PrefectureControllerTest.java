@@ -61,8 +61,11 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県コードから都道府県データを取得できること")
-    void getPrefByCode() throws Exception {
+    @DisplayName("""
+            Should get a corresponding prefecture by code
+            都道府県コードから都道府県データを取得できること
+            """)
+    void getPrefByCodeTest() throws Exception {
         doReturn(new PrefectureEntity("01", "北海道"))
                 .when(prefectureService)
                 .getPrefByCode("01");
@@ -74,13 +77,16 @@ class PrefectureControllerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture1.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture-01.json")).toString();
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @DisplayName("都道府県名から都道府県データを取得できること")
-    void getPrefByName() throws Exception {
+    @DisplayName("""
+            Should get a corresponding prefecture by name
+            都道府県名から都道府県データを取得できること
+            """)
+    void getPrefByNameTest() throws Exception {
         doReturn(new PrefectureEntity("02", "青森県"))
                 .when(prefectureService)
                 .getPrefByName("青森県");
@@ -92,18 +98,22 @@ class PrefectureControllerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture2.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("prefecture-aomori.json")).toString();
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @DisplayName("登録済みの全ての都道府県データを取得できること")
-    void getAllPrefs() throws Exception {
+    @DisplayName("""
+            Should get a list of all prefectures
+            登録済みの全ての都道府県データを取得できること
+            """)
+    void getAllPrefsTest() throws Exception {
         doReturn(List.of(
                 new PrefectureEntity("01", "北海道"),
                 new PrefectureEntity("02", "青森県"),
                 new PrefectureEntity("03", "岩手県"),
-                new PrefectureEntity("04", "宮城県")))
+                new PrefectureEntity("04", "宮城県"),
+                new PrefectureEntity("47", "沖縄県")))
                 .when(prefectureService)
                 .getAllPrefs();
 
@@ -119,8 +129,11 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県データを追加できること")
-    void createPref() throws Exception {
+    @DisplayName("""
+            Should add a prefecture
+            都道府県データを追加できること
+            """)
+    void createPrefTest() throws Exception {
         doReturn(new PrefectureEntity("05", "秋田県"))
                 .when(prefectureService)
                 .createPref("05", "秋田県");
@@ -142,8 +155,11 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県データを更新できること")
-    void updatePref() throws Exception {
+    @DisplayName("""
+            Should rename a prefecture
+            都道府県データを更新できること
+            """)
+    void updatePrefTest() throws Exception {
         doNothing().when(prefectureService).updatePref("02", "あおもりけん");
 
         mockMvc.perform(patch("/prefectures/02")
@@ -160,16 +176,19 @@ class PrefectureControllerTest {
     }
 
     @Test
-    @DisplayName("都道府県データを削除できること")
-    void deletePref() throws Exception {
-        doNothing().when(prefectureService).deletePref("11");
+    @DisplayName("""
+            Should delete a corresponding prefecture
+            都道府県データを削除できること
+            """)
+    void deletePrefTest() throws Exception {
+        doNothing().when(prefectureService).deletePref("05");
 
-        mockMvc.perform(delete("/prefectures/11"))
+        mockMvc.perform(delete("/prefectures/05"))
                 .andExpect(status().isNoContent())
                 .andReturn()
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        verify(prefectureService, times(1)).deletePref("11");
+        verify(prefectureService, times(1)).deletePref("05");
     }
 }

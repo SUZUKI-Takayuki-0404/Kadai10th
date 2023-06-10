@@ -61,8 +61,11 @@ class AirportControllerTest {
     }
 
     @Test
-    @DisplayName("空港コードから空港データを取得できること")
-    void getAirportByCode() throws Exception {
+    @DisplayName("""
+            Should get a corresponding airport by code
+            空港コードから空港データを取得できること
+            """)
+    void getAirportByCodeTest() throws Exception {
         doReturn(new AirportEntity("CTS", "新千歳空港", "01", "北海道"))
                 .when(airportService)
                 .getAirportByCode("CTS");
@@ -74,13 +77,16 @@ class AirportControllerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("airport1.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("airport-cts.json")).toString();
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @DisplayName("都道府県名から該当する空港データを取得できること")
-    void getAirportsByPrefName() throws Exception {
+    @DisplayName("""
+            Should get a list of airports in a prefecture
+            都道府県名から該当する空港データを取得できること
+            """)
+    void getAirportsByPrefNameTest() throws Exception {
         doReturn(List.of(
                 new AirportEntity("CTS", "新千歳空港", "01", "北海道"),
                 new AirportEntity("HKD", "函館空港", "01", "北海道")))
@@ -94,17 +100,20 @@ class AirportControllerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("airport2.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("airport-hokkaido.json")).toString();
         JSONAssert.assertEquals(expectedResult, actualResult, JSONCompareMode.STRICT);
     }
 
     @Test
-    @DisplayName("登録済みの全ての空港データを取得できること")
-    void getAllAirports() throws Exception {
+    @DisplayName("""
+            Should get a list of all airports
+            登録済みの全ての空港データを取得できること
+            """)
+    void getAllAirportsTest() throws Exception {
         doReturn(List.of(
+                new AirportEntity("AOJ", "青森空港", "02", "青森県"),
                 new AirportEntity("CTS", "新千歳空港", "01", "北海道"),
                 new AirportEntity("HKD", "函館空港", "01", "北海道"),
-                new AirportEntity("AOJ", "青森空港", "02", "青森県"),
                 new AirportEntity("HNA", "花巻空港", "03", "岩手県"),
                 new AirportEntity("SDJ", "仙台空港", "04", "宮城県")))
                 .when(airportService)
@@ -122,8 +131,11 @@ class AirportControllerTest {
     }
 
     @Test
-    @DisplayName("空港データを追加できること")
-    void createAirport() throws Exception {
+    @DisplayName("""
+            Should add an airport
+            空港データを追加できること
+            """)
+    void createAirportTest() throws Exception {
         doReturn(new AirportEntity("OKA", "那覇空港", "47", "沖縄県"))
                 .when(airportService)
                 .createAirport("OKA", "那覇空港", "47");
@@ -145,8 +157,11 @@ class AirportControllerTest {
     }
 
     @Test
-    @DisplayName("空港データを更新できること")
-    void updateAirport() throws Exception {
+    @DisplayName("""
+            Should rename an airport
+            空港データを更新できること
+            """)
+    void updateAirportTest() throws Exception {
         doNothing().when(airportService).updateAirport("SDJ", "仙台国際空港", "04");
 
         mockMvc.perform(patch("/airports/SDJ")
@@ -163,8 +178,11 @@ class AirportControllerTest {
     }
 
     @Test
-    @DisplayName("空港データを削除できること")
-    void deleteAirport() throws Exception {
+    @DisplayName("""
+            Should delete a corresponding airport
+            空港データを削除できること
+            """)
+    void deleteAirportTest() throws Exception {
         doNothing().when(airportService).deleteAirport("SDJ");
 
         mockMvc.perform(delete("/airports/SDJ"))

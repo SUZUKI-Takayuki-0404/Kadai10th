@@ -55,7 +55,10 @@ class DuplicateCodeExceptionHandlerTest {
     }
 
     @Test
-    @DisplayName("コードが重複してしまう事をエラー情報として返す")
+    @DisplayName("""
+            Should return error information; the code(primary key) is already used
+            コードが重複してしまう事をエラー情報として返すこと
+            """)
     void handleDuplicateCodeException() throws Exception {
         doThrow(new DuplicateCodeException("04 : This code will be duplicated", new Throwable()))
                 .when(prefectureService)
@@ -72,12 +75,12 @@ class DuplicateCodeExceptionHandlerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-duplicate-code.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-duplicate-code-04.json")).toString();
 
         //To exclude timestamp from scope of JSON comparison
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
                         JSONCompareMode.STRICT,
-                        new Customization("timestamp", (o1, o2) -> true)));
+                        new Customization("timestamp", (expected, actual) -> true)));
     }
 }

@@ -54,7 +54,10 @@ class NoResourceExceptionHandlerTest {
     }
 
     @Test
-    @DisplayName("指定の都道府県データまたは空港データが存在しない事をエラー情報として返す")
+    @DisplayName("""
+            Should return error information; a corresponding data(prefecture or airport) does not exist
+            指定の都道府県データまたは空港データが存在しない事をエラー情報として返すこと
+            """)
     void handleNoResourceException() throws Exception {
         doThrow(new NoResourceException("WKJ : This code is not found"))
                 .when(airportService)
@@ -67,12 +70,12 @@ class NoResourceExceptionHandlerTest {
                 .getResponse()
                 .getContentAsString(StandardCharsets.UTF_8);
 
-        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource.json")).toString();
+        String expectedResult = objectMapper.readTree(getJsonFileData("exception-no-resource-wkj.json")).toString();
 
         //To exclude timestamp from scope of JSON comparison
         JSONAssert.assertEquals(expectedResult, actualResult,
                 new CustomComparator(
                         JSONCompareMode.STRICT,
-                        new Customization("timestamp", (o1, o2) -> true)));
+                        new Customization("timestamp", (expected, actual) -> true)));
     }
 }

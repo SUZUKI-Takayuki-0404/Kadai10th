@@ -7,3 +7,5 @@ prefectures:
     prefName: "岩手県"
   - prefCode: "04"
     prefName: "宮城県"
+  - prefCode: "47"
+    prefName: "沖縄県"
