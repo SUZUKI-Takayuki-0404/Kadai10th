@@ -240,7 +240,7 @@ git clone https://github.com/SUZUKI-Takayuki-0404/Kadai10th.git
 |--|--|--|
 |GET|**getPrefByCode**<br>`curl 'http://localhost:8080/prefectures/01'` |<ul><li>都道府県コードに対応する都道府県がある場合は取得できること</li><li>都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと</li></ul>|
 |GET|**getPrefByName**<br>`curl -G 'http://localhost:8080/prefectures/names' --data-urlencode 'prefName=青森県'` |<ul><li>都道府県名に対応する都道府県があればデータ取得できること</li><li>都道府県名に対応する都道府県が無い場合はエラー情報を返すこと</li></ul>|
-|GET|**getAllPrefs**<br>`curl 'http://localhost:8080/prefectures'` |<ul><li>登録済みの都道府県がある場合全て取得できること|</li><li>登録済みの都道府県が無い場合は空のリストを返すこと</li></ul>|
+|GET|**getAllPrefs**<br>`curl 'http://localhost:8080/prefectures'` |<ul><li>登録済みの都道府県がある場合全て取得できること</li><li>登録済みの都道府県が無い場合は空のリストを返すこと</li></ul>|
 |POST|**createPref**<br>`curl -XPOST -H "Content-type: application/json" -d '{"prefCode": "11","prefName": "埼玉県"}' 'http://localhost:8080/prefectures'` |<ul><li>都道府県コードが既存のものと重複しない場合、都道府県を追加できること</li><li>都道府県コードが既存のものと重複する場合はエラー情報を返すこと</li></ul>|
 |PATCH|**updatePref**<br>`curl -XPATCH -H "Content-type: application/json" -d '{"prefCode": "02","prefName": "あおもりけん"}' 'http://localhost:8080/prefectures/02'` |<ul><li>都道府県コードに対応する都道府県があり、かつ従前と異なる場合は都道府県名を更新できること</li><li>都道府県コードに対応する都道府県はあるが、都道府県名が従前と同等の場合はエラー情報を返すこと</li><li>都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと</li></ul>|
 |DELETE|**deletePref**<br>`curl -XDELETE 'http://localhost:8080/prefectures/11'` |<ul><li>都道府県コードに対応する都道府県があり、かつその都道府県に空港が存在しない場合は都道府県データを削除できること</li><li>都道府県コードに対応する都道府県があり、かつその都道府県に空港がある場合、エラー情報を返すこと</li><li>都道府県コードに対応する都道府県が無い場合はエラー情報を返すこと</li></ul>|
