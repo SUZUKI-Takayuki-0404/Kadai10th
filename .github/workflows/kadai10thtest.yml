@@ -1,8 +1,12 @@
 name: Kadai10-CI
-on: [ pull_request ]
+on:
+  pull_request:
+  workflow_dispatch:
+
 permissions:
   contents: read
   checks: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
